@@ -1,0 +1,112 @@
+# Modèle de données MVP
+
+## Statut
+
+Validé en Phase 2 — Architecture et conception. Migrations de fondation créées en Phases 4 et 5.1. Migration profil/paramètres créée en sous-phase 5.3.
+
+## Principes
+
+- PostgreSQL est la source persistante.
+- Les contenus publics passent par un statut de publication.
+- Les contenus traduisibles utilisent des tables de traduction par agrégat.
+- Le français est la langue par défaut.
+- L'anglais est requis pour le MVP public, mais la publication par langue suit ADR-0004.
+- Les entités exposées par API passent par DTO, jamais directement.
+
+## Types communs
+
+| Type | Valeurs |
+|------|---------|
+| `publication_status` | `DRAFT`, `PUBLISHED`, `ARCHIVED` |
+| `language_code` | `fr`, `en` |
+| `message_status` | `NEW`, `READ`, `TO_REPLY`, `REPLIED`, `ARCHIVED`, `SPAM` |
+| `media_kind` | `PROFILE_PHOTO`, `PROJECT_IMAGE`, `LOGO`, `CV_PDF`, `GENERAL_IMAGE` |
+| `request_type` | `JOB_OPPORTUNITY`, `FREELANCE_MISSION`, `SERVICE_REQUEST`, `PARTNERSHIP`, `TECHNICAL_QUESTION`, `OTHER` |
+
+## Entités principales
+
+| Entité | Rôle | Relations clés |
+|--------|------|----------------|
+| `admin_user` | Compte administrateur unique | 1-n `activity_log` |
+| `profile` | Identité professionnelle | n-1 photo média, n-1 CV média, 1-n traductions, 1-n liens sociaux |
+| `site_section` | Activation et ordre des sections | 1-n traductions |
+| `skill_category` | Groupe de compétences | 1-n traductions, 1-n compétences |
+| `skill` | Compétence publiée ou brouillon | n-1 catégorie, 1-n traductions |
+| `experience` | Expérience professionnelle | 1-n traductions, n-n technologies |
+| `education` | Formation/certification | 1-n traductions, n-1 média document optionnel |
+| `project` | Projet ou étude de cas | 1-n traductions, n-n technologies, 1-n médias |
+| `technology` | Technologie réutilisable | n-n projets/expériences |
+| `service_offer` | Service proposé | 1-n traductions |
+| `testimonial` | Témoignage réel | 1-n traductions, média photo optionnel |
+| `contact_message` | Message visiteur | aucun accès public |
+| `media_asset` | Métadonnées de fichier | usages par profil/projet/etc. |
+| `seo_metadata` | Métadonnées SEO par page/ressource/langue | lié à route ou ressource |
+| `site_setting` | Paramètre global typé | clé unique |
+| `activity_log` | Journal sensible | utilisateur admin optionnel |
+
+## Modèle implémenté Phase 5.3
+
+La migration `backend/src/main/resources/db/migration/V3__profile_and_site_settings.sql` ajoute :
+
+- `profile_media` : métadonnées des médias principaux 5.3, avec kind, nom stocké sûr, type MIME, taille, alt text et date ;
+- `professional_profile` : identité non traduisible, disponibilité, coordonnées et visibilités ;
+- `professional_profile_translation` : contenus éditoriaux `fr/en` du profil ;
+- `professional_link` : liens professionnels validés et ordonnés ;
+- `professional_statistic` : statistiques réelles administrables, publiables et traduites ;
+- `site_settings` : paramètres globaux typés ;
+- `portfolio_section_setting` : visibilité et ordre des sections principales.
+
+Les statistiques utilisent la colonne `stat_value` pour éviter les conflits avec les mots réservés SQL.
+
+## Migration de fondation Phase 4
+
+La migration `backend/src/main/resources/db/migration/V1__foundation_schema.sql` crée uniquement les tables de base nécessaires aux fondations :
+
+- `admin_user` ;
+- `activity_log`.
+
+Les autres tables métier du modèle MVP seront ajoutées progressivement par vertical slice autorisée.
+
+## Migration auth Phase 5.1
+
+La migration `backend/src/main/resources/db/migration/V2__admin_authentication.sql` ajoute :
+
+- `admin_user.password_change_required` ;
+- `admin_user.last_login_at` ;
+- `admin_login_attempt` pour le verrouillage après échecs ;
+- `password_reset_token` pour les jetons de reset hachés ;
+- `activity_log.ip_address` et `activity_log.user_agent`.
+
+## Contraintes d'intégrité
+
+- Slug projet unique par langue publiée.
+- Une compétence appartient toujours à une catégorie.
+- Une traduction est unique par `(resource_id, language_code)`.
+- Un projet publié doit avoir titre, résumé, slug et visuel de couverture ou fallback.
+- Un message de contact possède toujours statut, nom, e-mail, sujet, type, message et consentement.
+- Un média possède nom stocké sûr, type MIME, taille, hash ou identifiant technique, kind et statut d'usage.
+- La suppression d'un média utilisé est bloquée ou demande confirmation selon le service admin.
+- Un seul profil professionnel et une seule ligne de paramètres généraux sont maintenus par le service applicatif pour le MVP mono-propriétaire.
+- Une traduction profil est unique par `(profile_id, language_code)`.
+- Les sections sont uniques par `section_key`.
+- Les liens et statistiques sont ordonnés par `display_order`.
+
+## Index initiaux
+
+- `project_translation(slug, language_code)` unique pour les projets publiables.
+- `publication_status`, `display_order`, `featured` sur contenus publics.
+- `contact_message(status, created_at)`.
+- `activity_log(created_at, action)`.
+- `media_asset(kind, created_at)`.
+- Index FK sur toutes les relations.
+
+## Points à détailler dans les prochaines sous-phases
+
+- Type PostgreSQL enum vs check constraints.
+- Stratégie de soft delete pour ressources admin.
+- Contraintes de taille des champs.
+- Migrations métier de contenu portfolio : compétences, expériences, projets, services, messages et SEO.
+
+## Dernière mise à jour
+
+2026-07-22

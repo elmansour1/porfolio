@@ -1,0 +1,73 @@
+{
+  "info": {
+    "name": "Faouzi Portfolio - Profile and Settings",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "csrfToken", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Get CSRF",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/admin/auth/csrf"
+      }
+    },
+    {
+      "name": "Admin Profile - Get",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/admin/profile"
+      }
+    },
+    {
+      "name": "Admin Settings - Get",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/admin/settings"
+      }
+    },
+    {
+      "name": "Public Portfolio - French",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/public/portfolio?lang=fr"
+      }
+    },
+    {
+      "name": "Upload Profile Photo",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-XSRF-TOKEN", "value": "{{csrfToken}}" }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "file", "type": "file", "src": [] },
+            { "key": "altText", "type": "text", "value": "Photo professionnelle" }
+          ]
+        },
+        "url": "{{baseUrl}}/api/v1/admin/profile/photo"
+      }
+    },
+    {
+      "name": "Upload CV",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-XSRF-TOKEN", "value": "{{csrfToken}}" }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "file", "type": "file", "src": [] }
+          ]
+        },
+        "url": "{{baseUrl}}/api/v1/admin/profile/cv"
+      }
+    }
+  ]
+}

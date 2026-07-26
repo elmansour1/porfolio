@@ -1,0 +1,69 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-faouzi_portfolio}
+      POSTGRES_USER: ${POSTGRES_USER:-portfolio}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-portfolio}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./backend
+    environment:
+      APP_ENV: ${APP_ENV:-local}
+      DATABASE_URL: ${DATABASE_URL:-jdbc:postgresql://postgres:5432/faouzi_portfolio}
+      DATABASE_USERNAME: ${DATABASE_USERNAME:-portfolio}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-portfolio}
+      SERVER_PORT: ${SERVER_PORT:-8080}
+      SESSION_COOKIE_SECURE: ${SESSION_COOKIE_SECURE:-false}
+      ADMIN_BOOTSTRAP_EMAIL: ${ADMIN_BOOTSTRAP_EMAIL:-}
+      ADMIN_BOOTSTRAP_PASSWORD: ${ADMIN_BOOTSTRAP_PASSWORD:-}
+      AUTH_LOGIN_MAX_FAILURES: ${AUTH_LOGIN_MAX_FAILURES:-5}
+      AUTH_LOGIN_LOCK_DURATION: ${AUTH_LOGIN_LOCK_DURATION:-15m}
+      AUTH_RESET_TOKEN_TTL: ${AUTH_RESET_TOKEN_TTL:-30m}
+      AUTH_RESET_TOKEN_EXPOSED: ${AUTH_RESET_TOKEN_EXPOSED:-false}
+      MEDIA_STORAGE_PATH: ${MEDIA_STORAGE_PATH:-/app/media}
+    ports:
+      - "${API_PORT:-8080}:8080"
+    volumes:
+      - media-data:/app/media
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/actuator/health >/dev/null"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build:
+      context: ./frontend
+    environment:
+      PORT: 4000
+      API_ORIGIN: ${API_ORIGIN:-http://api:8080}
+      APP_PUBLIC_BASE_URL: ${APP_PUBLIC_BASE_URL:-http://localhost:4000}
+      NG_ALLOWED_HOSTS: ${NG_ALLOWED_HOSTS:-localhost,127.0.0.1}
+    ports:
+      - "${WEB_PORT:-4000}:4000"
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:4000 >/dev/null"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres-data:
+  media-data:

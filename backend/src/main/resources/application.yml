@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: portfolio-api
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/faouzi_portfolio}
+    username: ${DATABASE_USERNAME:portfolio}
+    password: ${DATABASE_PASSWORD:portfolio}
+  flyway:
+    enabled: true
+  servlet:
+    multipart:
+      max-file-size: ${MULTIPART_MAX_FILE_SIZE:6MB}
+      max-request-size: ${MULTIPART_MAX_REQUEST_SIZE:8MB}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        same-site: lax
+        secure: ${SESSION_COOKIE_SECURE:false}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+logging:
+  level:
+    org.springframework.security: INFO
+
+app:
+  auth:
+    bootstrap:
+      email: ${ADMIN_BOOTSTRAP_EMAIL:}
+      password: ${ADMIN_BOOTSTRAP_PASSWORD:}
+    login:
+      max-failures: ${AUTH_LOGIN_MAX_FAILURES:5}
+      lock-duration: ${AUTH_LOGIN_LOCK_DURATION:15m}
+    reset:
+      token-ttl: ${AUTH_RESET_TOKEN_TTL:30m}
+      expose-token: ${AUTH_RESET_TOKEN_EXPOSED:false}
+  profile:
+    media:
+      storage-path: ${MEDIA_STORAGE_PATH:media}
+      max-image-size: ${MEDIA_MAX_IMAGE_SIZE:3MB}
+      max-pdf-size: ${MEDIA_MAX_PDF_SIZE:5MB}

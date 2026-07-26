@@ -1,0 +1,33 @@
+# Human Gates — Autorisations humaines
+
+## Règle
+
+Une phase ne passe à `AUTHORIZED` qu'après un `GO` explicite de l'utilisateur, enregistré ici.
+
+## Gates
+
+| Phase | Décision | Date | Périmètre | Exclusions | Autorisation étapes internes | Statut final |
+|-------|----------|------|-----------|------------|------------------------------|--------------|
+| 0 — Initialisation | INITIALISATION_DU_FRAMEWORK | 2026-07-21 | Installation framework, analyse du brief portfolio, documentation projet, plan initial, risques, audit | Code applicatif, bootstrap Angular/Spring, base de données, authentification, landing page, administration, commit | Oui (exécution autonome Phase 0) | CLÔTURÉE |
+| 1 — Cadrage produit | GO | 2026-07-21 | Cadrage produit complet : problème, cible, proposition de valeur, MVP, exclusions, parcours, exigences, risques, contenus à préparer, audits, clôture | Implémentation applicative, architecture détaillée Phase 2, ADR acceptés, génération Angular/Spring/PostgreSQL, phase suivante | Oui (exécution autonome Phase 1) | CLÔTURÉE |
+| 2 — Architecture | GO | 2026-07-21 | Architecture et conception complètes : architecture globale, modèle de données, contrats API, architecture frontend/backend, UX/UI, sécurité, QA, infrastructure, ADR, audits, clôture | Génération applicative Angular/Spring, migrations exécutables, base créée, authentification implémentée, déploiement réel, Phase 3 | Oui (exécution autonome Phase 2) | CLÔTURÉE |
+| 3 — Conception UX/UI du portfolio | GO | 2026-07-21 | Conception UX/UI complète : site public, administration, écrans, parcours, design system, responsive, accessibilité, états, handoff frontend, QA et audit UX/UI final | Implémentation applicative, prototype exécutable, génération Angular/Spring, base de données, déploiement, phase suivante | Oui (exécution autonome Phase 3) | CLÔTURÉE |
+| 4 — Fondations techniques | GO | 2026-07-21 | Fondations validées : workspace frontend, backend, base, configuration locale, design tokens, sécurité minimale, tests de démarrage, Docker/env, documentation et audits | Fonctionnalités métier de Phase 5, contenu réel publié, landing complète, administration métier complète, déploiement production, commit | Oui (exécution autonome Phase 4) | CLÔTURÉE |
+| 5.1 — Authentification administrateur | GO | 2026-07-21 | Premier compte admin, login, logout, récupération/réinitialisation mot de passe, session, protection routes/endpoints admin, limitation tentatives, journalisation auth, pages frontend auth, tests, documentation API/Postman | Gestion du contenu portfolio, landing métier complète, dashboard métier complet, médias métier, contact public, sous-phase 5.2, commit | Oui (exécution autonome sous-phase 5.1) | CLÔTURÉE |
+| 5.2 — Layout et dashboard de l'espace administrateur | GO | 2026-07-22 | Layout admin, sidebar, toolbar, routing enfant, dashboard, pages techniques admin, composants structurels, responsive, accessibilité, tests, inspection visuelle, documentation frontend/UX | Gestion complète profil/paramètres/compétences/expériences/projets/services/médias/SEO/messages, contact public, statistiques avancées, recherche globale, notifications temps réel, rôles complexes, nouvelle authentification, sous-phase 5.3, commit | Oui (exécution autonome sous-phase 5.2) | CLÔTURÉE |
+| 5.3 — Profil professionnel et paramètres généraux du portfolio | GO | 2026-07-22 | Profil professionnel, paramètres généraux typés, traductions FR/EN, liens professionnels, statistiques réelles, visibilité des sections, photo, CV, logo, favicon, API admin/public, affichage public limité, tests, documentation, audits et clôture | CRUD compétences/expériences/formations/projets/services/témoignages/messages, formulaire public contact, médiathèque complète, SEO avancé, analytics, synchronisations, multi-admin, rôles complexes, blog, newsletter, thème personnalisable, sous-phase 5.4, commit | Oui (exécution autonome sous-phase 5.3) | CLÔTURÉE |
+| 5.4 — Implémentation incrémentale suivante | En attente | — | — | — | — | EN_ATTENTE_DU_GO |
+| 6 — Stabilisation | En attente | — | — | — | — | EN_ATTENTE_DU_GO |
+| 7 — Livraison | En attente | — | — | — | — | EN_ATTENTE_DU_GO |
+| 8 — Exploitation et évolution | En attente | — | — | — | — | EN_ATTENTE_DU_GO |
+
+## Commandes reconnues
+
+- `GO pour la phase X`
+- `Exécute la phase X jusqu'à sa clôture`
+- `Arrête-toi après l'audit`
+- `Ne touche pas au backend` / `Ne touche pas au frontend`
+
+## Dernière mise à jour
+
+2026-07-22

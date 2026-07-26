@@ -1,0 +1,14 @@
+.env
+.env.*
+!.env.example
+
+backend/target/
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+media/
+logs/
+
+.DS_Store
+*.log

@@ -1,0 +1,44 @@
+---
+description: Gouvernance du projet — entreprise virtuelle d'ingénierie logicielle pilotée par IA
+globs:
+alwaysApply: true
+---
+
+# Gouvernance du projet
+
+## Point d'entrée
+
+Lire `AGENTS.md` à la racine. C'est la source de vérité universelle.
+
+## Avant toute action
+
+1. Lire `AGENTS.md`, `PROJECT_BRIEF.md`, `PROJECT.md`, `PLANS.md`
+2. Lire `.agents/ORCHESTRATOR.md`
+3. Vérifier `.agents/state/HUMAN_GATES.md` — pas d'action sans `GO` humain pour une nouvelle phase
+4. Lire `.agents/state/PROJECT_STATE.md` et `.agents/state/HANDOFF.md`
+
+## Règles impératives
+
+- Contrôle humain entre les phases (`GO` explicite requis)
+- Autonomie complète dans une phase autorisée (ne pas demander à relancer chaque étape)
+- Audit obligatoire après chaque étape interne
+- Arrêt obligatoire après clôture de phase (`PHASE_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`)
+- Pas de modification hors périmètre
+- Pas de faux résultats (build, tests, conformité)
+- Pas de commit/push/merge sans demande explicite
+- Le dépôt est la source de vérité permanente
+
+## Qualité
+
+- Code senior backend et frontend
+- UX/UI SaaS premium
+- Sécurité vérifiée
+- Tests exécutés et documentés
+
+## Handoff
+
+Mettre à jour `.agents/state/HANDOFF.md` à chaque clôture d'étape.
+
+## Détail
+
+Voir `AGENTS.md` et `.agents/` pour l'ensemble des règles.
