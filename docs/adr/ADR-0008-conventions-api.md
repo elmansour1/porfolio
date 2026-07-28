@@ -64,6 +64,7 @@ Implémenté progressivement :
 
 - Sous-phase 5.1 : `/api/v1/admin/auth/**`.
 - Sous-phase 5.3 : `/api/v1/admin/profile`, `/api/v1/admin/settings`, uploads médias principaux et `/api/v1/public/portfolio`.
+- Sous-phase 5.4 : `/api/v1/admin/skill-categories`, `/api/v1/admin/skills`, `/api/v1/admin/skills/metadata` et `/api/v1/public/skills`.
 
 Les entités JPA ne sont pas exposées directement.
 

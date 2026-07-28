@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { AdminEmptyStateComponent } from '../shared/admin-empty-state.component';
+import { AdminEmptyStateComponent } from '../shared/ui/admin-empty-state.component';
 
 @Component({
   selector: 'app-admin-not-found-page',

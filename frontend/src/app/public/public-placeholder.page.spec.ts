@@ -3,7 +3,9 @@ import { provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 
-import { ProfileApiService } from '../admin/profile/profile-api.service';
+import { ProfileApiService } from '../admin/profile/api/profile-api.service';
+import { CareerApiService } from '../admin/career/api/career-api.service';
+import { SkillsApiService } from '../admin/skills/api/skills-api.service';
 import { PublicPlaceholderPage } from './public-placeholder.page';
 
 describe('PublicPlaceholderPage', () => {
@@ -33,6 +35,18 @@ describe('PublicPlaceholderPage', () => {
                 profile: null,
                 sections: [],
               }),
+          },
+        },
+        {
+          provide: SkillsApiService,
+          useValue: {
+            publicSkills: () => of({ language: 'fr', featuredSkills: [], categories: [] }),
+          },
+        },
+        {
+          provide: CareerApiService,
+          useValue: {
+            publicCareer: () => of({ language: 'fr', experiences: [], education: [], certifications: [] }),
           },
         },
       ],

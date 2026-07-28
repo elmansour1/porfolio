@@ -1,7 +1,9 @@
 package com.faouzi.portfolio.profile.api;
 
-import com.faouzi.portfolio.profile.application.PortfolioProfileService;
+import com.faouzi.portfolio.profile.api.dto.response.PublicPortfolioResponse;
+import com.faouzi.portfolio.profile.application.service.PortfolioProfileService;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,13 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/public")
+@RequiredArgsConstructor
 public class PublicPortfolioController {
 
     private final PortfolioProfileService service;
-
-    public PublicPortfolioController(PortfolioProfileService service) {
-        this.service = service;
-    }
 
     @GetMapping("/portfolio")
     public PublicPortfolioResponse portfolio(@RequestParam(name = "lang", defaultValue = "fr") String language) {

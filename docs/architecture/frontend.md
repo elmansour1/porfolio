@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 2 — Architecture et conception. Fondation Angular implémentée en Phase 4, authentification admin en sous-phase 5.1, layout et dashboard admin en sous-phase 5.2.
+Validé en Phase 2 — Architecture et conception. Fondation Angular implémentée en Phase 4, authentification admin en sous-phase 5.1, layout et dashboard admin en sous-phase 5.2, profil/paramètres en 5.3 et compétences/catégories en 5.4.
 
 ## Stack
 
@@ -29,7 +29,19 @@ frontend/
       shell/
       dashboard/
       profile/
+        api/
+        mappers/
+        models/
+          dto/
+          forms/
+        pages/
       skills/
+        api/
+        mappers/
+        models/
+          dto/
+          forms/
+        pages/
       experience/
       projects/
       services/
@@ -71,6 +83,14 @@ La sous-phase 5.2 ajoute :
 - proxy local frontend `proxy.conf.json` pour vérifier l'auth admin via API en développement.
 
 Les composants métier de gestion du contenu restent exclus.
+
+La sous-phase 5.4 ajoute :
+
+- route enfant `/admin/skills` ;
+- feature `admin/skills` avec page, modèles, service API typé et tests ;
+- intégration PrimeNG globale via `providePrimeNG` et preset Aura ;
+- section publique compétences alimentée par `/api/v1/public/skills` ;
+- conformité stricte des sélections 5.4 avec `p-select`, `p-toggleswitch` et `p-checkbox`.
 
 ## Principes
 
@@ -142,6 +162,39 @@ Captures réalisées :
 - page 403 ;
 - session expirée.
 
+## Vérifications Phase 5.4
+
+- `npm run lint` avec Node 20 temporaire : PASS.
+- `npm run test:ci` avec Node 20 temporaire : PASS, 24 tests Chrome Headless.
+- `npm run build` avec Node 20 temporaire : PASS avec warning budget initial +2,94 kB.
+- Audit `<select>/<option>` sur `admin/skills` et ajouts publics : PASS.
+- Inspection visuelle réelle : NOT EXECUTED, runtime complet indisponible.
+
+## Correctif qualité frontend 2026-07-26
+
+- Les `<select>/<option>` natifs restants dans `admin/profile` et `admin/settings` ont été remplacés par `p-select`.
+- Les features `admin/profile` et `admin/skills` sont structurées en `api/`, `models/dto/` et `pages/`, alignées sur la séparation déjà appliquée à `admin/auth`.
+- Les contrats utilisés par les services API frontend doivent être placés dans `models/dto/`, pas directement dans les services.
+- Scan `frontend/src/app` : aucun `<select>`, `<option>` ou `HTMLSelectElement` restant.
+- `npm run lint`, `npm run test:ci` et `npm run build` passent avec Node 20 temporaire.
+
+## Restructuration architecturale exceptionnelle 2026-07-26
+
+- DTO auth déplacés dans `admin/auth/models/dto`.
+- Types de formulaires extraits dans `admin/profile/models/forms` et `admin/skills/models/forms`.
+- Mappers frontend créés dans `admin/profile/mappers` et `admin/skills/mappers`.
+- Type générique `SelectOption` déplacé dans `src/app/shared/models`.
+- Composants UI admin partagés déplacés dans `admin/shared/ui`.
+- Les services API restent les seuls détenteurs de `HttpClient` dans les features admin.
+- Les pages n'hébergent plus les conversions payload principales des domaines profile/settings/skills.
+
+Vérifications :
+
+- `npm run lint` avec Node 20 temporaire : PASS.
+- `npm run test:ci` avec Node 20 temporaire : PASS, 24 tests Chrome Headless.
+- `npm run build` avec Node 20 temporaire : PASS avec warning budget initial +2,93 kB.
+- Scan `frontend/src/app` : PASS, aucun `<select>`, `<option>`, `HTMLSelectElement` ou `any`.
+
 ## États obligatoires
 
 - Chargement.
@@ -156,4 +209,4 @@ Captures réalisées :
 
 ## Dernière mise à jour
 
-2026-07-22
+2026-07-26

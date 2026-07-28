@@ -14,11 +14,11 @@ import java.time.Clock;
 import java.time.Instant;
 import java.util.UUID;
 
-import com.faouzi.portfolio.auth.domain.AdminLoginAttemptRepository;
-import com.faouzi.portfolio.auth.domain.AdminUser;
-import com.faouzi.portfolio.auth.domain.AdminUserRepository;
-import com.faouzi.portfolio.auth.domain.PasswordResetTokenRepository;
-import com.faouzi.portfolio.audit.domain.ActivityLogRepository;
+import com.faouzi.portfolio.auth.infrastructure.persistence.AdminLoginAttemptRepository;
+import com.faouzi.portfolio.auth.domain.model.AdminUser;
+import com.faouzi.portfolio.auth.infrastructure.persistence.AdminUserRepository;
+import com.faouzi.portfolio.auth.infrastructure.persistence.PasswordResetTokenRepository;
+import com.faouzi.portfolio.audit.infrastructure.persistence.ActivityLogRepository;
 
 import jakarta.servlet.http.Cookie;
 

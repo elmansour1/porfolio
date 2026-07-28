@@ -2,7 +2,7 @@ package com.faouzi.portfolio.auth;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.faouzi.portfolio.auth.domain.AdminUserRepository;
+import com.faouzi.portfolio.auth.infrastructure.persistence.AdminUserRepository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

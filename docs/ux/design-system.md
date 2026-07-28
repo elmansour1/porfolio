@@ -99,6 +99,22 @@ Corrections issues de l'inspection :
 - breakpoint tablette ajusté pour éviter le débordement des panneaux inférieurs ;
 - état désactivé des actions rapides renforcé visuellement.
 
+## Implémentation compétences 5.4
+
+Règles appliquées :
+
+- `p-select` pour les filtres et champs catégorie/statut/niveau ;
+- `p-toggleswitch` pour la mise en avant ;
+- `p-checkbox` pour la visibilité publique ;
+- `p-table` pour les listes admin ;
+- `p-tag` pour les statuts ;
+- `p-dialog` pour les formulaires et confirmations ;
+- aucun `<select>` natif dans le périmètre compétences.
+
+Réserve : le rendu réel des overlays, focus et responsive doit être inspecté dès que Docker/backend sont disponibles.
+
+Correctif qualité 2026-07-26 : les sélecteurs natifs profil/paramètres ont aussi été remplacés par `p-select`, avec labels associés par `inputId`.
+
 ## Répartition technique
 
 - Tailwind CSS : layout, grille, flex, espacements, responsive.
@@ -173,4 +189,4 @@ Ordre recommandé MVP :
 
 ## Dernière mise à jour
 
-2026-07-22
+2026-07-26

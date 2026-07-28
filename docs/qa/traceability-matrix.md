@@ -14,7 +14,7 @@ Validée pour cadrage Phase 1 — à compléter avec outils et cas détaillés e
 | FR-006 | Messages admin | Tests API messages, statuts, affichage admin | À définir |
 | FR-007 | Admin protégé | Tests sécurité routes frontend/backend et accès API | À définir |
 | FR-008 | Profil | Tests CRUD profil, publication, CV, réseaux | À définir |
-| FR-009 | Compétences | Tests catégories, ordre, publication, absence de pourcentages | À définir |
+| FR-009 | Compétences | Tests catégories, ordre, publication, absence de pourcentages | Livré 5.4 — backend/front tests PASS, inspection visuelle à reprendre |
 | FR-010 | Expériences | Tests dates, expérience en cours, tri, confidentialité | À définir |
 | FR-011 | Projets | Tests publication, mise en avant, médias, slug unique | À définir |
 | FR-012 | Services | Tests activation/publication et affichage public | À définir |
@@ -41,4 +41,15 @@ Validée pour cadrage Phase 1 — à compléter avec outils et cas détaillés e
 
 ## Dernière mise à jour
 
-2026-07-21
+2026-07-26
+
+## Sous-phase 5.5 — Traçabilité
+
+| Exigence | Implémentation | Vérification | Statut |
+|----------|----------------|--------------|--------|
+| Gérer expériences | Backend `career`, page admin parcours | `CareerTimelineControllerTests`, `CareerPage` spec | PASS |
+| Gérer formations | Backend `career`, page admin parcours | `CareerTimelineControllerTests`, `CareerPage` spec | PASS |
+| Gérer certifications | Backend `career`, page admin parcours | `CareerTimelineControllerTests`, `CareerPage` spec | PASS |
+| Pas de select natif | PrimeNG `p-select`, `p-multiselect`, `p-datepicker` | Scan `frontend/src/app`, spec composants | PASS |
+| API publique sans brouillons/confidentiel | `PublicCareerController`, `CareerMapper` | Tests backend confidentialité/publication | PASS |
+| Runtime Docker | `docker compose` | Build/up + routes HTTP | PASS |

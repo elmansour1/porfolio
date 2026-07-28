@@ -3,6 +3,8 @@ package com.faouzi.portfolio.shared.error;
 import java.time.Instant;
 import java.util.List;
 
+import com.faouzi.portfolio.shared.error.dto.response.ApiErrorResponse;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 

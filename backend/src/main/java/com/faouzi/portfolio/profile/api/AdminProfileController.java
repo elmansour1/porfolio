@@ -1,11 +1,14 @@
 package com.faouzi.portfolio.profile.api;
 
-import com.faouzi.portfolio.profile.application.PortfolioProfileService;
-import com.faouzi.portfolio.profile.application.ProfileMediaFile;
+import com.faouzi.portfolio.profile.api.dto.request.AdminProfileRequest;
+import com.faouzi.portfolio.profile.api.dto.response.AdminProfileResponse;
+import com.faouzi.portfolio.profile.application.service.PortfolioProfileService;
+import com.faouzi.portfolio.profile.application.dto.ProfileMediaFile;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
@@ -25,13 +28,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/v1/admin/profile")
+@RequiredArgsConstructor
 public class AdminProfileController {
 
     private final PortfolioProfileService service;
-
-    public AdminProfileController(PortfolioProfileService service) {
-        this.service = service;
-    }
 
     @GetMapping
     public AdminProfileResponse getProfile() {

@@ -17,6 +17,7 @@
 | R-013 | Canal de remise du jeton de reset non choisi pour production | Moyen | Moyenne | ADR-0011 : jeton non exposé par défaut, livraison out-of-band contrôlée ou future intégration e-mail avant production | ACTIF |
 | R-014 | Tests E2E/accessibilité admin non automatisés | Moyen | Moyenne | Ajouter Playwright ou équivalent avec axe avant release ; inspections visuelles manuelles exécutées en attendant | ACTIF |
 | R-016 | Stockage médias filesystem à dimensionner avant production | Moyen | Moyenne | Configurer `MEDIA_STORAGE_PATH`, sauvegarde du volume, limites de taille et restauration avant release | ACTIF |
+| R-018 | Mot de passe du compte admin Docker existant inconnu | Moyen | Moyenne | Demander au propriétaire le mot de passe actuel ou autorisation explicite de réinitialiser le volume/compte admin avant inspection complète des écrans authentifiés | ACTIF |
 
 ## Risques clos
 
@@ -25,7 +26,8 @@
 | R-001 | Le template exportable pouvait transporter l'état et les dates du projet courant | 2026-07-21 | Fichiers projet du template neutralisés et modèles `.agents/state/*` ajoutés |
 | R-011 | Build Docker non vérifié dans l'environnement courant | 2026-07-21 | `docker compose build` exécuté avec succès en sous-phase 5.1 pour `portfolio-api` et `portfolio-web` |
 | R-015 | Rechargement direct des routes admin via serveur SSR/dev proxy renvoyait au login | 2026-07-22 | Routes `/admin/**` passées en `RenderMode.Client` et proxy `/api` ajouté au serveur Express SSR web |
+| R-017 | Inspection runtime 5.4 non exécutée dans l'environnement courant | 2026-07-26 | Runtime Docker validé pendant 5.5 : API/web/postgres healthy, routes admin/public 200, captures headless public/login réalisées |
 
 ## Dernière mise à jour
 
-2026-07-22
+2026-07-26

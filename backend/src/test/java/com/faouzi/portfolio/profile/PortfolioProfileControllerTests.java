@@ -10,13 +10,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.faouzi.portfolio.profile.domain.PortfolioSectionSettingRepository;
-import com.faouzi.portfolio.profile.domain.ProfessionalLinkRepository;
-import com.faouzi.portfolio.profile.domain.ProfessionalProfileRepository;
-import com.faouzi.portfolio.profile.domain.ProfessionalProfileTranslationRepository;
-import com.faouzi.portfolio.profile.domain.ProfessionalStatisticRepository;
-import com.faouzi.portfolio.profile.domain.ProfileMediaRepository;
-import com.faouzi.portfolio.profile.domain.SiteSettingsRepository;
+import com.faouzi.portfolio.profile.infrastructure.persistence.PortfolioSectionSettingRepository;
+import com.faouzi.portfolio.profile.infrastructure.persistence.ProfessionalLinkRepository;
+import com.faouzi.portfolio.profile.infrastructure.persistence.ProfessionalProfileRepository;
+import com.faouzi.portfolio.profile.infrastructure.persistence.ProfessionalProfileTranslationRepository;
+import com.faouzi.portfolio.profile.infrastructure.persistence.ProfessionalStatisticRepository;
+import com.faouzi.portfolio.profile.infrastructure.persistence.ProfileMediaRepository;
+import com.faouzi.portfolio.profile.infrastructure.persistence.SiteSettingsRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -90,6 +90,23 @@ class PortfolioProfileControllerTests {
                 .andExpect(jsonPath("$.profile.displayName", equalTo("Faouzi El Mansour")))
                 .andExpect(jsonPath("$.profile.professionalEmail", nullValue()))
                 .andExpect(jsonPath("$.profile.statistics[0].label", equalTo("Années d'expérience")));
+    }
+
+    @Test
+    void updatesExistingProfileTranslationForSameLocale() throws Exception {
+        mockMvc.perform(putJson("/api/v1/admin/profile", publishedProfileJson()).with(user("admin@example.test")).with(csrf()))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(putJson("/api/v1/admin/profile", publishedProfileJson()
+                        .replace("Je conçois des applications web robustes.", "Je conçois des plateformes web maintenables."))
+                        .with(user("admin@example.test"))
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.translations[0].shortSummary", equalTo("Je conçois des plateformes web maintenables.")));
+
+        mockMvc.perform(get("/api/v1/public/portfolio?lang=fr"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.profile.shortSummary", equalTo("Je conçois des plateformes web maintenables.")));
     }
 
     @Test

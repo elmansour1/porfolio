@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres généraux livrés en sous-phase 5.3.
+Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres généraux livrés en sous-phase 5.3. Compétences et catégories livrées en sous-phase 5.4.
 
 ## Exigences MVP
 
@@ -33,8 +33,9 @@ Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres gén
 |----|--------|-------------|
 | FR-007 | Partiellement livré | Authentification admin et protection des routes/endpoints livrées en 5.1 ; rôles complexes exclus du MVP. |
 | FR-008 | Livré en 5.3 | Profil, coordonnées, réseaux, CV, photo, traductions, statistiques réelles et visibilité publique sont administrables. |
+| FR-009 | Livré en 5.4 | Catégories et compétences administrables, traduisibles, ordonnables, publiables, archivables, sans pourcentages arbitraires. |
 | FR-013 | Partiellement livré | Médias principaux profil/paramètres livrés ; médiathèque complète hors périmètre. |
-| FR-015 | Partiellement livré | Authentification, profil, paramètres et médias sensibles journalisés ; publications des futurs contenus à venir. |
+| FR-015 | Partiellement livré | Authentification, profil, paramètres, médias sensibles et modifications compétences/catégories journalisés ; autres contenus à venir. |
 
 ## Règles métier clés
 
@@ -65,4 +66,17 @@ Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres gén
 
 ## Dernière mise à jour
 
-2026-07-22
+2026-07-26
+
+## Sous-phase 5.5 — Exigences livrées
+
+- Gestion admin des expériences professionnelles, formations et certifications.
+- Traductions FR/EN des contenus éditoriaux du parcours.
+- Publication, archivage, ordre et visibilité publique.
+- Règles de confidentialité pour les expériences.
+- Association des expériences aux compétences existantes.
+- Section publique parcours affichant uniquement les contenus publiés.
+
+Exclusions maintenues :
+
+- Projets, services, témoignages, contact, messages et médiathèque complète.

@@ -1,8 +1,13 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, PLATFORM_ID, inject, signal } from '@angular/core';
+import { forkJoin } from 'rxjs';
 
-import { ProfileApiService } from '../admin/profile/profile-api.service';
-import { PublicPortfolio } from '../admin/profile/profile.models';
+import { CareerApiService } from '../admin/career/api/career-api.service';
+import { PublicCareer } from '../admin/career/models/dto/career.dto';
+import { ProfileApiService } from '../admin/profile/api/profile-api.service';
+import { PublicPortfolio } from '../admin/profile/models/dto/profile.dto';
+import { SkillsApiService } from '../admin/skills/api/skills-api.service';
+import { PublicSkills } from '../admin/skills/models/dto/skills.dto';
 
 @Component({
   selector: 'app-public-placeholder-page',
@@ -93,6 +98,135 @@ import { PublicPortfolio } from '../admin/profile/profile.models';
             </section>
           }
 
+          @if (publicSkills(); as skillCatalog) {
+            @if (skillCatalog.categories.length) {
+              <section class="public-skills" aria-labelledby="public-skills-title">
+                <p class="public-eyebrow">Compétences</p>
+                <h2 id="public-skills-title">Expertises structurées</h2>
+                @if (skillCatalog.featuredSkills.length) {
+                  <div class="public-featured-skills" aria-label="Compétences principales">
+                    @for (skill of skillCatalog.featuredSkills; track skill.name) {
+                      <span>{{ skill.name }}</span>
+                    }
+                  </div>
+                }
+                <div class="public-skill-groups">
+                  @for (category of skillCatalog.categories; track category.name) {
+                    <article class="public-skill-category">
+                      <div>
+                        @if (category.icon) {
+                          <i [class]="category.icon" aria-hidden="true"></i>
+                        }
+                        <h3>{{ category.name }}</h3>
+                      </div>
+                      @if (category.description) {
+                        <p>{{ category.description }}</p>
+                      }
+                      <ul>
+                        @for (skill of category.skills; track skill.name) {
+                          <li>
+                            <strong>{{ skill.name }}</strong>
+                            @if (skill.level) {
+                              <span>{{ skillLevelLabel(skill.level) }}</span>
+                            }
+                            @if (skill.description) {
+                              <p>{{ skill.description }}</p>
+                            }
+                          </li>
+                        }
+                      </ul>
+                    </article>
+                  }
+                </div>
+              </section>
+            }
+          }
+
+          @if (publicCareer(); as career) {
+            @if (career.experiences.length || career.education.length || career.certifications.length) {
+              <section class="public-career" aria-labelledby="public-career-title">
+                <p class="public-eyebrow">
+                  {{ selectedLanguage() === 'en' ? 'Career' : 'Parcours' }}
+                </p>
+                <h2 id="public-career-title">
+                  {{
+                    selectedLanguage() === 'en'
+                      ? 'Experience, education and certifications'
+                      : 'Expériences, formations et certifications'
+                  }}
+                </h2>
+
+                @if (career.experiences.length) {
+                  <div class="public-career__timeline" aria-label="Expériences publiées">
+                    @for (experience of career.experiences; track experience.roleTitle + experience.startDate) {
+                      <article class="public-career__item">
+                        <span>{{ period(experience.startDate, experience.endDate, experience.currentPosition) }}</span>
+                        <h3>{{ experience.roleTitle }}</h3>
+                        @if (experience.organization) {
+                          <p>{{ experience.organization }}</p>
+                        }
+                        @if (experience.summary) {
+                          <p>{{ experience.summary }}</p>
+                        }
+                        @if (experience.skills.length) {
+                          <div class="public-featured-skills" aria-label="Technologies liées">
+                            @for (skill of experience.skills; track skill.id) {
+                              <span>{{ skill.name }}</span>
+                            }
+                          </div>
+                        }
+                      </article>
+                    }
+                  </div>
+                }
+
+                @if (career.education.length || career.certifications.length) {
+                  <div class="public-career__grid">
+                    @if (career.education.length) {
+                      <section aria-labelledby="public-education-title">
+                        <h3 id="public-education-title">
+                          {{ selectedLanguage() === 'en' ? 'Education' : 'Formations' }}
+                        </h3>
+                        @for (item of career.education; track item.institution + item.startDate) {
+                          <article class="public-career__compact">
+                            <strong>{{ item.title || item.institution }}</strong>
+                            <span>{{ period(item.startDate, item.endDate, item.currentEducation) }}</span>
+                            @if (item.field) {
+                              <p>{{ item.field }}</p>
+                            }
+                          </article>
+                        }
+                      </section>
+                    }
+
+                    @if (career.certifications.length) {
+                      <section aria-labelledby="public-certifications-title">
+                        <h3 id="public-certifications-title">Certifications</h3>
+                        @for (certification of career.certifications; track certification.issuer + certification.issueDate) {
+                          <article class="public-career__compact">
+                            <strong>{{ certification.name || certification.issuer }}</strong>
+                            <span>
+                              {{
+                                certification.noExpiry
+                                  ? (selectedLanguage() === 'en' ? 'No expiry' : 'Sans expiration')
+                                  : period(certification.issueDate, certification.expiryDate, false)
+                              }}
+                            </span>
+                            @if (certification.verificationUrl) {
+                              <a [href]="certification.verificationUrl" target="_blank" rel="noreferrer">
+                                {{ selectedLanguage() === 'en' ? 'Verify' : 'Vérifier' }}
+                              </a>
+                            }
+                          </article>
+                        }
+                      </section>
+                    }
+                  </div>
+                }
+              </section>
+            }
+          }
+
           <footer class="public-footer">
             <div>
               <strong>{{ profile.displayName }}</strong>
@@ -140,11 +274,15 @@ import { PublicPortfolio } from '../admin/profile/profile.models';
 })
 export class PublicPlaceholderPage {
   private readonly api = inject(ProfileApiService);
+  private readonly skillsApi = inject(SkillsApiService);
+  private readonly careerApi = inject(CareerApiService);
   private readonly platformId = inject(PLATFORM_ID);
 
   readonly selectedLanguage = signal<'fr' | 'en'>('fr');
   readonly loading = signal(true);
   readonly portfolio = signal<PublicPortfolio | null>(null);
+  readonly publicSkills = signal<PublicSkills | null>(null);
+  readonly publicCareer = signal<PublicCareer | null>(null);
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
@@ -170,15 +308,39 @@ export class PublicPlaceholderPage {
 
   private load(language: 'fr' | 'en'): void {
     this.loading.set(true);
-    this.api.publicPortfolio(language).subscribe({
-      next: (portfolio) => {
+    forkJoin({
+      portfolio: this.api.publicPortfolio(language),
+      skills: this.skillsApi.publicSkills(language),
+      career: this.careerApi.publicCareer(language),
+    }).subscribe({
+      next: ({ portfolio, skills, career }) => {
         this.portfolio.set(portfolio);
+        this.publicSkills.set(skills);
+        this.publicCareer.set(career);
         this.loading.set(false);
       },
       error: () => {
         this.portfolio.set(null);
+        this.publicSkills.set(null);
+        this.publicCareer.set(null);
         this.loading.set(false);
       },
     });
+  }
+
+  period(startDate: string, endDate: string | null, current: boolean): string {
+    const currentLabel = this.selectedLanguage() === 'en' ? 'Present' : 'En cours';
+    const missingLabel = this.selectedLanguage() === 'en' ? 'Not specified' : 'Non renseigné';
+    return `${startDate} - ${current ? currentLabel : endDate ?? missingLabel}`;
+  }
+
+  skillLevelLabel(level: string): string {
+    const labels: Record<string, string> = {
+      NOTIONS: this.selectedLanguage() === 'en' ? 'Awareness' : 'Notions',
+      OPERATIONAL: this.selectedLanguage() === 'en' ? 'Operational' : 'Opérationnel',
+      ADVANCED: this.selectedLanguage() === 'en' ? 'Advanced' : 'Avancé',
+      CORE_EXPERTISE: this.selectedLanguage() === 'en' ? 'Core expertise' : 'Expertise principale',
+    };
+    return labels[level] ?? level;
   }
 }

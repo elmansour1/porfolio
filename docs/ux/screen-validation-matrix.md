@@ -2,13 +2,13 @@
 
 ## Statut
 
-Validé en Phase 3 — Conception UX/UI du portfolio.
+Validé en Phase 3 — Conception UX/UI du portfolio. Mis à jour après sous-phase 5.4.
 
 ## Site public
 
 | Écran | Parcours | Critères UX | Accessibilité | Statut |
 |-------|----------|-------------|----------------|--------|
-| Landing `/` | Découverte, contact | Profil compris rapidement, CTA clair, sections ordonnées, aucun contenu fictif | Titres, clavier, contrastes, alt text | Affichage profil/paramètres limité implémenté 5.3 ; landing complète à venir |
+| Landing `/` | Découverte, contact | Profil compris rapidement, CTA clair, sections ordonnées, aucun contenu fictif | Titres, clavier, contrastes, alt text | Affichage profil/paramètres limité implémenté 5.3 ; section compétences limitée implémentée 5.4 ; landing complète à venir |
 | Projet détail | Évaluation technique | Étude de cas complète, rôle clair, confidentialité respectée | Structure sémantique, médias alt | Validé conception |
 | Contact | Demande de contact | Formulaire clair, consentement, erreurs, succès | Labels, erreurs reliées, focus erreur | Validé conception |
 | Privacy | Légal | Contenu lisible, durée conservation à compléter | Structure texte | Validé avec réserve |
@@ -25,7 +25,7 @@ Validé en Phase 3 — Conception UX/UI du portfolio.
 | Profil | Gestion profil | Sections logiques, FR/EN, médias | Form labels, erreurs | Implémenté 5.3 — inspecté desktop/mobile |
 | Projets liste | Gestion projets | Statuts visibles, recherche/filtre, actions | Table accessible | Validé conception |
 | Projet éditeur | Étude de cas | Sections, traduction, médias, SEO, publication | Form long accessible | Validé conception |
-| Compétences | Gestion compétences | Catégories, ordre, qualitatif | Alternatives drag/drop | Validé conception |
+| Compétences | Gestion compétences | Catégories, ordre, qualitatif, sélections PrimeNG | Formulaires, labels, états, navigation clavier attendue | Implémenté 5.4 — tests/build/lint PASS, inspection visuelle réelle non exécutée |
 | Expériences | Gestion parcours | Dates, en cours, confidentialité | Form accessible | Validé conception |
 | Services | Gestion offres | Activation/publication, bénéfices | Form accessible | Validé conception |
 | Messages | Traitement demandes | Statuts, spam, archive, confidentialité | Table + détail accessibles | Validé conception |
@@ -44,7 +44,9 @@ Validé en Phase 3 — Conception UX/UI du portfolio.
 - Textes finaux FR/EN à rédiger avant implémentation complète.
 - Inspection visuelle réelle Phase 5.3 exécutée pour profil, paramètres et rendu public limité.
 - Audit accessibilité outillé non exécuté.
+- Inspection visuelle réelle Phase 5.4 non exécutée faute de runtime complet ; à reprendre avant release.
+- Sélecteurs natifs hors périmètre 5.4 restent dans profil/paramètres et sont tracés en dette technique.
 
 ## Dernière mise à jour
 
-2026-07-22
+2026-07-26

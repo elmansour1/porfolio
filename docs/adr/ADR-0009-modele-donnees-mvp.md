@@ -67,8 +67,9 @@ Migrations créées progressivement :
 - `V1__foundation_schema.sql` : admin et journal.
 - `V2__admin_authentication.sql` : authentification admin.
 - `V3__profile_and_site_settings.sql` : profil professionnel, traductions, liens, statistiques, paramètres, sections et médias principaux.
+- `V4__skills.sql` : catégories de compétences, traductions de catégories, compétences, traductions de compétences, statut, niveau qualitatif, visibilité, mise en avant et ordre.
 
-Les ressources compétences, expériences, projets, services, messages et SEO restent hors périmètre 5.3.
+Les ressources expériences, projets, services, messages et SEO restent hors périmètre 5.4.
 
 ## Rollback
 

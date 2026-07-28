@@ -2,13 +2,20 @@ package com.faouzi.portfolio.auth.api;
 
 import java.security.Principal;
 
-import com.faouzi.portfolio.auth.application.AdminAuthService;
+import com.faouzi.portfolio.auth.api.dto.response.AuthSessionResponse;
+import com.faouzi.portfolio.auth.api.dto.response.CsrfTokenResponse;
+import com.faouzi.portfolio.auth.api.dto.request.ForgotPasswordRequest;
+import com.faouzi.portfolio.auth.api.dto.response.ForgotPasswordResponse;
+import com.faouzi.portfolio.auth.api.dto.request.LoginRequest;
+import com.faouzi.portfolio.auth.api.dto.request.ResetPasswordRequest;
+import com.faouzi.portfolio.auth.application.service.AdminAuthService;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,13 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/admin/auth")
+@RequiredArgsConstructor
 public class AdminAuthController {
 
     private final AdminAuthService authService;
-
-    public AdminAuthController(AdminAuthService authService) {
-        this.authService = authService;
-    }
 
     @GetMapping("/csrf")
     public CsrfTokenResponse csrf(

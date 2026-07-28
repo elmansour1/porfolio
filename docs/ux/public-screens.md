@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 3 — Conception UX/UI du portfolio.
+Validé en Phase 3 — Conception UX/UI du portfolio. Section compétences alimentée par données publiques implémentée en sous-phase 5.4.
 
 ## Écran P-001 — Landing page `/`
 
@@ -56,6 +56,15 @@ Règles :
 - pas de pourcentages ;
 - descriptions courtes ;
 - niveau qualitatif facultatif.
+
+Statut sous-phase 5.4 :
+
+- catégories publiées regroupant les compétences publiées et visibles ;
+- compétences principales mises en avant visuellement sans jauge artificielle ;
+- traduction selon la langue demandée, sans fallback métier automatique ;
+- catégories vides masquées ;
+- état propre si aucune compétence publiée n'est disponible ;
+- inspection visuelle réelle non exécutée dans l'environnement courant.
 
 ### Projets mis en avant
 
@@ -169,4 +178,19 @@ Permettre de récupérer une navigation lorsque la page est introuvable.
 
 ## Dernière mise à jour
 
-2026-07-21
+2026-07-26
+
+## Sous-phase 5.5 — Section publique parcours
+
+La page publique affiche désormais, lorsque les données sont publiées :
+
+- expériences chronologiques ;
+- formations ;
+- certifications ;
+- technologies liées aux expériences.
+
+Règles UX :
+
+- Aucun bloc vide ne doit être affiché.
+- Les expériences confidentielles affichent un libellé public maîtrisé.
+- La section doit valoriser le parcours sans recopier un CV brut.

@@ -9,7 +9,7 @@ import {
   ForgotPasswordResponse,
   LoginCredentials,
   ResetPasswordRequest,
-} from '../models/auth.models';
+} from '../models/dto/auth.dto';
 
 @Injectable({ providedIn: 'root' })
 export class AuthApiService {

@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 3 — Conception UX/UI du portfolio.
+Validé en Phase 3 — Conception UX/UI du portfolio. Mis à jour après implémentation compétences 5.4.
 
 ## Objectif
 
@@ -95,7 +95,17 @@ Préparer l'implémentation frontend sans créer de code pendant cette phase.
 - Conservation sécurisée de la route admin demandée après reconnexion via `returnUrl`.
 - Proxy local `frontend/proxy.conf.json` pour vérifier l'authentification réelle en développement.
 
-Les modules profil, projets, compétences, expériences, services, messages, médias, SEO et paramètres restent désactivés jusqu'à GO dédié.
+Les modules projets, expériences, services, messages, médias et SEO restent désactivés jusqu'à GO dédié. Profil, paramètres et compétences sont activés selon leurs sous-phases.
+
+## Implémenté en sous-phase 5.4
+
+- Route `/admin/skills` active.
+- Administration des catégories et compétences dans une page dédiée.
+- Sélections avec PrimeNG uniquement dans le périmètre 5.4.
+- API typée centralisée dans `admin/skills/skills-api.service.ts`.
+- Section publique compétences alimentée par API.
+
+Réserve : inspection visuelle réelle à exécuter dès que le runtime complet est disponible.
 
 ## PrimeNG / Tailwind / SCSS
 
@@ -124,6 +134,7 @@ Les modules profil, projets, compétences, expériences, services, messages, mé
 - Prévoir une stratégie explicite lorsqu'une traduction FR/EN manque.
 - Garder le site public compatible SSR selon `ADR-0002`.
 - Ne pas accéder directement aux APIs dans les composants de présentation.
+- Ne pas créer de `<select>` natif dans les nouveaux formulaires ; utiliser les composants PrimeNG retenus.
 - Prévoir les états chargement, vide, erreur, succès et accès refusé selon `docs/ux/state-model.md`.
 - Vérifier le responsive sur mobile, tablette, laptop et grand écran.
 - Exécuter une inspection visuelle réelle avant toute clôture frontend.
@@ -135,7 +146,8 @@ Les modules profil, projets, compétences, expériences, services, messages, mé
 - Le rendu SaaS premium reste une exigence à valider sur écran réel.
 - Les contenus finaux FR/EN, médias, CV et textes légaux doivent être fournis ou explicitement marqués comme manquants.
 - Les choix hébergeur, e-mail, tailles médias et durées de conservation restent à confirmer hors UX.
+- Les sélecteurs natifs hérités de 5.3 dans profil/paramètres doivent être remplacés lors d'une passe UI/formulaires autorisée.
 
 ## Dernière mise à jour
 
-2026-07-22
+2026-07-26

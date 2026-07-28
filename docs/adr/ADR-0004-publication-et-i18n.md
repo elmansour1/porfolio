@@ -71,6 +71,13 @@ Implémenté partiellement en sous-phase 5.3 pour le profil professionnel :
 - publication publique uniquement si le profil est `PUBLISHED` et si la traduction demandée est complète ;
 - pas de fallback français automatique pour les contenus métier publics.
 
+Implémenté en sous-phase 5.4 pour les compétences :
+
+- `skill_category.publication_status` et `skill.publication_status` ;
+- `skill_category_translation(language_code)` et `skill_translation(language_code)` ;
+- publication publique uniquement si la catégorie et la compétence sont `PUBLISHED`, si la compétence est visible et si la traduction demandée est complète ;
+- pas de fallback français automatique pour les contenus métier publics compétences.
+
 Aucune donnée métier existante n'a été migrée.
 
 ## Rollback

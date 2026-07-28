@@ -8,6 +8,8 @@ Validé en Phase 2 — Architecture et conception.
 
 Le MVP utilise une architecture monolithe modulaire côté backend, une application Angular unique séparant routes publiques et routes d'administration, PostgreSQL comme base relationnelle, et Docker Compose pour l'environnement local et le déploiement simple.
 
+Depuis la restructuration architecturale du 2026-07-26, les modules implémentés suivent explicitement une séparation `api`, `application.service`, `application.mapper`, `domain.model` et `infrastructure`.
+
 Les routes publiques dynamiques à enjeu SEO utilisent Angular SSR. Les pages statiques comme mentions légales peuvent être prérendues si cela reste simple. L'administration reste une expérience client-side protégée.
 
 ## Objectifs architecturaux
@@ -68,6 +70,9 @@ PostgreSQL + stockage médias
 ## Frontières
 
 - Les contrôleurs REST ne contiennent pas de logique métier.
+- Les DTO REST sont séparés par usage dans `api.dto.request` et `api.dto.response`.
+- Les services applicatifs orchestrent les cas d'utilisation et les transactions.
+- Les mappers applicatifs centralisent les conversions de réponse lorsqu'elles ne relèvent pas d'une règle métier.
 - Les modules publics exposent seulement les contenus publiés et traduits pour la langue demandée.
 - Les modules admin nécessitent une session administrateur valide.
 - Les médias privés ou non publiés ne sont pas servis publiquement.
@@ -91,7 +96,8 @@ PostgreSQL + stockage médias
 - ADR-0005 — Stockage et sécurité des médias
 - ADR-0006 — Contact, e-mail et anti-spam
 - ADR-0007 — Déploiement Docker Compose
+- ADR-0012 — Restructuration architecturale senior
 
 ## Dernière mise à jour
 
-2026-07-21
+2026-07-26

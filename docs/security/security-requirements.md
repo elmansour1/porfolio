@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 2 — Architecture et conception. Authentification administrateur implémentée en sous-phase 5.1. Profil, paramètres et médias principaux sécurisés en sous-phase 5.3.
+Validé en Phase 2 — Architecture et conception. Authentification administrateur implémentée en sous-phase 5.1. Profil, paramètres et médias principaux sécurisés en sous-phase 5.3. Compétences/catégories sécurisées en sous-phase 5.4.
 
 ## Authentification administrateur
 
@@ -43,6 +43,9 @@ Validé en Phase 2 — Architecture et conception. Authentification administrate
 - Les API publiques ne retournent jamais brouillons, archives, messages, logs ou paramètres sensibles.
 - Les coordonnées du profil ne sont retournées publiquement que si les visibilités globales et locales sont activées.
 - L'email de réception interne des contacts n'est jamais retourné par l'API publique.
+- Les API publiques compétences ne retournent que catégories et compétences publiées, visibles et traduites.
+- Les opérations d'écriture compétences/catégories sont réservées aux routes `/api/v1/admin/**`, exigent session admin et CSRF.
+- Les valeurs issues des sélections frontend, notamment statut, niveau et catégorie, sont validées côté backend.
 
 ## Formulaire de contact
 
@@ -84,6 +87,8 @@ Les journaux d'authentification enregistrent l'action, le résultat, l'utilisate
 
 Les journaux Phase 5.3 enregistrent les modifications sensibles de profil, paramètres et médias sans contenu complet, sans fichier et sans données privées inutiles.
 
+Les journaux Phase 5.4 enregistrent les créations, modifications, publications, archivages et suppressions compétences/catégories sans contenu sensible inutile.
+
 ## Confidentialité
 
 - Consentement requis avant contact.
@@ -92,4 +97,12 @@ Les journaux Phase 5.3 enregistrent les modifications sensibles de profil, param
 
 ## Dernière mise à jour
 
-2026-07-22
+2026-07-26
+
+## Sous-phase 5.5 — Sécurité parcours
+
+- Les endpoints admin du parcours restent sous `/api/v1/admin/**` et exigent authentification + CSRF.
+- Les endpoints publics n'exposent ni brouillons, ni archives, ni données confidentielles.
+- Les URLs publiques sont validées côté backend.
+- Les valeurs de sélection envoyées par le frontend sont validées côté backend via enums/contrats stables.
+- La confidentialité d'une expérience masque aussi le lien public de l'organisation.

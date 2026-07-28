@@ -2,7 +2,7 @@
 
 ## Statut
 
-Mise à jour en sous-phase 5.2 — Layout et dashboard admin.
+Mise à jour en sous-phase 5.4 — Compétences et catégories.
 
 ## Objectif
 
@@ -128,6 +128,42 @@ Corrections issues des audits 5.2 :
 - Audit accessibilité outillé complet non exécuté ; vérification statique, tests composants et inspection visuelle réalisés.
 - Le scénario reload complet `/admin/dashboard` via dev proxy headless a renvoyé au login car le cookie `HttpOnly` n'était pas conservé dans cette configuration d'inspection ; la navigation SPA authentifiée, les guards et les tests API restent validés.
 
+## Tests exécutés en Phase 5.4
+
+| Niveau | Commande | Résultat |
+|--------|----------|----------|
+| Backend tests | `mvn test` | PASS — 22 tests |
+| Backend build + tests | `mvn package` | PASS — 22 tests |
+| Backend API compétences | MockMvc admin/public compétences | PASS |
+| Backend sécurité | Accès admin anonyme refusé | PASS |
+| Frontend lint | `npm run lint` avec Node 20 temporaire | PASS |
+| Frontend unit/component/service | `npm run test:ci` avec Node 20 temporaire | PASS — 24 tests Chrome Headless |
+| Frontend build SSR | `npm run build` avec Node 20 temporaire | PASS avec warning budget initial +2,94 kB |
+| Audit sélecteurs natifs 5.4 | `grep -R "<select\|<option" -n frontend/src/app/admin/skills frontend/src/app/public` | PASS |
+| Inspection visuelle | Navigateur réel | NOT EXECUTED — runtime complet indisponible |
+
+## Réserves Phase 5.4
+
+- Inspection visuelle réelle non exécutée : Docker build interrompu à cause d'un téléchargement Maven très lent, backend local indisponible sans PostgreSQL.
+- Tests E2E/accessibilité outillés non installés.
+- Warning budget Angular initial à surveiller avant release.
+- Sélecteurs natifs hors périmètre dans les pages profil/paramètres de 5.3.
+
 ## Dernière mise à jour
 
-2026-07-22
+2026-07-26
+
+## Sous-phase 5.5 — Vérifications exécutées
+
+- Backend `mvn package` : PASS, 26 tests.
+- Frontend lint : PASS.
+- Frontend `test:ci` ChromeHeadless : PASS, 29 tests.
+- Frontend build Angular : PASS avec warning budget +4,76 kB.
+- Docker `docker compose build api web` : PASS.
+- Docker `docker compose up -d` : PASS.
+- HTTP routes admin/public : PASS.
+- Captures headless : `/` desktop, `/admin/login` mobile.
+
+Vérification restante avant release :
+
+- E2E authentifié des écrans parcours admin avec mot de passe admin connu ou réinitialisation autorisée.

@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 2 — Architecture et conception. Endpoints d'authentification administrateur implémentés en sous-phase 5.1. Endpoints profil/paramètres implémentés en sous-phase 5.3.
+Validé en Phase 2 — Architecture et conception. Endpoints d'authentification administrateur implémentés en sous-phase 5.1. Endpoints profil/paramètres implémentés en sous-phase 5.3. Endpoints compétences/catégories implémentés en sous-phase 5.4.
 
 ## Conventions
 
@@ -50,6 +50,7 @@ Validé en Phase 2 — Architecture et conception. Endpoints d'authentification 
 | GET | `/api/v1/public/profile/cv` | CV PDF publié si visible et activé | Non |
 | GET | `/api/v1/public/settings/logo` | Logo publié si disponible | Non |
 | GET | `/api/v1/public/settings/favicon` | Favicon publié si disponible | Non |
+| GET | `/api/v1/public/skills?lang=fr` | Catégories et compétences publiées pour la langue demandée | Non |
 
 ## Endpoints auth admin
 
@@ -156,6 +157,8 @@ Collection Phase 5.1 : `docs/api/postman-authentication.postman_collection.json`
 
 Collection Phase 5.3 : `docs/api/postman-profile-settings.postman_collection.json`.
 
+Collection Phase 5.4 : `docs/api/postman-skills.postman_collection.json`.
+
 ## Contrats profil et paramètres — Phase 5.3
 
 `GET /api/v1/admin/profile` retourne l'agrégat complet administrateur : statut, identité, disponibilité, coordonnées, visibilités, traductions `fr/en`, liens, statistiques, photo et CV.
@@ -186,6 +189,39 @@ Les uploads utilisent `multipart/form-data` avec champ `file`.
 
 Les suppressions sont contrôlées par endpoint dédié `DELETE`.
 
+## Contrats compétences — Phase 5.4
+
+### Public
+
+`GET /api/v1/public/skills?lang=fr|en` retourne les catégories publiées non vides avec leurs compétences publiées, visibles et traduites dans la langue demandée.
+
+Règles publiques :
+
+- une catégorie `DRAFT` ou `ARCHIVED` n'est jamais retournée ;
+- une compétence `DRAFT`, `ARCHIVED` ou `visible=false` n'est jamais retournée ;
+- une compétence dont la catégorie n'est pas publiée n'est jamais retournée ;
+- une traduction absente ou incomplète masque le contenu dans la langue demandée.
+
+### Administration
+
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/api/v1/admin/skill-categories` | Liste admin des catégories avec traductions et nombre de compétences |
+| POST | `/api/v1/admin/skill-categories` | Création d'une catégorie |
+| PUT | `/api/v1/admin/skill-categories/{id}` | Modification d'une catégorie |
+| POST | `/api/v1/admin/skill-categories/{id}/publish` | Publication d'une catégorie |
+| POST | `/api/v1/admin/skill-categories/{id}/archive` | Archivage d'une catégorie et retrait public de ses compétences |
+| DELETE | `/api/v1/admin/skill-categories/{id}` | Suppression si aucune compétence n'est rattachée |
+| GET | `/api/v1/admin/skills?categoryId=&status=&featured=&query=` | Liste filtrable des compétences |
+| GET | `/api/v1/admin/skills/metadata` | Options typées pour statuts et niveaux |
+| POST | `/api/v1/admin/skills` | Création d'une compétence |
+| PUT | `/api/v1/admin/skills/{id}` | Modification d'une compétence |
+| POST | `/api/v1/admin/skills/{id}/publish` | Publication d'une compétence |
+| POST | `/api/v1/admin/skills/{id}/archive` | Archivage d'une compétence |
+| DELETE | `/api/v1/admin/skills/{id}` | Suppression contrôlée |
+
+Les écritures admin exigent une session administrateur et un CSRF valide.
+
 ## Points Phase 5
 
 - Codes d'erreur exhaustifs.
@@ -193,4 +229,36 @@ Les suppressions sont contrôlées par endpoint dédié `DELETE`.
 
 ## Dernière mise à jour
 
-2026-07-22
+2026-07-26
+
+## Sous-phase 5.5 — Parcours professionnel
+
+Endpoints admin protégés :
+
+- `GET /api/v1/admin/career/metadata`
+- `GET /api/v1/admin/experiences?status=...`
+- `POST /api/v1/admin/experiences`
+- `PUT /api/v1/admin/experiences/{id}`
+- `DELETE /api/v1/admin/experiences/{id}`
+- `GET /api/v1/admin/education?status=...`
+- `POST /api/v1/admin/education`
+- `PUT /api/v1/admin/education/{id}`
+- `DELETE /api/v1/admin/education/{id}`
+- `GET /api/v1/admin/certifications?status=...`
+- `POST /api/v1/admin/certifications`
+- `PUT /api/v1/admin/certifications/{id}`
+- `DELETE /api/v1/admin/certifications/{id}`
+
+Endpoint public :
+
+- `GET /api/v1/public/career?lang=fr|en`
+
+Collection Postman :
+
+- `docs/api/postman-career.postman_collection.json`
+
+Contrats :
+
+- Les valeurs métier sont transmises par codes stables (`ExperienceType`, `ContractType`, `WorkMode`, `EducationLevel`, `PublicationStatus`), jamais par libellés traduits.
+- Les réponses publiques excluent brouillons, archives et données confidentielles.
+- Les écritures admin nécessitent session admin et CSRF.

@@ -64,11 +64,11 @@ Architecture validée en Phase 2 : monolithe modulaire Spring Boot, frontend Ang
 
 - Mode : Nouveau projet défini (Mode B)
 - Phase courante : Aucune phase en cours
-- Statut : `PHASE_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
-- Code applicatif : Fondations techniques, authentification administrateur, layout/dashboard admin, profil professionnel, paramètres généraux, médias principaux et affichage public limité implémentés
+- Statut : `RESTRUCTURATION_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
+- Code applicatif : Fondations techniques, authentification administrateur, layout/dashboard admin, profil professionnel, paramètres généraux, médias principaux, compétences/catégories et affichage public limité implémentés
 - Framework IA : Installé
 - Brief produit : Renseigné
-- Dernière phase clôturée : Sous-phase 5.3 — Profil professionnel et paramètres généraux du portfolio
+- Dernière intervention clôturée : Restructuration architecturale senior du projet
 
 ## Contraintes
 
@@ -145,6 +145,34 @@ Risques majeurs initiaux : scope trop large, contenu insuffisant, design génér
 - Les pages admin `/admin/profile` et `/admin/settings` sont livrées avec formulaires typés, états de chargement/erreur/succès, upload/remplacement/suppression contrôlée et responsive.
 - Les CRUD compétences, expériences, formations, projets, services, messages, SEO avancé et sous-phase 5.4 n'ont pas été lancés.
 
+## Décisions Phase 5.4
+
+- Les catégories de compétences et les compétences utilisent un modèle relationnel dédié avec tables de traduction FR/EN.
+- Les niveaux sont qualitatifs (`NOTIONS`, `OPERATIONAL`, `ADVANCED`, `CORE_EXPERTISE`) et aucun pourcentage arbitraire n'est affiché.
+- Les contenus publics compétences sont retournés uniquement si catégorie et compétence sont publiées, si la compétence est visible et si la traduction demandée est complète.
+- L'administration `/admin/skills` utilise PrimeNG pour les tableaux, filtres, formulaires, statuts, confirmations et champs de sélection.
+- Aucun `<select>` natif n'existe dans le périmètre 5.4 ; les sélecteurs natifs restants de profil/paramètres ont été remplacés par `p-select` pendant la restructuration du 2026-07-26.
+- L'inspection visuelle runtime 5.4 reste non exécutée dans l'environnement courant et doit être relancée dès que Docker/PostgreSQL sont disponibles.
+
+## Décisions Phase 5.5
+
+- Le parcours professionnel est modélisé par des ressources dédiées : expériences, formations et certifications, chacune avec traductions FR/EN, statut éditorial, ordre et dates.
+- Les expériences peuvent référencer les compétences existantes de la sous-phase 5.4 ; aucun référentiel parallèle de technologies n'a été créé.
+- Les expériences confidentielles masquent l'organisation et le lien public dans l'API publique, avec un libellé confidentiel traduit.
+- Les dates du parcours utilisent une précision jour (`LocalDate`/date ISO). Les dates partielles mois/année restent une décision métier ultérieure.
+- L'administration du parcours est exposée via `/admin/experiences`, `/admin/education` et `/admin/certifications`, avec `p-select`, `p-multiselect`, `p-datepicker`, `p-table`, `p-dialog` et composants booléens PrimeNG.
+- Le site public consomme `/api/v1/public/career` et affiche uniquement les contenus publiés et traduits, sans inventer de données.
+- La sous-phase 5.6 n'a pas été lancée.
+
+## Décisions de restructuration architecturale
+
+- Le backend est organisé progressivement par domaine/fonctionnalité, avec DTO REST en `api/dto/request` et `api/dto/response`, services applicatifs en `application/service`, mappers en `application/mapper`, modèles en `domain/model` et persistance en `infrastructure/persistence`.
+- Les entités JPA ne sont pas exposées par l'API et restent distinctes des DTO REST ; aucun DTO JPA artificiel n'a été créé.
+- Lombok est utilisé pour réduire le bruit de code (`@RequiredArgsConstructor`, `@Getter`, constructeurs JPA protégés) sans `@Data` sur les entités.
+- Le frontend distingue DTO API (`models/dto`), modèles de formulaires (`models/forms`), mappers, services API et composants UI partagés.
+- Les sélections frontend du périmètre applicatif utilisent PrimeNG ; aucun `<select>/<option>` natif n'a été détecté dans `frontend/src/app` après restructuration.
+- ADR applicable : `docs/adr/ADR-0012-restructuration-architecture-senior.md`.
+
 ## Commandes utiles
 
 Backend :
@@ -191,7 +219,10 @@ docker compose up --build
 - Rapport Phase 5.1 : `.agents/state/PHASE_5_1_REPORT.md`
 - Rapport Phase 5.2 : `.agents/state/PHASE_5_2_REPORT.md`
 - Rapport Phase 5.3 : `.agents/state/PHASE_5_3_REPORT.md`
+- Rapport Phase 5.4 : `.agents/state/PHASE_5_4_REPORT.md`
+- Rapport Phase 5.5 : `.agents/state/PHASE_5_5_REPORT.md`
+- Rapport restructuration : `.agents/state/ARCHITECTURE_RESTRUCTURING_REPORT.md`
 
 ## Dernière mise à jour
 
-2026-07-22
+2026-07-26

@@ -1,0 +1,191 @@
+{
+  "info": {
+    "name": "Faouzi Portfolio - Skills",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Endpoints sous-phase 5.4 : catégories de compétences, compétences et API publique."
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4000"
+    },
+    {
+      "key": "xsrfToken",
+      "value": ""
+    },
+    {
+      "key": "categoryId",
+      "value": ""
+    },
+    {
+      "key": "skillId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Public skills FR",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/public/skills?lang=fr"
+      }
+    },
+    {
+      "name": "Admin categories - list",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/admin/skill-categories"
+      }
+    },
+    {
+      "name": "Admin categories - create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "X-XSRF-TOKEN",
+            "value": "{{xsrfToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"publicationStatus\": \"DRAFT\",\n  \"icon\": \"server\",\n  \"displayOrder\": 10,\n  \"translations\": [\n    { \"languageCode\": \"fr\", \"name\": \"Backend\", \"description\": \"Conception et développement côté serveur.\" },\n    { \"languageCode\": \"en\", \"name\": \"Backend\", \"description\": \"Server-side design and development.\" }\n  ]\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/admin/skill-categories"
+      }
+    },
+    {
+      "name": "Admin categories - update",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "X-XSRF-TOKEN",
+            "value": "{{xsrfToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"publicationStatus\": \"PUBLISHED\",\n  \"icon\": \"server\",\n  \"displayOrder\": 10,\n  \"translations\": [\n    { \"languageCode\": \"fr\", \"name\": \"Backend\", \"description\": \"APIs, sécurité et logique métier.\" },\n    { \"languageCode\": \"en\", \"name\": \"Backend\", \"description\": \"APIs, security and business logic.\" }\n  ]\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/admin/skill-categories/{{categoryId}}"
+      }
+    },
+    {
+      "name": "Admin categories - publish",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-XSRF-TOKEN",
+            "value": "{{xsrfToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/v1/admin/skill-categories/{{categoryId}}/publish"
+      }
+    },
+    {
+      "name": "Admin categories - archive",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-XSRF-TOKEN",
+            "value": "{{xsrfToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/v1/admin/skill-categories/{{categoryId}}/archive"
+      }
+    },
+    {
+      "name": "Admin skills - metadata",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/admin/skills/metadata"
+      }
+    },
+    {
+      "name": "Admin skills - list",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/admin/skills?categoryId={{categoryId}}&status=PUBLISHED&featured=true&query=java"
+      }
+    },
+    {
+      "name": "Admin skills - create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "X-XSRF-TOKEN",
+            "value": "{{xsrfToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"categoryId\": \"{{categoryId}}\",\n  \"publicationStatus\": \"DRAFT\",\n  \"level\": \"CORE_EXPERTISE\",\n  \"icon\": \"coffee\",\n  \"featured\": true,\n  \"visible\": true,\n  \"displayOrder\": 10,\n  \"translations\": [\n    {\n      \"languageCode\": \"fr\",\n      \"name\": \"Java\",\n      \"description\": \"Développement backend robuste.\",\n      \"usageSummary\": \"Conception d'API et services métier maintenables.\"\n    },\n    {\n      \"languageCode\": \"en\",\n      \"name\": \"Java\",\n      \"description\": \"Robust backend development.\",\n      \"usageSummary\": \"Maintainable APIs and business services.\"\n    }\n  ]\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/admin/skills"
+      }
+    },
+    {
+      "name": "Admin skills - update",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "X-XSRF-TOKEN",
+            "value": "{{xsrfToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"categoryId\": \"{{categoryId}}\",\n  \"publicationStatus\": \"PUBLISHED\",\n  \"level\": \"CORE_EXPERTISE\",\n  \"icon\": \"coffee\",\n  \"featured\": true,\n  \"visible\": true,\n  \"displayOrder\": 10,\n  \"translations\": [\n    {\n      \"languageCode\": \"fr\",\n      \"name\": \"Java\",\n      \"description\": \"Développement backend robuste.\",\n      \"usageSummary\": \"Conception d'API sécurisées et services métier maintenables.\"\n    },\n    {\n      \"languageCode\": \"en\",\n      \"name\": \"Java\",\n      \"description\": \"Robust backend development.\",\n      \"usageSummary\": \"Secure APIs and maintainable business services.\"\n    }\n  ]\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/admin/skills/{{skillId}}"
+      }
+    },
+    {
+      "name": "Admin skills - publish",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-XSRF-TOKEN",
+            "value": "{{xsrfToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/v1/admin/skills/{{skillId}}/publish"
+      }
+    },
+    {
+      "name": "Admin skills - archive",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-XSRF-TOKEN",
+            "value": "{{xsrfToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/v1/admin/skills/{{skillId}}/archive"
+      }
+    }
+  ]
+}

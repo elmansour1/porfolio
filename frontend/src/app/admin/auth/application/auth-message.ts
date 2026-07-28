@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { ApiErrorResponse } from '../models/auth.models';
+import { ApiErrorResponse } from '../models/dto/auth.dto';
 
 export function authErrorMessage(error: unknown): string {
   if (!(error instanceof HttpErrorResponse)) {

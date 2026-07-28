@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 3 — Conception UX/UI du portfolio. Layout/dashboard implémentés en 5.2 ; profil et paramètres implémentés en 5.3.
+Validé en Phase 3 — Conception UX/UI du portfolio. Layout/dashboard implémentés en 5.2 ; profil et paramètres implémentés en 5.3 ; compétences et catégories implémentées en 5.4.
 
 ## Principes admin
 
@@ -119,6 +119,20 @@ Fonctions :
 - niveau qualitatif facultatif ;
 - ordre ;
 - publication.
+
+Statut sous-phase 5.4 :
+
+- route `/admin/skills` implémentée dans le shell ;
+- listes catégories et compétences avec `p-table` pleine largeur ;
+- filtres catégorie, statut et mise en avant avec composants PrimeNG ;
+- formulaires en `p-dialog` centré ;
+- sélection catégorie, niveau et statut avec `p-select` ;
+- mise en avant avec `p-toggleswitch` ;
+- visibilité publique avec `p-checkbox` ;
+- statuts avec `p-tag` ;
+- confirmations d'archivage/suppression sans `window.confirm` ;
+- aucun `<select>` natif dans le périmètre 5.4 ;
+- inspection visuelle réelle non exécutée, à reprendre dès runtime disponible.
 
 ## A-006 — Expériences
 
@@ -262,4 +276,23 @@ Statut sous-phase 5.2 :
 
 ## Dernière mise à jour
 
-2026-07-22
+2026-07-26
+
+## Sous-phase 5.5 — Écrans parcours
+
+Routes :
+
+- `/admin/experiences`
+- `/admin/education`
+- `/admin/certifications`
+
+Principes UX :
+
+- Une page unifiée de parcours avec listes structurées et formulaires modaux centrés.
+- PrimeNG pour tableaux, statuts, confirmations, sélections, multisélections et dates.
+- États vides explicites pour expériences, formations et certifications.
+- Pas de select HTML natif ni de datepicker natif.
+
+Réserve :
+
+- Inspection visuelle navigateur authentifiée à compléter après récupération ou réinitialisation contrôlée du compte admin Docker existant.

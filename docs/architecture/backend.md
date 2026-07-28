@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 2 — Architecture et conception. Fondation Spring Boot implémentée en Phase 4, authentification administrateur en sous-phase 5.1.
+Validé en Phase 2 — Architecture et conception. Fondation Spring Boot implémentée en Phase 4, authentification administrateur en sous-phase 5.1, profil/paramètres en 5.3 et compétences/catégories en 5.4.
 
 ## Stack
 
@@ -52,9 +52,60 @@ backend/
     db/migration/V1__foundation_schema.sql
 ```
 
-La structure Phase 5.1 ajoute le module `auth` et le journal `audit`. Les modules métier de contenu seront créés par vertical slice autorisée.
+La structure Phase 5.1 ajoute le module `auth` et le journal `audit`. La sous-phase 5.3 ajoute le module `profile`. La sous-phase 5.4 ajoute le module `skills`.
 
-Chaque module contient ses contrôleurs, DTO, services applicatifs, domaine léger, repositories et mappers. Les conventions finales seront fixées en Phase 3.
+Structure par module :
+
+```text
+<module>/
+  api/
+    dto/
+      request/
+      response/
+  application/
+    dto/
+    mapper/
+    service/
+  domain/
+    model/
+  infrastructure/
+    persistence/
+    storage/
+```
+
+Chaque module contient ses contrôleurs, DTO, services applicatifs, domaine léger, repositories et mappers selon le besoin.
+
+Règles de structure :
+
+- les contrôleurs REST restent dans `api` ;
+- les contrats REST d'entrée/sortie restent dans `api.dto.request` et `api.dto.response` ;
+- les services applicatifs restent dans `application.service` ;
+- les mappings DTO/réponse restent dans `application.mapper` lorsqu'ils évitent de charger les services ;
+- les DTO/résultats applicatifs restent dans `application.dto` lorsqu'ils sont échangés entre services et API ;
+- les entités, enums et value objects de domaine restent dans `domain.model` ;
+- les repositories Spring Data restent dans `infrastructure.persistence`, pas dans `domain` ;
+- les adaptateurs techniques de stockage restent dans `infrastructure.storage` ;
+- aucune entité JPA ne doit être appelée DTO JPA ;
+- les projections JPA éventuelles devront être placées dans `infrastructure.persistence` ou un sous-package dédié de cette couche.
+
+Correctif qualité 2026-07-26 :
+
+- repositories déplacés hors de `domain` vers `infrastructure.persistence` ;
+- entités JPA annotées avec Lombok `@Getter` et `@NoArgsConstructor(access = AccessLevel.PROTECTED)` ;
+- DTO REST déplacés dans `api.dto` ;
+- modèles de domaine déplacés dans `domain.model` ;
+- DTO/résultats applicatifs déplacés dans `application.dto` ;
+- `@Data` reste interdit sur les entités JPA.
+
+Restructuration architecturale exceptionnelle 2026-07-26 :
+
+- services applicatifs déplacés dans `application.service` ;
+- stockage média déplacé dans `profile.infrastructure.storage` ;
+- DTO REST séparés par usage dans `api.dto.request` et `api.dto.response` ;
+- mappers backend créés pour `profile` et `skills` dans `application.mapper` ;
+- contrôleurs et services convertis à l'injection Lombok `@RequiredArgsConstructor` ;
+- aucun constructeur manuel de service restant ;
+- aucun package plat `api.dto`, `application` ou `domain` ne contient de classe métier directement.
 
 ## Règles backend
 
@@ -92,7 +143,7 @@ Les services de lecture publique filtrent systématiquement :
 - langue publiée ;
 - contenu non confidentiel.
 
-Ces services métier ne sont pas encore implémentés.
+Ces règles sont implémentées pour le profil/paramètres et les compétences. Les autres ressources métier seront ajoutées par sous-phase autorisée.
 
 ## Authentification admin Phase 5.1
 
@@ -116,6 +167,22 @@ Ces services métier ne sont pas encore implémentés.
 - `mvn test` : PASS, 12 tests.
 - Auth login/logout/session/reset/CSRF/verrouillage : PASS.
 
+## Vérifications Phase 5.4
+
+- `mvn test` : PASS, 22 tests.
+- `mvn package` : PASS, 22 tests.
+- API compétences admin/public : PASS.
+- Filtrage public brouillons/archives/visibilité/traductions : PASS.
+- Accès admin anonyme refusé : PASS.
+
+## Vérifications restructuration 2026-07-26
+
+- `mvn test` : PASS, 22 tests.
+- `mvn package` : PASS, 22 tests.
+- Scan `@Data` : PASS, aucun usage.
+- Scan constructeurs de services : PASS, aucun constructeur manuel.
+- Scan packages plats `api.dto`, `application`, `domain` : PASS, aucune classe métier directe.
+
 ## Dernière mise à jour
 
-2026-07-21
+2026-07-26

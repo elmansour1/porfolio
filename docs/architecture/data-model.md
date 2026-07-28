@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 2 — Architecture et conception. Migrations de fondation créées en Phases 4 et 5.1. Migration profil/paramètres créée en sous-phase 5.3.
+Validé en Phase 2 — Architecture et conception. Migrations de fondation créées en Phases 4 et 5.1. Migration profil/paramètres créée en sous-phase 5.3. Migration compétences/catégories utilisée en sous-phase 5.4.
 
 ## Principes
 
@@ -58,6 +58,23 @@ La migration `backend/src/main/resources/db/migration/V3__profile_and_site_setti
 
 Les statistiques utilisent la colonne `stat_value` pour éviter les conflits avec les mots réservés SQL.
 
+## Modèle implémenté Phase 5.4
+
+La migration `backend/src/main/resources/db/migration/V4__skills.sql` ajoute :
+
+- `skill_category` : statut de publication, icône, ordre et dates ;
+- `skill_category_translation` : nom et description par langue `fr/en` ;
+- `skill` : catégorie obligatoire, statut, niveau qualitatif, icône, mise en avant, visibilité, ordre et dates ;
+- `skill_translation` : nom, description et résumé d'usage par langue `fr/en`.
+
+Contraintes principales :
+
+- `skill.category_id` référence une catégorie existante ;
+- `publication_status` limité à `DRAFT`, `PUBLISHED`, `ARCHIVED` ;
+- `level` limité à `NOTIONS`, `OPERATIONAL`, `ADVANCED`, `CORE_EXPERTISE` ou `null` ;
+- `display_order >= 0` ;
+- une traduction unique par `(resource_id, language_code)`.
+
 ## Migration de fondation Phase 4
 
 La migration `backend/src/main/resources/db/migration/V1__foundation_schema.sql` crée uniquement les tables de base nécessaires aux fondations :
@@ -105,8 +122,28 @@ La migration `backend/src/main/resources/db/migration/V2__admin_authentication.s
 - Type PostgreSQL enum vs check constraints.
 - Stratégie de soft delete pour ressources admin.
 - Contraintes de taille des champs.
-- Migrations métier de contenu portfolio : compétences, expériences, projets, services, messages et SEO.
+- Migrations métier de contenu portfolio restantes : projets, services, messages et SEO.
 
 ## Dernière mise à jour
 
-2026-07-22
+2026-07-26
+
+## Sous-phase 5.5 — Modèle parcours
+
+Tables ajoutées par `V5__career_timeline.sql` :
+
+- `career_experience`
+- `career_experience_translation`
+- `career_experience_skill`
+- `career_education`
+- `career_education_translation`
+- `career_certification`
+- `career_certification_translation`
+
+Règles principales :
+
+- Les dates sont stockées en précision jour (`date` / `LocalDate`) ; aucune date partielle n'est simulée.
+- Les traductions sont séparées par langue avec unicité par ressource et `language_code`.
+- Les expériences peuvent référencer les compétences existantes, sans dupliquer un référentiel technologies.
+- Les contenus `DRAFT` ou `ARCHIVED` ne sont pas retournés par l'API publique.
+- Une expérience confidentielle masque l'organisation et le lien public côté API publique.

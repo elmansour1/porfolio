@@ -42,10 +42,17 @@ Validé en Phase 2 — Architecture et conception.
 
 - Aucun accès repository direct depuis les contrôleurs.
 - DTO séparés des entités.
+- DTO REST séparés en requêtes et réponses lorsque le module expose des écritures.
+- DTO/résultats applicatifs placés dans `application.dto` lorsqu'ils ne sont pas des contrats HTTP.
+- Services applicatifs placés dans `application.service`.
+- Mappers placés dans `application.mapper` lorsqu'une conversion DTO répétée existe.
+- Entités, enums et value objects placés dans `domain.model`.
+- Repositories Spring Data placés dans `infrastructure.persistence`.
 - Transactions au niveau service applicatif.
 - Validation métier centralisée dans le module responsable.
 - Les statuts de publication sont des invariants métier, pas des filtres UI.
+- Les contrôleurs et services utilisent `@RequiredArgsConstructor` pour l'injection lorsque toutes les dépendances sont finales.
 
 ## Dernière mise à jour
 
-2026-07-21
+2026-07-26

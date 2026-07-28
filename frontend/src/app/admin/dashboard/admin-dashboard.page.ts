@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { AdminEmptyStateComponent } from '../shared/admin-empty-state.component';
-import { AdminMetricCardComponent } from '../shared/admin-metric-card.component';
-import { AdminQuickActionComponent } from '../shared/admin-quick-action.component';
-import { AdminStatusBadgeComponent } from '../shared/admin-status-badge.component';
+import { AdminEmptyStateComponent } from '../shared/ui/admin-empty-state.component';
+import { AdminMetricCardComponent } from '../shared/ui/admin-metric-card.component';
+import { AdminQuickActionComponent } from '../shared/ui/admin-quick-action.component';
+import { AdminStatusBadgeComponent } from '../shared/ui/admin-status-badge.component';
 
 interface DashboardMetric {
   readonly label: string;

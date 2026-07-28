@@ -62,14 +62,38 @@ export const routes: Routes = [
       {
         path: 'profile',
         loadComponent: () =>
-          import('./admin/profile/profile.page').then((module) => module.ProfilePage),
+          import('./admin/profile/pages/profile.page').then((module) => module.ProfilePage),
         title: 'Profil professionnel',
       },
       {
         path: 'settings',
         loadComponent: () =>
-          import('./admin/profile/settings.page').then((module) => module.SettingsPage),
+          import('./admin/profile/pages/settings.page').then((module) => module.SettingsPage),
         title: 'Paramètres généraux',
+      },
+      {
+        path: 'skills',
+        loadComponent: () =>
+          import('./admin/skills/pages/skills.page').then((module) => module.SkillsPage),
+        title: 'Compétences',
+      },
+      {
+        path: 'experiences',
+        loadComponent: () =>
+          import('./admin/career/pages/career.page').then((module) => module.CareerPage),
+        title: 'Expériences',
+      },
+      {
+        path: 'education',
+        loadComponent: () =>
+          import('./admin/career/pages/career.page').then((module) => module.CareerPage),
+        title: 'Formations',
+      },
+      {
+        path: 'certifications',
+        loadComponent: () =>
+          import('./admin/career/pages/career.page').then((module) => module.CareerPage),
+        title: 'Certifications',
       },
       {
         path: '**',

@@ -27,10 +27,16 @@ Règles :
 ```text
 Administrateur
   -> Angular admin CSR
+  -> Feature API service typé
+  -> DTO frontend models/dto
   -> API admin protégée
+  -> DTO backend api.dto.request
   -> Services applicatifs transactionnels
+  -> Mappers application.mapper lorsque nécessaire
+  -> Modèles domain.model + repositories infrastructure.persistence
   -> PostgreSQL + stockage médias
   -> Journal d'activité
+  -> DTO backend api.dto.response
 ```
 
 Règles :
@@ -84,4 +90,4 @@ Admin SEO
 
 ## Dernière mise à jour
 
-2026-07-21
+2026-07-26

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 
 import { AuthApiService } from '../api/auth-api.service';
-import { AuthSession, ForgotPasswordResponse, LoginCredentials, ResetPasswordRequest } from '../models/auth.models';
+import { AuthSession, ForgotPasswordResponse, LoginCredentials, ResetPasswordRequest } from '../models/dto/auth.dto';
 
 @Injectable({ providedIn: 'root' })
 export class AuthSessionService {

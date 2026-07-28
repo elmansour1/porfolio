@@ -121,11 +121,11 @@
 ## Phase 5 — Implémentation incrémentale
 
 **État :** `READY`
-**Autorisation :** `GO pour la sous-phase 5.3 — Profil professionnel et paramètres généraux du portfolio` (2026-07-22)
+**Dernière autorisation clôturée :** `GO pour la sous-phase 5.5 — Gestion des expériences professionnelles, des formations et des certifications` (2026-07-26)
 **Dépendances :** Phase 4 clôturée
-**Périmètre autorisé :** Profil professionnel, paramètres généraux typés, traductions FR/EN du profil, liens professionnels, statistiques réelles administrables, configuration de visibilité des sections, photo/CV/logo/favicon contrôlés, API admin/public, affichage public limité aux données de profil/paramètres, tests, documentation et audits.
-**Exclusions :** CRUD compétences/expériences/formations/projets/services/témoignages/messages, formulaire public de contact, médiathèque complète, SEO avancé, analytics, synchronisation GitHub/LinkedIn, plusieurs administrateurs, rôles complexes, blog, newsletter, thème personnalisable, sous-phase 5.4.
-**Statut en cours :** Sous-phase 5.3 clôturée. Attente d'un `GO` humain explicite pour la sous-phase suivante.
+**Dernier périmètre autorisé :** Expériences, formations, certifications, missions/réalisations, technologies liées, confidentialité, publication, ordre, traductions, API admin/public, administration, affichage public, tests, documentation et audits.
+**Exclusions :** Projets, études de cas, services, témoignages, contact, messages, médiathèque complète, SEO avancé, synchronisation LinkedIn, import CV automatique, sous-phase 5.6.
+**Statut en cours :** `PHASE_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`. Aucune sous-phase suivante n'est autorisée.
 
 ### Sous-phase 5.1 — Authentification administrateur
 
@@ -184,6 +184,66 @@
 
 **Rapports :** `.agents/state/PHASE_5_3_IMPLEMENTATION_REPORT.md`, `.agents/state/PHASE_5_3_CODE_AUDIT.md`, `.agents/state/PHASE_5_3_UX_UI_AUDIT.md`, `.agents/state/PHASE_5_3_REPORT.md`
 
+### Sous-phase 5.4 — Gestion des compétences et des catégories
+
+**Objectif :** Permettre à l'administrateur de structurer, créer, modifier, traduire, ordonner, publier, dépublier et archiver les compétences professionnelles affichées dans le portfolio.
+**État :** `DONE`
+**Autorisation :** `GO pour la sous-phase 5.4 — Gestion des compétences et des catégories de compétences` (2026-07-26)
+**Date de clôture :** 2026-07-26
+
+| ID | Titre | Agents | État | Audit |
+|----|-------|--------|------|-------|
+| 5.4.1 | Cadrage Product/Domain/UX/Security et audit des sélections natives | Product, Métier, Architecte, UX/UI, Frontend, Security, QA | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.4.2 | Modèle de données, migration compétences et contraintes | Database, Backend, Security, QA | DONE | CONFORME |
+| 5.4.3 | API backend admin/public, validations, publication, ordre et tests | Backend, Security, Database, QA | DONE | CONFORME |
+| 5.4.4 | Interface admin catégories/compétences avec PrimeNG | Frontend, UX/UI, Accessibility, QA | DONE | CONFORME |
+| 5.4.5 | Section publique compétences et règles de visibilité | Product, Frontend, UX/UI, Security, QA | DONE | CONFORME |
+| 5.4.6 | Builds, tests, conformité PrimeNG et corrections | Frontend, Backend, QA, Reviewer Code | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.4.7 | Inspection visuelle, accessibilité et audit UX/UI SaaS premium | UX/UI, Accessibility, Reviewer UX/UI, QA | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.4.8 | Documentation, handoff, audit final et arrêt | Orchestrateur, Documentation, Reviewer Code, Reviewer UX/UI | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+
+**Rapports :** `.agents/state/PHASE_5_4_IMPLEMENTATION_REPORT.md`, `.agents/state/PHASE_5_4_BACKEND_AUDIT.md`, `.agents/state/PHASE_5_4_FRONTEND_AUDIT.md`, `.agents/state/PHASE_5_4_UX_UI_AUDIT.md`, `.agents/state/PHASE_5_4_PRIMENG_SELECT_COMPLIANCE.md`, `.agents/state/PHASE_5_4_REPORT.md`
+
+### Sous-phase 5.5 — Expériences, formations et certifications
+
+**Objectif :** Permettre à l'administrateur de gérer et publier un parcours professionnel multilingue : expériences, formations, certifications, périodes, technologies liées, confidentialité, ordre et publication.
+**État :** `DONE`
+**Autorisation :** `GO pour la sous-phase 5.5 — Gestion des expériences professionnelles, des formations et des certifications` (2026-07-26)
+**Date de clôture :** 2026-07-26
+**Exclusions :** Projets, études de cas, services, témoignages, contact, messages, médiathèque complète, synchronisation LinkedIn, import automatique du CV, sous-phase 5.6, commit.
+
+| ID | Titre | Agents | État | Audit |
+|----|-------|--------|------|-------|
+| 5.5.1 | Cadrage Product/Domain/UX/Security et audit des composants natifs | Product, Métier, Architecte, UX/UI, Frontend, Security, QA | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.5.2 | Modèle de données, migration parcours et contraintes | Database, Backend, Security, QA | DONE | CONFORME |
+| 5.5.3 | API backend admin/public, validations, confidentialité, ordre et tests | Backend, Security, Database, QA | DONE | CONFORME |
+| 5.5.4 | Interface admin parcours avec PrimeNG selects, multiselects et datepickers | Frontend, UX/UI, Accessibility, QA | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.5.5 | Affichage public du parcours publié | Product, Frontend, UX/UI, Security, QA | DONE | CONFORME |
+| 5.5.6 | Builds, tests, Docker, conformité PrimeNG et corrections | Frontend, Backend, DevOps, QA, Reviewer Code | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.5.7 | Inspection visuelle, accessibilité et audit UX/UI SaaS premium | UX/UI, Accessibility, Reviewer UX/UI, QA | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.5.8 | Documentation, handoff, audit final et arrêt | Orchestrateur, Documentation, Reviewer Code, Reviewer UX/UI | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+
+**Rapports :** `.agents/state/PHASE_5_5_IMPLEMENTATION_REPORT.md`, `.agents/state/PHASE_5_5_BACKEND_AUDIT.md`, `.agents/state/PHASE_5_5_FRONTEND_AUDIT.md`, `.agents/state/PHASE_5_5_UX_UI_AUDIT.md`, `.agents/state/PHASE_5_5_PRIMENG_COMPLIANCE.md`, `.agents/state/PHASE_5_5_REPORT.md`
+**Statut final :** `PHASE_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
+
+### Intervention exceptionnelle — Restructuration architecturale senior
+
+**Objectif :** Réorganiser le backend et le frontend pour obtenir une architecture professionnelle, lisible et maintenable, sans ajouter de fonctionnalité métier.
+**État :** `DONE`
+**Autorisation :** `GO — RESTRUCTURATION ARCHITECTURALE SENIOR DU PROJET` (2026-07-26)
+**Date de clôture :** 2026-07-26
+**Exclusions :** Nouvelle fonctionnalité, nouveau CRUD, nouveau workflow métier, changement de stack, microservices, sous-phase 5.5, commit.
+
+| ID | Titre | Agents | État | Audit |
+|----|-------|--------|------|-------|
+| R-ARCH-1 | Audit architecture actuelle backend/frontend | Architecte, Backend, Frontend, QA | DONE | CONFORME |
+| R-ARCH-2 | Restructuration backend par domaines, DTO, mappers et Lombok | Architecte, Backend, Database, Security, QA | DONE | CONFORME |
+| R-ARCH-3 | Restructuration frontend DTO, formulaires, mappers, shared UI et PrimeNG | Architecte, Frontend, UX/UI, QA | DONE | CONFORME |
+| R-ARCH-4 | Builds, tests, scans qualité, documentation et audit final | Reviewer Code, Documentation, Orchestrateur | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+
+**Rapport :** `.agents/state/ARCHITECTURE_RESTRUCTURING_REPORT.md`
+**Statut final :** `RESTRUCTURATION_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
+
 ## Phase 6 — Stabilisation
 
 **État :** `BACKLOG` — Dépend de Phase 5
@@ -200,4 +260,4 @@
 
 ## Dernière mise à jour
 
-2026-07-22
+2026-07-26

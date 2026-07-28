@@ -61,7 +61,15 @@ Les textes et médias nécessaires sont suivis dans `docs/product/content-prepar
 
 ## Migration
 
-Aucune.
+Sous-phase 5.4 :
+
+- les sélections du module compétences utilisent les composants PrimeNG (`p-select`, `p-toggleswitch`, `p-checkbox`) ;
+- les tableaux admin utilisent `p-table` ;
+- les statuts utilisent `p-tag` ;
+- les formulaires larges sont affichés en `p-dialog` centré ;
+- aucun `<select>` natif n'est présent dans le périmètre compétences.
+
+Les sélecteurs natifs encore présents dans profil/paramètres appartiennent à la sous-phase 5.3 et sont tracés comme dette technique.
 
 ## Rollback
 

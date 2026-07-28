@@ -1,0 +1,49 @@
+{
+  "info": {
+    "name": "Faouzi Portfolio - Career",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "Public career FR",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/public/career?lang=fr"
+      }
+    },
+    {
+      "name": "Admin metadata",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/admin/career/metadata"
+      }
+    },
+    {
+      "name": "Admin experiences",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/admin/experiences"
+      }
+    },
+    {
+      "name": "Admin education",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/admin/education"
+      }
+    },
+    {
+      "name": "Admin certifications",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/admin/certifications"
+      }
+    }
+  ]
+}

@@ -1,10 +1,13 @@
 package com.faouzi.portfolio.profile.api;
 
-import com.faouzi.portfolio.profile.application.PortfolioProfileService;
+import com.faouzi.portfolio.profile.api.dto.request.AdminSiteSettingsRequest;
+import com.faouzi.portfolio.profile.api.dto.response.AdminSiteSettingsResponse;
+import com.faouzi.portfolio.profile.application.service.PortfolioProfileService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/v1/admin/settings")
+@RequiredArgsConstructor
 public class AdminSiteSettingsController {
 
     private final PortfolioProfileService service;
-
-    public AdminSiteSettingsController(PortfolioProfileService service) {
-        this.service = service;
-    }
 
     @GetMapping
     public AdminSiteSettingsResponse getSettings() {
