@@ -115,6 +115,22 @@ Réserve : le rendu réel des overlays, focus et responsive doit être inspecté
 
 Correctif qualité 2026-07-26 : les sélecteurs natifs profil/paramètres ont aussi été remplacés par `p-select`, avec labels associés par `inputId`.
 
+## Standard formulaires admin — correction 2026-08-02
+
+Règles désormais applicables aux formulaires admin existants et futurs :
+
+- structure champ : label au-dessus, contrôle pleine largeur, aide ou erreur sous le contrôle ;
+- grille desktop : `grid-template-columns: repeat(2, minmax(0, 1fr))` pour les champs courts, une colonne sur mobile ;
+- champs longs, médias, listes dynamiques et contenus traduits : pleine largeur ;
+- contenus FR/EN : `p-tabs`, un seul panneau visible à la fois, jamais deux colonnes étroites pour les textes longs ;
+- booléens principaux : `p-toggleswitch`; choix secondaires multiples : `p-checkbox` si nécessaire ;
+- dates : `p-datepicker`; nombres : `p-inputnumber`; fichiers : `p-fileupload`;
+- modales longues : largeur responsive, corps scrollable et footer d'actions sticky ;
+- contrôles PrimeNG : `width: 100%`, `min-width: 0`, pas de largeur arbitraire champ par champ ;
+- aucun `<select>`, `<option>`, `input[type="checkbox"]` ou `input[type="file"]` natif ne doit être introduit dans les templates admin.
+
+Inspection 2026-08-02 : Profil, Paramètres, Compétences, Parcours et pages auth inspectés via Angular dev server, mock API local et Chrome headless DevTools. Captures : `/tmp/portfolio-form-inspection`.
+
 ## Répartition technique
 
 - Tailwind CSS : layout, grille, flex, espacements, responsive.
@@ -189,4 +205,4 @@ Ordre recommandé MVP :
 
 ## Dernière mise à jour
 
-2026-07-26
+2026-08-02

@@ -2,13 +2,36 @@
 
 ## Dernière tâche
 
-R-ARCH-4 — Builds, tests, scans qualité, documentation et audit final — État : DONE
+5.6.9 — Documentation, audit final et arrêt sous-phase 5.6 — État : DONE
 
 ## Objectif de la dernière tâche
 
-Clôturer l'intervention exceptionnelle de restructuration architecturale senior : réorganiser backend et frontend sans nouvelle fonctionnalité, vérifier builds/tests/scans, documenter l'architecture réelle et arrêter sans lancer 5.5.
+Clôturer la sous-phase 5.6 — Projets et études de cas : livrer le domaine métier complet (backend, frontend, médias, sécurité, UX/UI), documenter et arrêter sans lancer 5.7.
 
 ## Fichiers créés
+
+Sous-phase 5.6 — Projets et études de cas — 2026-08-02 :
+
+- `backend/src/main/java/com/faouzi/portfolio/project/**` (domain, application, infrastructure, api, config)
+- `backend/src/main/resources/db/migration/V6__projects.sql`
+- `backend/src/test/java/com/faouzi/portfolio/project/ProjectControllerTests.java`
+- `frontend/src/app/admin/projects/**`
+- `frontend/src/app/public/projects/**`
+- `.agents/state/PHASE_5_6_BACKEND_AUDIT.md`
+- `.agents/state/PHASE_5_6_FRONTEND_AUDIT.md`
+- `.agents/state/PHASE_5_6_UX_UI_AUDIT.md`
+- `.agents/state/PHASE_5_6_SECURITY_AUDIT.md`
+- `.agents/state/PHASE_5_6_IMPLEMENTATION_REPORT.md`
+- `.agents/state/PHASE_5_6_REPORT.md`
+
+Correction formulaires 2026-08-02 (historique conservé) :
+
+- `.agents/state/FORM_CORRECTION_INITIAL_AUDIT.md`
+- `.agents/state/FORM_CORRECTION_FRONTEND_AUDIT.md`
+- `.agents/state/FORM_CORRECTION_UX_UI_AUDIT.md`
+- `.agents/state/FORM_CORRECTION_REPORT.md`
+
+Historique antérieur conservé :
 
 - `backend/src/main/java/com/faouzi/portfolio/skills/application/SkillCatalogService.java`
 - `backend/src/main/java/com/faouzi/portfolio/skills/api/*Skill*.java`
@@ -31,6 +54,42 @@ Clôturer l'intervention exceptionnelle de restructuration architecturale senior
 - `docs/api/postman-skills.postman_collection.json`
 
 ## Fichiers modifiés
+
+Sous-phase 5.6 — Projets et études de cas — 2026-08-02 :
+
+- `frontend/src/styles.scss`
+- `PLANS.md`
+- `.agents/state/PROJECT_STATE.md`
+- `.agents/state/HUMAN_GATES.md`
+- `.agents/state/RISKS.md`
+- `.agents/state/TECHNICAL_DEBT.md`
+- `docs/api/README.md`
+- `docs/architecture/data-model.md`
+- `docs/product/functional-requirements.md`
+
+Correction formulaires 2026-08-02 (historique conservé) :
+
+- `frontend/src/styles.scss`
+- `frontend/src/app/admin/auth/pages/login.page.ts`
+- `frontend/src/app/admin/auth/pages/forgot-password.page.ts`
+- `frontend/src/app/admin/auth/pages/reset-password.page.ts`
+- `frontend/src/app/admin/profile/pages/profile.page.ts`
+- `frontend/src/app/admin/profile/pages/profile.page.spec.ts`
+- `frontend/src/app/admin/profile/pages/settings.page.ts`
+- `frontend/src/app/admin/profile/pages/settings.page.spec.ts`
+- `frontend/src/app/admin/skills/pages/skills.page.ts`
+- `frontend/src/app/admin/career/pages/career.page.ts`
+- `PLANS.md`
+- `.agents/state/PROJECT_STATE.md`
+- `.agents/state/HUMAN_GATES.md`
+- `.agents/state/RISKS.md`
+- `.agents/state/TECHNICAL_DEBT.md`
+- `docs/architecture/frontend.md`
+- `docs/ux/admin-screens.md`
+- `docs/ux/design-system.md`
+- `docs/ux/frontend-handoff.md`
+
+Historique antérieur conservé :
 
 - `backend/src/main/java/com/faouzi/portfolio/shared/security/SecurityConfiguration.java`
 - `frontend/src/app/app.routes.ts`
@@ -56,6 +115,9 @@ Clôturer l'intervention exceptionnelle de restructuration architecturale senior
 
 ## Décisions
 
+- Sous-phase 5.6 : `ProjectRequest` réutilisé tel quel pour création et modification (motif identique à `career`/`skills`), sans risque puisque l'identifiant est serveur-généré et le slug revalidé à chaque écriture.
+- Sous-phase 5.6 : confidentialité `PUBLIC`/`ANONYMIZED`/`PRIVATE` dédiée au module projet, appliquée uniquement côté service applicatif.
+- Sous-phase 5.6 : référentiel de compétences existant réutilisé pour les technologies liées aux projets, sans duplication de modèle.
 - Les compétences et catégories utilisent un modèle relationnel dédié avec tables de traduction, statuts de publication, ordre et contraintes.
 - L'API publique compétences ne retourne que les catégories `PUBLISHED` contenant des compétences `PUBLISHED`, visibles et traduites dans la langue demandée.
 - Les niveaux de compétence sont qualitatifs, sans pourcentages.
@@ -66,24 +128,32 @@ Clôturer l'intervention exceptionnelle de restructuration architecturale senior
 
 | Test | Résultat |
 |------|----------|
-| Backend `mvn test` | PASS — 22 tests |
-| Backend `mvn package` | PASS — 22 tests, jar généré |
-| Frontend lint avec Node 20 temporaire | PASS |
-| Frontend `npm run test:ci` avec Node 20 temporaire | PASS — 24 tests |
-| Frontend `npm run build` avec Node 20 temporaire | PASS avec warning budget initial +2,94 kB |
+| Backend `mvn test` (sous-phase 5.6) | PASS — 34 tests |
+| Frontend `npx eslint .` (sous-phase 5.6) | PASS |
+| Frontend `npx ng test --watch=false --browsers=ChromeHeadless` (sous-phase 5.6) | PASS — 37 tests |
+| Frontend `npx ng build` (sous-phase 5.6) | PASS avec warning budget initial +20,54 kB |
+| Backend `mvn test` (historique 5.4) | PASS — 22 tests |
+| Backend `mvn package` (historique 5.4) | PASS — 22 tests, jar généré |
+| Frontend lint avec Node 20 temporaire (historique 5.4) | PASS |
+| Frontend `npm run test:ci` avec Node 20 temporaire (historique 5.4) | PASS — 24 tests |
+| Frontend `npm run build` avec Node 20 temporaire (historique 5.4) | PASS avec warning budget initial +2,94 kB |
 | Audit `<select>/<option>` périmètre 5.4 | PASS |
-| Inspection visuelle navigateur | PASS (HTTP/HTML) — voir « Vérification runtime post-restructuration » |
+| Inspection visuelle navigateur (historique 5.4) | PASS (HTTP/HTML) — voir « Vérification runtime post-restructuration » |
 
 ## Audits
 
 | Audit | Verdict |
 |-------|---------|
-| Backend senior | CONFORME |
-| Frontend senior | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
-| UX/UI SaaS premium | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
-| Security | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
-| Database | CONFORME |
-| Conformité PrimeNG sélections | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| Backend senior (5.6) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| Frontend senior + PrimeNG (5.6) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| Sécurité médias/brouillons/confidentialité (5.6) | CONFORME AVEC RÉSERVE MINEURE TRACÉE |
+| UX/UI SaaS premium (5.6, validation visuelle non exécutée) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| Backend senior (historique 5.4) | CONFORME |
+| Frontend senior (historique 5.4) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| UX/UI SaaS premium (historique 5.4) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| Security (historique 5.4) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| Database (historique 5.4) | CONFORME |
+| Conformité PrimeNG sélections (historique 5.4) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
 | Audit final sous-phase 5.4 | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
 
 ## Réserves
@@ -99,26 +169,52 @@ Voir `.agents/state/RISKS.md` et `.agents/state/TECHNICAL_DEBT.md`.
 
 ## Éléments à préserver
 
-- Ne pas lancer 5.5 sans `GO`.
-- Ne pas implémenter expériences, formations, projets, services, témoignages, messages, contact, médiathèque complète ou SEO avancé.
+- Ne pas lancer 5.7 sans `GO`.
+- Ne pas implémenter services, témoignages, messages, contact, médiathèque complète ou SEO avancé.
 - Ne pas afficher de statistiques fictives.
-- Ne pas exposer les coordonnées masquées dans les réponses publiques.
+- Ne pas exposer les coordonnées masquées ni les projets `PRIVATE`/brouillons dans les réponses publiques.
 - Ne pas transformer les paramètres en système générique non typé.
 - Ne pas introduire de `<select>` natif dans les nouveaux formulaires admin.
 
 ## Prochaine action autorisée
 
-Attendre un `GO` humain explicite pour la sous-phase 5.5 ou une sous-phase nommée.
+Attendre un `GO` humain explicite pour la sous-phase 5.7 ou une sous-phase nommée.
 
 ## Statut humain
 
 - Phase autorisée : Aucune
-- Gate en attente : Oui — sous-phase 5.5 ou prochaine sous-phase nommée
-- Statut global : `RESTRUCTURATION_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
+- Gate en attente : Oui — sous-phase 5.7 ou prochaine sous-phase nommée
+- Statut global : `PHASE_5_6_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
 
 ## Outil source
 
-Codex — sous-phase 5.4 du 2026-07-26.
+Claude Code — sous-phase 5.6 du 2026-08-02.
+
+## Sous-phase 5.6 — Projets et études de cas — 2026-08-02
+
+- Backend : module `project` ajouté par domaine (`api`, `application`, `domain`, `infrastructure`, `config`), migration `V6__projects.sql`, API admin `/api/v1/admin/projects` (CRUD, publication, dépublication, archivage, mise en avant, ordre, médias couverture/galerie), API publique `/api/v1/public/projects` (liste paginée filtrable par compétence, mis en avant, détail par slug, médias).
+- Confidentialité dédiée `ProjectConfidentiality` (`PUBLIC`/`ANONYMIZED`/`PRIVATE`) : masque liens/URLs en mode anonymisé, exclut totalement le mode privé des réponses publiques et de la lecture média publique.
+- Frontend : feature `admin/projects` ajoutée (DTO, formulaires typés, mapper, client API avec CSRF, page admin PrimeNG multi-sections avec galerie média) ; pages publiques `/projects` et `/projects/:slug` avec SEO minimal (`Meta`/`Title`).
+- Réutilisation stricte des mécanismes existants : `PublicationStatus` partagé, référentiel compétences (`skills`), motif de garde de modification non enregistrée, conventions de dossiers (`api/`, `mappers/`, `models/dto`, `models/forms`, `pages/`).
+- Vérifié : backend `mvn test` PASS — 34 tests (dont 8 nouveaux `ProjectControllerTests`) ; frontend `npx eslint .` PASS ; frontend `npx ng test --watch=false --browsers=ChromeHeadless` PASS — 37 tests ; frontend `npx ng build` PASS avec warning budget initial +20,54 kB.
+- Audits : backend senior CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES (limite de galerie codée en dur, langue `"fr"` codée en dur dans le mapper — motif préexistant partagé avec `CareerMapper`) ; frontend senior + PrimeNG CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES (motif de date `toISOString()` préexistant partagé avec `career`) ; sécurité médias/brouillons/confidentialité CONFORME AVEC RÉSERVE MINEURE TRACÉE ; UX/UI SaaS premium CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES.
+- **VALIDATION VISUELLE NON EXÉCUTÉE** pour ce périmètre : aucun navigateur ni outil de capture d'écran disponible dans cet environnement ; audit UX/UI limité à une revue statique du code, des styles et des règles d'accessibilité globales déjà en vigueur (`:focus-visible`).
+- Rapports : `.agents/state/PHASE_5_6_BACKEND_AUDIT.md`, `.agents/state/PHASE_5_6_FRONTEND_AUDIT.md`, `.agents/state/PHASE_5_6_UX_UI_AUDIT.md`, `.agents/state/PHASE_5_6_SECURITY_AUDIT.md`, `.agents/state/PHASE_5_6_IMPLEMENTATION_REPORT.md`, `.agents/state/PHASE_5_6_REPORT.md`.
+- Déviation documentée : `ProjectRequest` réutilisé pour création et modification (motif identique à `career`/`skills`), sans risque car id serveur-généré et slug revalidé à chaque écriture.
+- Statut global : `PHASE_5_6_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`.
+- Prochaine action autorisée : attendre un `GO` humain explicite pour 5.7 ; ne pas lancer 5.7 automatiquement.
+
+## Correction UX/UI et structurelle des formulaires — 2026-08-02
+
+- Périmètre corrigé : pages auth admin, profil, paramètres, compétences/catégories et parcours admin existant.
+- Frontend : labels au-dessus des contrôles, grilles `admin-form-grid` responsive, largeurs PrimeNG fluides, `p-tabs` pour FR/EN, `p-toggleswitch` pour booléens, `p-fileupload` pour médias, `p-button` pour actions.
+- Modales : largeur responsive, corps scrollable, footer d'actions sticky, confirmation PrimeNG d'abandon sur Compétences et Parcours avec comparaison de snapshot de formulaire.
+- CSS : correction du dépassement de la grille Profil, respect de l'attribut `hidden` des panneaux PrimeNG Tabs, `min-width: 0` sur sections et contrôles pour éviter les chevauchements.
+- Vérifié : scan statique admin sans `<select>`, `<option>`, `type="checkbox"` ni `type="file"` natifs dans les templates ; frontend lint PASS ; tests Angular PASS — 29 tests ; build Angular PASS avec warning budget initial +16,84 kB.
+- Inspection visuelle : Angular dev server + mock API temporaire + Chrome headless DevTools ; captures dans `/tmp/portfolio-form-inspection` pour login, reset, profil desktop/mobile, paramètres, compétences, modales, onglets, select, parcours, datepicker et mobile.
+- Rapports : `.agents/state/FORM_CORRECTION_INITIAL_AUDIT.md`, `.agents/state/FORM_CORRECTION_FRONTEND_AUDIT.md`, `.agents/state/FORM_CORRECTION_UX_UI_AUDIT.md`, `.agents/state/FORM_CORRECTION_REPORT.md`.
+- Statut global : `CORRECTION_FORMULAIRES_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`.
+- Prochaine action autorisée : attendre un `GO` humain explicite ; ne pas lancer 5.6 automatiquement.
 
 ## Correctif post-clôture 5.3 — 2026-07-22
 

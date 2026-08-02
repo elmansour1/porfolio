@@ -3,12 +3,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Observable, finalize, forkJoin } from 'rxjs';
 
 import { ButtonModule } from 'primeng/button';
-import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { TableModule } from 'primeng/table';
+import { TabsModule } from 'primeng/tabs';
 import { TagModule } from 'primeng/tag';
 import { TextareaModule } from 'primeng/textarea';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
@@ -42,12 +42,12 @@ type DeleteTarget =
   imports: [
     ReactiveFormsModule,
     ButtonModule,
-    CheckboxModule,
     DialogModule,
     InputNumberModule,
     InputTextModule,
     SelectModule,
     TableModule,
+    TabsModule,
     TagModule,
     TextareaModule,
     ToggleSwitchModule,
@@ -291,50 +291,66 @@ type DeleteTarget =
     <p-dialog
       [header]="categoryForm.controls.id.value ? 'Modifier la catégorie' : 'Créer une catégorie'"
       [visible]="categoryDialogOpen()"
-      (visibleChange)="categoryDialogOpen.set($event)"
+      (visibleChange)="onCategoryDialogVisibility($event)"
       [modal]="true"
-      [style]="{ width: 'min(44rem, calc(100vw - 2rem))' }"
+      styleClass="admin-dialog--narrow"
     >
       <form class="admin-dialog-form" [formGroup]="categoryForm" (ngSubmit)="saveCategory()">
-        <div class="admin-form-grid">
-          <label for="category-status">
-            <span>Statut</span>
-            <p-select
-              inputId="category-status"
-              formControlName="publicationStatus"
-              [options]="statusOptions()"
-              optionLabel="label"
-              optionValue="value"
-              placeholder="Sélectionner un statut"
-            />
-          </label>
-          <label for="category-order">
-            <span>Ordre</span>
-            <p-inputnumber inputId="category-order" formControlName="displayOrder" [min]="0" />
-          </label>
-          <label for="category-icon">
-            <span>Icône</span>
-            <input id="category-icon" pInputText formControlName="icon" placeholder="pi pi-server" />
-          </label>
-        </div>
-        <div class="admin-language-grid">
-          <fieldset>
-            <legend>Français</legend>
-            <label><span>Nom</span><input pInputText formControlName="nameFr" /></label>
-            <label>
-              <span>Description</span>
-              <textarea pTextarea formControlName="descriptionFr" rows="3"></textarea>
+        <section class="admin-form-section">
+          <div class="admin-form-section__header">
+            <h3>Paramètres</h3>
+            <p>Statut, ordre et icône utilisée dans l'administration et l'affichage public.</p>
+          </div>
+          <div class="admin-form-grid">
+            <label for="category-status">
+              <span>Statut</span>
+              <p-select
+                inputId="category-status"
+                formControlName="publicationStatus"
+                [options]="statusOptions()"
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Sélectionner un statut"
+              />
             </label>
-          </fieldset>
-          <fieldset>
-            <legend>English</legend>
-            <label><span>Name</span><input pInputText formControlName="nameEn" /></label>
-            <label>
-              <span>Description</span>
-              <textarea pTextarea formControlName="descriptionEn" rows="3"></textarea>
+            <label for="category-order">
+              <span>Ordre</span>
+              <p-inputnumber inputId="category-order" formControlName="displayOrder" [min]="0" />
             </label>
-          </fieldset>
-        </div>
+            <label for="category-icon" class="admin-field--full">
+              <span>Icône</span>
+              <input id="category-icon" pInputText formControlName="icon" placeholder="pi pi-server" />
+            </label>
+          </div>
+        </section>
+        <section class="admin-form-section">
+          <div class="admin-form-section__header">
+            <h3>Contenu traduit</h3>
+            <p>Chaque langue se renseigne dans son propre onglet pour conserver une largeur lisible.</p>
+          </div>
+          <p-tabs value="fr" class="admin-language-tabs">
+            <p-tablist>
+              <p-tab value="fr">Français</p-tab>
+              <p-tab value="en">English</p-tab>
+            </p-tablist>
+            <p-tabpanels>
+              <p-tabpanel value="fr">
+                <label><span>Nom</span><input pInputText formControlName="nameFr" /></label>
+                <label>
+                  <span>Description</span>
+                  <textarea pTextarea formControlName="descriptionFr" rows="4"></textarea>
+                </label>
+              </p-tabpanel>
+              <p-tabpanel value="en">
+                <label><span>Name</span><input pInputText formControlName="nameEn" /></label>
+                <label>
+                  <span>Description</span>
+                  <textarea pTextarea formControlName="descriptionEn" rows="4"></textarea>
+                </label>
+              </p-tabpanel>
+            </p-tabpanels>
+          </p-tabs>
+        </section>
         @if (formMessage()) {
           <p class="admin-form-message admin-form-message--error">{{ formMessage() }}</p>
         }
@@ -353,91 +369,113 @@ type DeleteTarget =
     <p-dialog
       [header]="skillForm.controls.id.value ? 'Modifier la compétence' : 'Créer une compétence'"
       [visible]="skillDialogOpen()"
-      (visibleChange)="skillDialogOpen.set($event)"
+      (visibleChange)="onSkillDialogVisibility($event)"
       [modal]="true"
-      [style]="{ width: 'min(58rem, calc(100vw - 2rem))' }"
+      styleClass="admin-dialog--medium"
     >
       <form class="admin-dialog-form" [formGroup]="skillForm" (ngSubmit)="saveSkill()">
-        <div class="admin-form-grid">
-          <label for="skill-category">
-            <span>Catégorie</span>
-            <p-select
-              inputId="skill-category"
-              formControlName="categoryId"
-              [options]="categoryOptions()"
-              optionLabel="label"
-              optionValue="value"
-              [filter]="categoryOptions().length > 8"
-              placeholder="Sélectionner une catégorie"
-              emptyMessage="Aucune catégorie disponible"
-            />
-          </label>
-          <label for="skill-level">
-            <span>Niveau qualitatif</span>
-            <p-select
-              inputId="skill-level"
-              formControlName="level"
-              [options]="levelOptions()"
-              optionLabel="label"
-              optionValue="value"
-              [showClear]="true"
-              placeholder="Niveau facultatif"
-            />
-          </label>
-          <label for="skill-status">
-            <span>Statut</span>
-            <p-select
-              inputId="skill-status"
-              formControlName="publicationStatus"
-              [options]="statusOptions()"
-              optionLabel="label"
-              optionValue="value"
-              placeholder="Sélectionner un statut"
-            />
-          </label>
-          <label for="skill-order">
-            <span>Ordre</span>
-            <p-inputnumber inputId="skill-order" formControlName="displayOrder" [min]="0" />
-          </label>
-          <label for="skill-icon">
-            <span>Icône</span>
-            <input id="skill-icon" pInputText formControlName="icon" placeholder="pi pi-code" />
-          </label>
-          <label class="admin-toggle-field" for="skill-featured">
-            <span>Mise en avant</span>
-            <p-toggleswitch formControlName="featured" inputId="skill-featured" />
-          </label>
-          <label class="admin-toggle-field" for="skill-visible">
-            <span>Visible publiquement</span>
-            <p-checkbox formControlName="visible" inputId="skill-visible" [binary]="true" />
-          </label>
-        </div>
-        <div class="admin-language-grid">
-          <fieldset>
-            <legend>Français</legend>
-            <label><span>Nom</span><input pInputText formControlName="nameFr" /></label>
-            <label>
-              <span>Description</span>
-              <textarea pTextarea formControlName="descriptionFr" rows="3"></textarea>
+        <section class="admin-form-section">
+          <div class="admin-form-section__header">
+            <h3>Informations générales</h3>
+            <p>Classement, niveau, statut éditorial et visibilité de la compétence.</p>
+          </div>
+          <div class="admin-form-grid">
+            <label for="skill-category">
+              <span>Catégorie</span>
+              <p-select
+                inputId="skill-category"
+                formControlName="categoryId"
+                [options]="categoryOptions()"
+                optionLabel="label"
+                optionValue="value"
+                [filter]="categoryOptions().length > 8"
+                placeholder="Sélectionner une catégorie"
+                emptyMessage="Aucune catégorie disponible"
+              />
             </label>
-            <label>
-              <span>Usage concret</span>
-              <textarea pTextarea formControlName="usageSummaryFr" rows="3"></textarea>
+            <label for="skill-level">
+              <span>Niveau qualitatif</span>
+              <p-select
+                inputId="skill-level"
+                formControlName="level"
+                [options]="levelOptions()"
+                optionLabel="label"
+                optionValue="value"
+                [showClear]="true"
+                placeholder="Niveau facultatif"
+              />
             </label>
-          </fieldset>
-          <fieldset>
-            <legend>English</legend>
-            <label><span>Name</span><input pInputText formControlName="nameEn" /></label>
-            <label>
-              <span>Description</span>
-              <textarea pTextarea formControlName="descriptionEn" rows="3"></textarea>
+            <label for="skill-status">
+              <span>Statut</span>
+              <p-select
+                inputId="skill-status"
+                formControlName="publicationStatus"
+                [options]="statusOptions()"
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Sélectionner un statut"
+              />
             </label>
-            <label>
-              <span>Practical usage</span>
-              <textarea pTextarea formControlName="usageSummaryEn" rows="3"></textarea>
+            <label for="skill-order">
+              <span>Ordre</span>
+              <p-inputnumber inputId="skill-order" formControlName="displayOrder" [min]="0" />
             </label>
-          </fieldset>
-        </div>
+            <label for="skill-icon">
+              <span>Icône</span>
+              <input id="skill-icon" pInputText formControlName="icon" placeholder="pi pi-code" />
+            </label>
+            <label class="admin-toggle-row" for="skill-featured">
+              <span>
+                Mise en avant
+                <small>Affiche la compétence dans les expertises principales.</small>
+              </span>
+              <p-toggleswitch formControlName="featured" inputId="skill-featured" />
+            </label>
+            <label class="admin-toggle-row admin-field--full" for="skill-visible">
+              <span>
+                Visible publiquement
+                <small>Une compétence masquée reste administrable mais n'apparaît pas sur le site.</small>
+              </span>
+              <p-toggleswitch formControlName="visible" inputId="skill-visible" />
+            </label>
+          </div>
+        </section>
+        <section class="admin-form-section">
+          <div class="admin-form-section__header">
+            <h3>Contenu traduit</h3>
+            <p>Les textes longs utilisent toute la largeur disponible dans chaque langue.</p>
+          </div>
+          <p-tabs value="fr" class="admin-language-tabs">
+            <p-tablist>
+              <p-tab value="fr">Français</p-tab>
+              <p-tab value="en">English</p-tab>
+            </p-tablist>
+            <p-tabpanels>
+              <p-tabpanel value="fr">
+                <label><span>Nom</span><input pInputText formControlName="nameFr" /></label>
+                <label>
+                  <span>Description</span>
+                  <textarea pTextarea formControlName="descriptionFr" rows="4"></textarea>
+                </label>
+                <label>
+                  <span>Usage concret</span>
+                  <textarea pTextarea formControlName="usageSummaryFr" rows="4"></textarea>
+                </label>
+              </p-tabpanel>
+              <p-tabpanel value="en">
+                <label><span>Name</span><input pInputText formControlName="nameEn" /></label>
+                <label>
+                  <span>Description</span>
+                  <textarea pTextarea formControlName="descriptionEn" rows="4"></textarea>
+                </label>
+                <label>
+                  <span>Practical usage</span>
+                  <textarea pTextarea formControlName="usageSummaryEn" rows="4"></textarea>
+                </label>
+              </p-tabpanel>
+            </p-tabpanels>
+          </p-tabs>
+        </section>
         @if (formMessage()) {
           <p class="admin-form-message admin-form-message--error">{{ formMessage() }}</p>
         }
@@ -484,10 +522,28 @@ type DeleteTarget =
         </div>
       }
     </p-dialog>
+
+    <p-dialog
+      header="Modifications non enregistrées"
+      [visible]="unsavedCloseTarget() !== null"
+      (visibleChange)="cancelPendingClose()"
+      [modal]="true"
+      [style]="{ width: 'min(32rem, calc(100vw - 2rem))' }"
+    >
+      <div class="admin-dialog-form">
+        <p>Des modifications sont en cours dans ce formulaire. Confirmez l'abandon pour fermer la modale.</p>
+        <div class="admin-dialog-actions">
+          <p-button label="Continuer l'édition" severity="secondary" type="button" (onClick)="cancelPendingClose()" />
+          <p-button label="Abandonner" icon="pi pi-times" severity="danger" type="button" (onClick)="confirmPendingClose()" />
+        </div>
+      </div>
+    </p-dialog>
   `,
 })
 export class SkillsPage {
   private readonly api = inject(SkillsApiService);
+  private initialCategoryFormValue = '';
+  private initialSkillFormValue = '';
 
   readonly loading = signal(true);
   readonly saving = signal(false);
@@ -511,6 +567,7 @@ export class SkillsPage {
   readonly categoryDialogOpen = signal(false);
   readonly skillDialogOpen = signal(false);
   readonly deleteTarget = signal<DeleteTarget | null>(null);
+  readonly unsavedCloseTarget = signal<'category' | 'skill' | null>(null);
 
   readonly categoryFilter = new FormControl<string | null>(null);
   readonly statusFilter = new FormControl<PublicationStatus | null>(null);
@@ -632,12 +689,14 @@ export class SkillsPage {
   openCategoryDialog(category?: SkillCategory): void {
     this.formMessage.set(null);
     this.categoryForm.reset(categoryFormValue(category, this.nextOrder(this.categories())));
+    this.initialCategoryFormValue = this.formSnapshot(this.categoryForm);
     this.categoryDialogOpen.set(true);
   }
 
   openSkillDialog(skill?: Skill): void {
     this.formMessage.set(null);
     this.skillForm.reset(skillFormValue(skill, this.categories()[0]?.id ?? null, this.nextOrder(this.skills())));
+    this.initialSkillFormValue = this.formSnapshot(this.skillForm);
     this.skillDialogOpen.set(true);
   }
 
@@ -696,9 +755,50 @@ export class SkillsPage {
   }
 
   closeDialogs(): void {
+    if (this.categoryDialogOpen() && this.hasCategoryFormChanges()) {
+      this.unsavedCloseTarget.set('category');
+      return;
+    }
+    if (this.skillDialogOpen() && this.hasSkillFormChanges()) {
+      this.unsavedCloseTarget.set('skill');
+      return;
+    }
+    this.forceCloseDialogs();
+  }
+
+  onCategoryDialogVisibility(visible: boolean): void {
+    if (visible) {
+      this.categoryDialogOpen.set(true);
+      return;
+    }
+    this.closeDialogs();
+  }
+
+  onSkillDialogVisibility(visible: boolean): void {
+    if (visible) {
+      this.skillDialogOpen.set(true);
+      return;
+    }
+    this.closeDialogs();
+  }
+
+  cancelPendingClose(): void {
+    this.unsavedCloseTarget.set(null);
+  }
+
+  confirmPendingClose(): void {
+    this.unsavedCloseTarget.set(null);
+    this.forceCloseDialogs();
+  }
+
+  private forceCloseDialogs(): void {
     this.categoryDialogOpen.set(false);
     this.skillDialogOpen.set(false);
     this.formMessage.set(null);
+    this.categoryForm.markAsPristine();
+    this.skillForm.markAsPristine();
+    this.initialCategoryFormValue = '';
+    this.initialSkillFormValue = '';
   }
 
   closeDeleteDialog(): void {
@@ -759,6 +859,18 @@ export class SkillsPage {
 
   private nextOrder(items: readonly { displayOrder: number }[]): number {
     return Math.max(0, ...items.map((item) => item.displayOrder)) + 10;
+  }
+
+  private hasCategoryFormChanges(): boolean {
+    return this.initialCategoryFormValue !== this.formSnapshot(this.categoryForm);
+  }
+
+  private hasSkillFormChanges(): boolean {
+    return this.initialSkillFormValue !== this.formSnapshot(this.skillForm);
+  }
+
+  private formSnapshot(form: SkillCategoryForm | SkillForm): string {
+    return JSON.stringify(form.getRawValue());
   }
 
 }

@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres généraux livrés en sous-phase 5.3. Compétences et catégories livrées en sous-phase 5.4.
+Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres généraux livrés en sous-phase 5.3. Compétences et catégories livrées en sous-phase 5.4. Parcours professionnel livré en sous-phase 5.5. Projets et études de cas livrés en sous-phase 5.6.
 
 ## Exigences MVP
 
@@ -34,8 +34,10 @@ Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres gén
 | FR-007 | Partiellement livré | Authentification admin et protection des routes/endpoints livrées en 5.1 ; rôles complexes exclus du MVP. |
 | FR-008 | Livré en 5.3 | Profil, coordonnées, réseaux, CV, photo, traductions, statistiques réelles et visibilité publique sont administrables. |
 | FR-009 | Livré en 5.4 | Catégories et compétences administrables, traduisibles, ordonnables, publiables, archivables, sans pourcentages arbitraires. |
-| FR-013 | Partiellement livré | Médias principaux profil/paramètres livrés ; médiathèque complète hors périmètre. |
-| FR-015 | Partiellement livré | Authentification, profil, paramètres, médias sensibles et modifications compétences/catégories journalisés ; autres contenus à venir. |
+| FR-010 | Livré en 5.5 | Expériences, formations et certifications administrables, traduisibles, ordonnables, publiables, confidentialité appliquée côté API publique. |
+| FR-011 | Livré en 5.6 | Projets et études de cas administrables, traduisibles, ordonnables, publiables, avec confidentialité dédiée (public/anonymisé/privé), galerie média et technologies liées via le référentiel compétences existant. |
+| FR-013 | Partiellement livré | Médias principaux profil/paramètres livrés ; galerie média par projet livrée en 5.6 ; médiathèque générique complète hors périmètre. |
+| FR-015 | Partiellement livré | Authentification, profil, paramètres, médias sensibles, modifications compétences/catégories, parcours et projets journalisés ; autres contenus à venir. |
 
 ## Règles métier clés
 
@@ -66,7 +68,7 @@ Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres gén
 
 ## Dernière mise à jour
 
-2026-07-26
+2026-08-02 (avancement FR-010, FR-011, FR-013, FR-015 — sous-phase 5.6)
 
 ## Sous-phase 5.5 — Exigences livrées
 

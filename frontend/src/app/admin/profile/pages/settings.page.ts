@@ -1,8 +1,13 @@
 import { ChangeDetectionStrategy, Component, HostListener, inject, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 
+import { ButtonModule } from 'primeng/button';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { type FileUploadHandlerEvent } from 'primeng/types/fileupload';
 
 import { SelectOption } from '../../../shared/models/select-option.model';
 import { ProfileApiService } from '../api/profile-api.service';
@@ -12,7 +17,15 @@ import { toAdminSettingsPayload } from '../mappers/settings-form.mapper';
 
 @Component({
   selector: 'app-settings-page',
-  imports: [ReactiveFormsModule, SelectModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    FileUploadModule,
+    InputTextModule,
+    SelectModule,
+    ToggleSwitchModule,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="admin-content-page settings-page">
@@ -49,11 +62,11 @@ import { toAdminSettingsPayload } from '../mappers/settings-form.mapper';
               <div class="admin-form-grid">
                 <label>
                   <span>Nom public du site</span>
-                  <input formControlName="publicSiteName" />
+                  <input pInputText formControlName="publicSiteName" />
                 </label>
                 <label>
                   <span>Monogramme</span>
-                  <input formControlName="monogram" maxlength="12" />
+                  <input pInputText formControlName="monogram" maxlength="12" />
                 </label>
                 <label for="settings-default-language">
                   <span>Langue par défaut</span>
@@ -69,16 +82,24 @@ import { toAdminSettingsPayload } from '../mappers/settings-form.mapper';
                 </label>
                 <div class="admin-fieldset">
                   <span>Langues actives</span>
-                  <label class="admin-checkbox"><input type="checkbox" formControlName="activeFr" />Français</label>
-                  <label class="admin-checkbox"><input type="checkbox" formControlName="activeEn" />Anglais</label>
+                  <div class="admin-toggle-grid">
+                    <label class="admin-toggle-row" for="settings-active-fr">
+                      <span>Français</span>
+                      <p-toggleswitch inputId="settings-active-fr" formControlName="activeFr" />
+                    </label>
+                    <label class="admin-toggle-row" for="settings-active-en">
+                      <span>Anglais</span>
+                      <p-toggleswitch inputId="settings-active-en" formControlName="activeEn" />
+                    </label>
+                  </div>
                 </div>
                 <label>
                   <span>E-mail de réception interne</span>
-                  <input formControlName="contactRecipientEmail" type="email" />
+                  <input pInputText formControlName="contactRecipientEmail" type="email" />
                 </label>
                 <label>
                   <span>Copyright</span>
-                  <input formControlName="footerCopyright" />
+                  <input pInputText formControlName="footerCopyright" />
                 </label>
               </div>
             </section>
@@ -97,13 +118,14 @@ import { toAdminSettingsPayload } from '../mappers/settings-form.mapper';
                       <strong>{{ section.label }}</strong>
                       <small>{{ section.sectionKey }}</small>
                     </div>
-                    <label class="admin-checkbox">
-                      <input
-                        type="checkbox"
-                        [checked]="section.visible"
-                        (change)="updateSection(index, eventChecked($event))"
+                    <label class="admin-toggle-row" [for]="'settings-section-' + section.sectionKey">
+                      <span>Visible</span>
+                      <p-toggleswitch
+                        [inputId]="'settings-section-' + section.sectionKey"
+                        [ngModel]="section.visible"
+                        [ngModelOptions]="{ standalone: true }"
+                        (ngModelChange)="updateSection(index, $event)"
                       />
-                      Visible
                     </label>
                   </div>
                 }
@@ -119,10 +141,24 @@ import { toAdminSettingsPayload } from '../mappers/settings-form.mapper';
                   <h2>Affichage global</h2>
                 </div>
               </div>
-              <label class="admin-checkbox"><input type="checkbox" formControlName="showCvDownload" />Bouton de téléchargement du CV</label>
-              <label class="admin-checkbox"><input type="checkbox" formControlName="showContactDetails" />Coordonnées publiques</label>
-              <label class="admin-checkbox"><input type="checkbox" formControlName="showSocialLinks" />Réseaux sociaux</label>
-              <label class="admin-checkbox"><input type="checkbox" formControlName="maintenanceMode" />Mode maintenance</label>
+              <div class="admin-toggle-grid">
+                <label class="admin-toggle-row" for="settings-show-cv-download">
+                  <span>Bouton de téléchargement du CV</span>
+                  <p-toggleswitch inputId="settings-show-cv-download" formControlName="showCvDownload" />
+                </label>
+                <label class="admin-toggle-row" for="settings-show-contact-details">
+                  <span>Coordonnées publiques</span>
+                  <p-toggleswitch inputId="settings-show-contact-details" formControlName="showContactDetails" />
+                </label>
+                <label class="admin-toggle-row" for="settings-show-social-links">
+                  <span>Réseaux sociaux</span>
+                  <p-toggleswitch inputId="settings-show-social-links" formControlName="showSocialLinks" />
+                </label>
+                <label class="admin-toggle-row" for="settings-maintenance-mode">
+                  <span>Mode maintenance</span>
+                  <p-toggleswitch inputId="settings-maintenance-mode" formControlName="maintenanceMode" />
+                </label>
+              </div>
             </section>
 
             <section class="admin-panel">
@@ -135,12 +171,22 @@ import { toAdminSettingsPayload } from '../mappers/settings-form.mapper';
               @if (settings()?.logo; as logo) {
                 <img class="admin-media-preview admin-media-preview--logo" [src]="logo.url" [alt]="logo.altText || 'Logo du site'" />
                 <p class="admin-muted">{{ logo.fileName }} · {{ mediaSize(logo.sizeBytes) }}</p>
-                <button class="admin-danger-link" type="button" (click)="deleteLogo()">Supprimer le logo</button>
+                <p-button label="Supprimer le logo" icon="pi pi-trash" severity="danger" type="button" (onClick)="deleteLogo()" />
               } @else {
                 <p class="admin-muted">Aucun logo téléversé. Le monogramme est utilisé.</p>
               }
-              <label><span>Texte alternatif</span><input formControlName="logoAltText" /></label>
-              <input type="file" accept="image/png,image/jpeg,image/webp,image/avif" (change)="uploadLogo($event)" />
+              <label><span>Texte alternatif</span><input pInputText formControlName="logoAltText" /></label>
+              <p-fileupload
+                mode="basic"
+                styleClass="admin-file-upload"
+                chooseLabel="Téléverser le logo"
+                chooseIcon="pi pi-upload"
+                accept="image/png,image/jpeg,image/webp,image/avif"
+                [auto]="true"
+                [customUpload]="true"
+                [maxFileSize]="5242880"
+                (uploadHandler)="uploadLogo($event)"
+              />
             </section>
 
             <section class="admin-panel">
@@ -152,11 +198,21 @@ import { toAdminSettingsPayload } from '../mappers/settings-form.mapper';
               </div>
               @if (settings()?.favicon; as favicon) {
                 <p class="admin-muted">{{ favicon.fileName }} · {{ mediaSize(favicon.sizeBytes) }}</p>
-                <button class="admin-danger-link" type="button" (click)="deleteFavicon()">Supprimer le favicon</button>
+                <p-button label="Supprimer le favicon" icon="pi pi-trash" severity="danger" type="button" (onClick)="deleteFavicon()" />
               } @else {
                 <p class="admin-muted">Aucun favicon téléversé.</p>
               }
-              <input type="file" accept="image/png,image/jpeg,image/webp,image/avif" (change)="uploadFavicon($event)" />
+              <p-fileupload
+                mode="basic"
+                styleClass="admin-file-upload"
+                chooseLabel="Téléverser le favicon"
+                chooseIcon="pi pi-upload"
+                accept="image/png,image/jpeg,image/webp,image/avif"
+                [auto]="true"
+                [customUpload]="true"
+                [maxFileSize]="2097152"
+                (uploadHandler)="uploadFavicon($event)"
+              />
             </section>
           </aside>
 
@@ -166,10 +222,12 @@ import { toAdminSettingsPayload } from '../mappers/settings-form.mapper';
                 {{ message() }}
               </p>
             }
-            <button class="admin-primary-link" type="submit" [disabled]="saving() || form.invalid">
-              <i class="pi pi-save" aria-hidden="true"></i>
-              {{ saving() ? 'Enregistrement...' : 'Enregistrer les paramètres' }}
-            </button>
+            <p-button
+              type="submit"
+              icon="pi pi-save"
+              [label]="saving() ? 'Enregistrement...' : 'Enregistrer les paramètres'"
+              [disabled]="saving() || form.invalid"
+            />
           </div>
         </form>
       }
@@ -252,7 +310,7 @@ export class SettingsPage {
     this.form.markAsDirty();
   }
 
-  uploadLogo(event: Event): void {
+  uploadLogo(event: FileUploadHandlerEvent): void {
     const file = this.firstFile(event);
     if (!file) {
       return;
@@ -270,7 +328,7 @@ export class SettingsPage {
     });
   }
 
-  uploadFavicon(event: Event): void {
+  uploadFavicon(event: FileUploadHandlerEvent): void {
     const file = this.firstFile(event);
     if (!file) {
       return;
@@ -286,10 +344,6 @@ export class SettingsPage {
       next: (settings) => this.applySettings(settings),
       error: () => this.setError("Le favicon n'a pas pu être supprimé."),
     });
-  }
-
-  eventChecked(event: Event): boolean {
-    return event.target instanceof HTMLInputElement ? event.target.checked : false;
   }
 
   mediaSize(size: number): string {
@@ -325,10 +379,8 @@ export class SettingsPage {
     });
   }
 
-  private firstFile(event: Event): File | null {
-    return event.target instanceof HTMLInputElement && event.target.files?.length
-      ? event.target.files.item(0)
-      : null;
+  private firstFile(event: FileUploadHandlerEvent): File | null {
+    return event.files.length ? event.files[0] : null;
   }
 
   private setError(message: string): void {

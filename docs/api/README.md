@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 2 — Architecture et conception. Endpoints d'authentification administrateur implémentés en sous-phase 5.1. Endpoints profil/paramètres implémentés en sous-phase 5.3. Endpoints compétences/catégories implémentés en sous-phase 5.4.
+Validé en Phase 2 — Architecture et conception. Endpoints d'authentification administrateur implémentés en sous-phase 5.1. Endpoints profil/paramètres implémentés en sous-phase 5.3. Endpoints compétences/catégories implémentés en sous-phase 5.4. Endpoints parcours professionnel implémentés en sous-phase 5.5. Endpoints projets et études de cas implémentés en sous-phase 5.6.
 
 ## Conventions
 
@@ -127,7 +127,7 @@ Règle CSRF : les écritures admin et auth POST doivent utiliser le token obtenu
 | Compétences | CRUD `/api/v1/admin/skill-categories`, CRUD `/api/v1/admin/skills`, ordre/publication |
 | Expériences | CRUD `/api/v1/admin/experiences`, ordre/publication |
 | Formations | CRUD `/api/v1/admin/education`, ordre/publication |
-| Projets | CRUD `/api/v1/admin/projects`, `PUT /publish`, `PUT /archive`, `PUT /feature`, `PUT /order` |
+| Projets | CRUD `/api/v1/admin/projects`, `POST /{id}/publish`, `POST /{id}/unpublish`, `POST /{id}/archive`, `PUT /{id}/featured`, `PUT /{id}/order`, `POST/DELETE/PUT /{id}/media` |
 | Services | CRUD `/api/v1/admin/services`, activation/publication/ordre |
 | Témoignages | CRUD `/api/v1/admin/testimonials`, publication/ordre |
 | Messages | `GET /api/v1/admin/contact-messages`, `GET /{id}`, `PUT /{id}/status`, archive/spam |
@@ -229,7 +229,7 @@ Les écritures admin exigent une session administrateur et un CSRF valide.
 
 ## Dernière mise à jour
 
-2026-07-26
+2026-08-02 (ajout des contrats projets et études de cas — sous-phase 5.6)
 
 ## Sous-phase 5.5 — Parcours professionnel
 
@@ -261,4 +261,39 @@ Contrats :
 
 - Les valeurs métier sont transmises par codes stables (`ExperienceType`, `ContractType`, `WorkMode`, `EducationLevel`, `PublicationStatus`), jamais par libellés traduits.
 - Les réponses publiques excluent brouillons, archives et données confidentielles.
+
+## Sous-phase 5.6 — Projets et études de cas
+
+Endpoints admin protégés (`/api/v1/admin/projects`) :
+
+- `GET /api/v1/admin/projects?status=...` — liste paginée
+- `GET /api/v1/admin/projects/metadata` — options typées (statuts, types, confidentialité)
+- `GET /api/v1/admin/projects/{id}` — détail admin
+- `POST /api/v1/admin/projects` — création
+- `PUT /api/v1/admin/projects/{id}` — modification
+- `DELETE /api/v1/admin/projects/{id}` — suppression
+- `POST /api/v1/admin/projects/{id}/publish` — publication
+- `POST /api/v1/admin/projects/{id}/unpublish` — dépublication
+- `POST /api/v1/admin/projects/{id}/archive` — archivage
+- `PUT /api/v1/admin/projects/{id}/featured?value=true|false` — mise en avant
+- `PUT /api/v1/admin/projects/{id}/order?displayOrder=n` — ordre d'affichage
+- `POST /api/v1/admin/projects/{id}/media` (multipart, champ `file`, `kind=COVER|GALLERY`) — upload média
+- `DELETE /api/v1/admin/projects/{id}/media/{mediaId}` — suppression média
+- `PUT /api/v1/admin/projects/{id}/media/order` (corps : liste ordonnée d'UUID) — réordonnancement galerie
+- `GET /api/v1/admin/projects/media/{mediaId}` — lecture média admin (contrôle d'accès inclus)
+
+Endpoints publics (`/api/v1/public/projects`) :
+
+- `GET /api/v1/public/projects?lang=fr|en&skillId=...` — liste paginée, filtrable par compétence
+- `GET /api/v1/public/projects/featured?lang=fr|en` — projets mis en avant
+- `GET /api/v1/public/projects/{slug}?lang=fr|en` — détail par slug
+- `GET /api/v1/public/projects/media/{mediaId}` — lecture média public (bloque brouillon/archive/privé)
+
+Contrats :
+
+- Confidentialité `ProjectConfidentiality` (`PUBLIC`/`ANONYMIZED`/`PRIVATE`) : `ANONYMIZED` masque `demoUrl`/`githubUrl`/`links` mais conserve les médias ; `PRIVATE` est totalement exclu des réponses et médias publics.
+- Médias projet distingués par nature (`ProjectMediaKind` : `COVER`/`GALLERY`), avec ordre explicite pour la galerie.
+- Technologies liées réutilisent le référentiel compétences existant (`skillIds`).
+- `ProjectRequest` est réutilisé pour création et modification ; l'identifiant est serveur-généré et le slug est revalidé à chaque écriture (`existsBySlug`/`existsBySlugAndIdNot`).
+- Les écritures admin exigent une session administrateur et un CSRF valide.
 - Les écritures admin nécessitent session admin et CSRF.

@@ -121,11 +121,11 @@
 ## Phase 5 — Implémentation incrémentale
 
 **État :** `READY`
-**Dernière autorisation clôturée :** `GO pour la sous-phase 5.5 — Gestion des expériences professionnelles, des formations et des certifications` (2026-07-26)
+**Dernière autorisation clôturée :** `GO — SOUS-PHASE 5.6 : PROJETS ET ÉTUDES DE CAS` (2026-08-02)
 **Dépendances :** Phase 4 clôturée
-**Dernier périmètre autorisé :** Expériences, formations, certifications, missions/réalisations, technologies liées, confidentialité, publication, ordre, traductions, API admin/public, administration, affichage public, tests, documentation et audits.
-**Exclusions :** Projets, études de cas, services, témoignages, contact, messages, médiathèque complète, SEO avancé, synchronisation LinkedIn, import CV automatique, sous-phase 5.6.
-**Statut en cours :** `PHASE_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`. Aucune sous-phase suivante n'est autorisée.
+**Dernier périmètre autorisé :** Projets et études de cas : domaine métier, DTO, persistance, migrations, API admin/public, interfaces TypeScript, formulaires, administration PrimeNG, affichage public, publication, archivage, traductions FR/EN, ordre, mise en avant, confidentialité (public/anonymisé/privé), galerie média, SEO basique par projet, tests, documentation et audits.
+**Exclusions :** Tarification, paiement, panier, devis, réservation, calendrier, espace client, contrats, facturation, CRM, services, témoignages, contact, messages, médiathèque complète, SEO avancé, sous-phase 5.7.
+**Statut en cours :** `PHASE_5_6_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`. Aucune sous-phase suivante n'est autorisée.
 
 ### Sous-phase 5.1 — Authentification administrateur
 
@@ -244,6 +244,47 @@
 **Rapport :** `.agents/state/ARCHITECTURE_RESTRUCTURING_REPORT.md`
 **Statut final :** `RESTRUCTURATION_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
 
+### Intervention corrective — Formulaires admin UX/UI
+
+**Objectif :** Corriger les formulaires frontend existants pour obtenir une structure SaaS premium cohérente : labels au-dessus, grilles responsive, largeurs stables, composants PrimeNG, onglets multilingues et modales parcourables.
+**État :** `DONE`
+**Autorisation :** `GO — CORRECTION UX/UI ET STRUCTURELLE DES FORMULAIRES` (2026-08-02)
+**Date de clôture :** 2026-08-02
+**Exclusions :** Nouvelle fonctionnalité métier, backend, contrats API, modèle de données, permissions, workflows de publication, sous-phase 5.6, commit.
+
+| ID | Titre | Agents | État | Audit |
+|----|-------|--------|------|-------|
+| FORM-UX-1 | Audit initial des formulaires existants | Product, UX/UI, Frontend, QA | DONE | NON CONFORME corrigé |
+| FORM-UX-2 | Correction structurelle des pages et modales admin | Frontend, UX/UI, Accessibility | DONE | CONFORME |
+| FORM-UX-3 | Vérifications, inspection visuelle et corrections | QA, Reviewer Code, Reviewer UX/UI | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| FORM-UX-4 | Documentation, audit final et arrêt | Orchestrateur, Documentation | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+
+**Rapports :** `.agents/state/FORM_CORRECTION_INITIAL_AUDIT.md`, `.agents/state/FORM_CORRECTION_FRONTEND_AUDIT.md`, `.agents/state/FORM_CORRECTION_UX_UI_AUDIT.md`, `.agents/state/FORM_CORRECTION_REPORT.md`
+**Statut final :** `CORRECTION_FORMULAIRES_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
+
+### Sous-phase 5.6 — Projets et études de cas
+
+**Objectif :** Permettre à l'administrateur de gérer et publier des projets et études de cas multilingues : informations principales, période, confidentialité, technologies liées, médias (couverture et galerie), liens, ordre, mise en avant et publication.
+**État :** `DONE`
+**Autorisation :** `GO — SOUS-PHASE 5.6 : PROJETS ET ÉTUDES DE CAS` (2026-08-02)
+**Date de clôture :** 2026-08-02
+**Exclusions :** Tarification, paiement, panier, devis, réservation, calendrier, espace client, contrats, facturation, CRM, services, témoignages, contact, messages, médiathèque complète, SEO avancé, sous-phase 5.7, commit.
+
+| ID | Titre | Agents | État | Audit |
+|----|-------|--------|------|-------|
+| 5.6.1 | Cadrage et exploration architecture existante (career/skills/profile) | Product, Métier, Architecte, Backend, Frontend, QA | DONE | CONFORME |
+| 5.6.2 | Modèle de données projets/études de cas, migration V6 et contraintes | Database, Backend, Security, QA | DONE | CONFORME |
+| 5.6.3 | API backend admin/public, validations, confidentialité, médias et tests | Backend, Security, Database, QA | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.6.4 | Interface admin projets avec PrimeNG et galerie média | Frontend, UX/UI, Accessibility, QA | DONE | CONFORME |
+| 5.6.5 | Pages publiques /projects et /projects/:slug | Product, Frontend, UX/UI, Security, QA | DONE | CONFORME |
+| 5.6.6 | Builds, tests, lint backend/frontend | Frontend, Backend, QA, Reviewer Code | DONE | CONFORME |
+| 5.6.7 | Audit sécurité médias/brouillons/confidentialité | Security, Reviewer Code, QA | DONE | CONFORME AVEC RÉSERVE MINEURE TRACÉE |
+| 5.6.8 | Audit UX/UI SaaS premium (revue statique) | UX/UI, Reviewer UX/UI, QA | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.6.9 | Documentation, handoff, audit final et arrêt | Orchestrateur, Documentation, Reviewer Code, Reviewer UX/UI | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+
+**Rapports :** `.agents/state/PHASE_5_6_IMPLEMENTATION_REPORT.md`, `.agents/state/PHASE_5_6_BACKEND_AUDIT.md`, `.agents/state/PHASE_5_6_FRONTEND_AUDIT.md`, `.agents/state/PHASE_5_6_UX_UI_AUDIT.md`, `.agents/state/PHASE_5_6_SECURITY_AUDIT.md`, `.agents/state/PHASE_5_6_REPORT.md`
+**Statut final :** `PHASE_5_6_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
+
 ## Phase 6 — Stabilisation
 
 **État :** `BACKLOG` — Dépend de Phase 5
@@ -260,4 +301,4 @@
 
 ## Dernière mise à jour
 
-2026-07-26
+2026-08-02 (clôture sous-phase 5.6 — Projets et études de cas)

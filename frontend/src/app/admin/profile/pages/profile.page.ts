@@ -11,6 +11,13 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { finalize } from 'rxjs';
 
 import { SelectModule } from 'primeng/select';
+import { ButtonModule } from 'primeng/button';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputTextModule } from 'primeng/inputtext';
+import { TabsModule } from 'primeng/tabs';
+import { TextareaModule } from 'primeng/textarea';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { type FileUploadHandlerEvent } from 'primeng/types/fileupload';
 
 import { SelectOption } from '../../../shared/models/select-option.model';
 import {
@@ -31,43 +38,43 @@ import { ProfileApiService } from '../api/profile-api.service';
 
 @Component({
   selector: 'app-profile-translation-fields',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, InputTextModule, TextareaModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [formGroup]="group()" class="admin-translation-fields">
       <label>
         <span>Titre professionnel</span>
-        <input formControlName="professionalTitle" />
+        <input pInputText formControlName="professionalTitle" />
       </label>
       <label>
         <span>Accroche</span>
-        <input formControlName="tagline" />
+        <input pInputText formControlName="tagline" />
       </label>
-      <label>
+      <label class="admin-field--full">
         <span>Résumé court</span>
-        <textarea formControlName="shortSummary" rows="3"></textarea>
+        <textarea pTextarea formControlName="shortSummary" rows="3"></textarea>
       </label>
-      <label>
+      <label class="admin-field--full">
         <span>Biographie</span>
-        <textarea formControlName="biography" rows="5"></textarea>
+        <textarea pTextarea formControlName="biography" rows="5"></textarea>
       </label>
-      <label>
+      <label class="admin-field--full">
         <span>À propos</span>
-        <textarea formControlName="aboutText" rows="5"></textarea>
+        <textarea pTextarea formControlName="aboutText" rows="5"></textarea>
       </label>
       <label>
         <span>Libellé disponibilité</span>
-        <input formControlName="availabilityLabel" />
+        <input pInputText formControlName="availabilityLabel" />
       </label>
       <div class="admin-form-grid admin-form-grid--compact">
-        <label><span>CTA principal</span><input formControlName="primaryCtaLabel" /></label>
-        <label><span>URL principal</span><input formControlName="primaryCtaUrl" /></label>
-        <label><span>CTA secondaire</span><input formControlName="secondaryCtaLabel" /></label>
-        <label><span>URL secondaire</span><input formControlName="secondaryCtaUrl" /></label>
+        <label><span>CTA principal</span><input pInputText formControlName="primaryCtaLabel" /></label>
+        <label><span>URL principal</span><input pInputText formControlName="primaryCtaUrl" /></label>
+        <label><span>CTA secondaire</span><input pInputText formControlName="secondaryCtaLabel" /></label>
+        <label><span>URL secondaire</span><input pInputText formControlName="secondaryCtaUrl" /></label>
       </div>
-      <label>
+      <label class="admin-field--full">
         <span>Texte pied de page</span>
-        <input formControlName="footerText" />
+        <input pInputText formControlName="footerText" />
       </label>
     </div>
   `,
@@ -78,7 +85,17 @@ export class ProfileTranslationFieldsComponent {
 
 @Component({
   selector: 'app-profile-page',
-  imports: [FormsModule, ReactiveFormsModule, SelectModule, ProfileTranslationFieldsComponent],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    FileUploadModule,
+    InputTextModule,
+    SelectModule,
+    TabsModule,
+    ToggleSwitchModule,
+    ProfileTranslationFieldsComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="admin-content-page profile-page">
@@ -141,31 +158,31 @@ export class ProfileTranslationFieldsComponent {
                 </label>
                 <label>
                   <span>Prénom</span>
-                  <input formControlName="firstName" autocomplete="given-name" />
+                  <input pInputText formControlName="firstName" autocomplete="given-name" />
                 </label>
                 <label>
                   <span>Nom</span>
-                  <input formControlName="lastName" autocomplete="family-name" />
+                  <input pInputText formControlName="lastName" autocomplete="family-name" />
                 </label>
                 <label>
                   <span>Nom d'affichage</span>
-                  <input formControlName="displayName" />
+                  <input pInputText formControlName="displayName" />
                 </label>
                 <label>
                   <span>Ville</span>
-                  <input formControlName="location" autocomplete="address-level2" />
+                  <input pInputText formControlName="location" autocomplete="address-level2" />
                 </label>
                 <label>
                   <span>Pays</span>
-                  <input formControlName="country" autocomplete="country-name" />
+                  <input pInputText formControlName="country" autocomplete="country-name" />
                 </label>
                 <label>
                   <span>E-mail professionnel</span>
-                  <input formControlName="professionalEmail" type="email" autocomplete="email" />
+                  <input pInputText formControlName="professionalEmail" type="email" autocomplete="email" />
                 </label>
                 <label>
                   <span>Téléphone facultatif</span>
-                  <input formControlName="phone" type="tel" autocomplete="tel" />
+                  <input pInputText formControlName="phone" type="tel" autocomplete="tel" />
                 </label>
               </div>
             </section>
@@ -178,16 +195,20 @@ export class ProfileTranslationFieldsComponent {
                 </div>
               </div>
 
-              <div class="admin-language-grid">
-                <fieldset>
-                  <legend>Français</legend>
-                  <app-profile-translation-fields [group]="form.controls.fr" />
-                </fieldset>
-                <fieldset>
-                  <legend>English</legend>
-                  <app-profile-translation-fields [group]="form.controls.en" />
-                </fieldset>
-              </div>
+              <p-tabs value="fr" class="admin-language-tabs">
+                <p-tablist>
+                  <p-tab value="fr">Français</p-tab>
+                  <p-tab value="en">English</p-tab>
+                </p-tablist>
+                <p-tabpanels>
+                  <p-tabpanel value="fr">
+                    <app-profile-translation-fields [group]="form.controls.fr" />
+                  </p-tabpanel>
+                  <p-tabpanel value="en">
+                    <app-profile-translation-fields [group]="form.controls.en" />
+                  </p-tabpanel>
+                </p-tabpanels>
+              </p-tabs>
             </section>
 
             <section class="admin-section" aria-labelledby="links-title">
@@ -196,10 +217,7 @@ export class ProfileTranslationFieldsComponent {
                   <p class="admin-eyebrow">Réseaux</p>
                   <h2 id="links-title">Liens professionnels</h2>
                 </div>
-                <button class="admin-secondary-link" type="button" (click)="addLink()">
-                  <i class="pi pi-plus" aria-hidden="true"></i>
-                  Ajouter
-                </button>
+                <p-button label="Ajouter" icon="pi pi-plus" severity="secondary" type="button" (onClick)="addLink()" />
               </div>
 
               <div class="admin-list-editor">
@@ -216,28 +234,35 @@ export class ProfileTranslationFieldsComponent {
                       (onChange)="updateLinkType(index, $event.value)"
                     />
                     <input
+                      pInputText
                       aria-label="Libellé du lien"
                       [value]="link.label"
                       (input)="updateLink(index, 'label', eventValue($event))"
                       placeholder="Libellé"
                     />
                     <input
+                      pInputText
                       aria-label="URL du lien"
                       [value]="link.url"
                       (input)="updateLink(index, 'url', eventValue($event))"
                       placeholder="https://..."
                     />
-                    <label class="admin-checkbox">
-                      <input
-                        type="checkbox"
-                        [checked]="link.visible"
-                        (change)="updateLink(index, 'visible', eventChecked($event))"
+                    <div class="admin-toggle-row">
+                      <span>Visible</span>
+                      <p-toggleswitch
+                        ariaLabel="Visibilité du lien"
+                        [ngModel]="link.visible"
+                        [ngModelOptions]="{ standalone: true }"
+                        (ngModelChange)="updateLink(index, 'visible', $event)"
                       />
-                      Visible
-                    </label>
-                    <button type="button" class="admin-danger-button" (click)="removeLink(index)">
-                      Retirer
-                    </button>
+                    </div>
+                    <p-button
+                      label="Retirer"
+                      icon="pi pi-trash"
+                      severity="danger"
+                      type="button"
+                      (onClick)="removeLink(index)"
+                    />
                   </div>
                 } @empty {
                   <p class="admin-muted">Aucun lien professionnel renseigné.</p>
@@ -251,44 +276,49 @@ export class ProfileTranslationFieldsComponent {
                   <p class="admin-eyebrow">Indicateurs réels</p>
                   <h2 id="stats-title">Statistiques professionnelles</h2>
                 </div>
-                <button class="admin-secondary-link" type="button" (click)="addStatistic()">
-                  <i class="pi pi-plus" aria-hidden="true"></i>
-                  Ajouter
-                </button>
+                <p-button label="Ajouter" icon="pi pi-plus" severity="secondary" type="button" (onClick)="addStatistic()" />
               </div>
 
               <div class="admin-list-editor">
                 @for (statistic of statistics(); track $index; let index = $index) {
                   <div class="admin-list-row admin-list-row--stats">
                     <input
+                      pInputText
                       aria-label="Valeur de la statistique"
                       [value]="statistic.value"
                       (input)="updateStatistic(index, 'value', eventValue($event))"
                       placeholder="Ex. 5+"
                     />
                     <input
+                      pInputText
                       aria-label="Libellé français"
                       [value]="statistic.labelFr"
                       (input)="updateStatistic(index, 'labelFr', eventValue($event))"
                       placeholder="Libellé FR"
                     />
                     <input
+                      pInputText
                       aria-label="Libellé anglais"
                       [value]="statistic.labelEn"
                       (input)="updateStatistic(index, 'labelEn', eventValue($event))"
                       placeholder="Label EN"
                     />
-                    <label class="admin-checkbox">
-                      <input
-                        type="checkbox"
-                        [checked]="statistic.visible"
-                        (change)="updateStatistic(index, 'visible', eventChecked($event))"
+                    <div class="admin-toggle-row">
+                      <span>Visible</span>
+                      <p-toggleswitch
+                        ariaLabel="Visibilité de la statistique"
+                        [ngModel]="statistic.visible"
+                        [ngModelOptions]="{ standalone: true }"
+                        (ngModelChange)="updateStatistic(index, 'visible', $event)"
                       />
-                      Visible
-                    </label>
-                    <button type="button" class="admin-danger-button" (click)="removeStatistic(index)">
-                      Retirer
-                    </button>
+                    </div>
+                    <p-button
+                      label="Retirer"
+                      icon="pi pi-trash"
+                      severity="danger"
+                      type="button"
+                      (onClick)="removeStatistic(index)"
+                    />
                   </div>
                 } @empty {
                   <p class="admin-muted">Aucune statistique réelle renseignée.</p>
@@ -305,12 +335,32 @@ export class ProfileTranslationFieldsComponent {
                   <h2>Visibilité</h2>
                 </div>
               </div>
-              <label class="admin-checkbox"><input type="checkbox" formControlName="showEmail" />Afficher l'e-mail</label>
-              <label class="admin-checkbox"><input type="checkbox" formControlName="showPhone" />Afficher le téléphone</label>
-              <label class="admin-checkbox"><input type="checkbox" formControlName="showPhoto" />Afficher la photo</label>
-              <label class="admin-checkbox"><input type="checkbox" formControlName="showCv" />Autoriser le CV</label>
-              <label class="admin-checkbox"><input type="checkbox" formControlName="showLinks" />Afficher les liens</label>
-              <label class="admin-checkbox"><input type="checkbox" formControlName="showStatistics" />Afficher les statistiques</label>
+              <div class="admin-toggle-grid">
+                <label class="admin-toggle-row" for="profile-show-email">
+                  <span>Afficher l'e-mail</span>
+                  <p-toggleswitch inputId="profile-show-email" formControlName="showEmail" />
+                </label>
+                <label class="admin-toggle-row" for="profile-show-phone">
+                  <span>Afficher le téléphone</span>
+                  <p-toggleswitch inputId="profile-show-phone" formControlName="showPhone" />
+                </label>
+                <label class="admin-toggle-row" for="profile-show-photo">
+                  <span>Afficher la photo</span>
+                  <p-toggleswitch inputId="profile-show-photo" formControlName="showPhoto" />
+                </label>
+                <label class="admin-toggle-row" for="profile-show-cv">
+                  <span>Autoriser le CV</span>
+                  <p-toggleswitch inputId="profile-show-cv" formControlName="showCv" />
+                </label>
+                <label class="admin-toggle-row" for="profile-show-links">
+                  <span>Afficher les liens</span>
+                  <p-toggleswitch inputId="profile-show-links" formControlName="showLinks" />
+                </label>
+                <label class="admin-toggle-row" for="profile-show-statistics">
+                  <span>Afficher les statistiques</span>
+                  <p-toggleswitch inputId="profile-show-statistics" formControlName="showStatistics" />
+                </label>
+              </div>
             </section>
 
             <section class="admin-panel">
@@ -323,15 +373,25 @@ export class ProfileTranslationFieldsComponent {
               @if (profile()?.photo; as photo) {
                 <img class="admin-media-preview" [src]="photo.url" [alt]="photo.altText || 'Photo professionnelle'" />
                 <p class="admin-muted">{{ photo.fileName }} · {{ mediaSize(photo.sizeBytes) }}</p>
-                <button type="button" class="admin-danger-button" (click)="deletePhoto()">Supprimer</button>
+                <p-button label="Supprimer" icon="pi pi-trash" severity="danger" type="button" (onClick)="deletePhoto()" />
               } @else {
                 <p class="admin-muted">Aucune photo téléversée.</p>
               }
               <label>
                 <span>Texte alternatif</span>
-                <input formControlName="photoAltText" />
+                <input pInputText formControlName="photoAltText" />
               </label>
-              <input type="file" accept="image/png,image/jpeg,image/webp,image/avif" (change)="uploadPhoto($event)" />
+              <p-fileupload
+                mode="basic"
+                styleClass="admin-file-upload"
+                chooseLabel="Téléverser une photo"
+                chooseIcon="pi pi-upload"
+                accept="image/png,image/jpeg,image/webp,image/avif"
+                [auto]="true"
+                [customUpload]="true"
+                [maxFileSize]="5242880"
+                (uploadHandler)="uploadPhoto($event)"
+              />
             </section>
 
             <section class="admin-panel">
@@ -344,11 +404,21 @@ export class ProfileTranslationFieldsComponent {
               @if (profile()?.cv; as cv) {
                 <p class="admin-muted">{{ cv.fileName }} · {{ mediaSize(cv.sizeBytes) }}</p>
                 <a class="admin-secondary-link" [href]="cv.url" target="_blank" rel="noreferrer">Ouvrir</a>
-                <button type="button" class="admin-danger-button" (click)="deleteCv()">Supprimer</button>
+                <p-button label="Supprimer" icon="pi pi-trash" severity="danger" type="button" (onClick)="deleteCv()" />
               } @else {
                 <p class="admin-muted">Aucun CV téléversé.</p>
               }
-              <input type="file" accept="application/pdf" (change)="uploadCv($event)" />
+              <p-fileupload
+                mode="basic"
+                styleClass="admin-file-upload"
+                chooseLabel="Téléverser le CV"
+                chooseIcon="pi pi-upload"
+                accept="application/pdf"
+                [auto]="true"
+                [customUpload]="true"
+                [maxFileSize]="10485760"
+                (uploadHandler)="uploadCv($event)"
+              />
             </section>
           </aside>
 
@@ -358,10 +428,12 @@ export class ProfileTranslationFieldsComponent {
                 {{ message() }}
               </p>
             }
-            <button class="admin-primary-link" type="submit" [disabled]="saving() || form.invalid">
-              <i class="pi pi-save" aria-hidden="true"></i>
-              {{ saving() ? 'Enregistrement...' : 'Enregistrer le profil' }}
-            </button>
+            <p-button
+              type="submit"
+              icon="pi pi-save"
+              [label]="saving() ? 'Enregistrement...' : 'Enregistrer le profil'"
+              [disabled]="saving() || form.invalid"
+            />
           </div>
         </form>
       }
@@ -530,7 +602,7 @@ export class ProfilePage {
     this.form.markAsDirty();
   }
 
-  uploadPhoto(event: Event): void {
+  uploadPhoto(event: FileUploadHandlerEvent): void {
     const file = this.firstFile(event);
     if (!file) {
       return;
@@ -548,7 +620,7 @@ export class ProfilePage {
     });
   }
 
-  uploadCv(event: Event): void {
+  uploadCv(event: FileUploadHandlerEvent): void {
     const file = this.firstFile(event);
     if (!file) {
       return;
@@ -570,10 +642,6 @@ export class ProfilePage {
     return event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement
       ? event.target.value
       : '';
-  }
-
-  eventChecked(event: Event): boolean {
-    return event.target instanceof HTMLInputElement ? event.target.checked : false;
   }
 
   mediaSize(size: number): string {
@@ -638,10 +706,8 @@ export class ProfilePage {
     return ['GITHUB', 'LINKEDIN', 'PERSONAL_SITE', 'EMAIL', 'OTHER'].includes(value);
   }
 
-  private firstFile(event: Event): File | null {
-    return event.target instanceof HTMLInputElement && event.target.files?.length
-      ? event.target.files.item(0)
-      : null;
+  private firstFile(event: FileUploadHandlerEvent): File | null {
+    return event.files.length ? event.files[0] : null;
   }
 
   private setError(message: string): void {

@@ -3,12 +3,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+
 import { authErrorMessage } from '../application/auth-message';
 import { AuthSessionService } from '../application/auth-session.service';
 
 @Component({
   selector: 'app-admin-login-page',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, ButtonModule, InputTextModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <main class="auth-page">
@@ -33,6 +36,7 @@ import { AuthSessionService } from '../application/auth-session.service';
           <label>
             <span>Adresse e-mail</span>
             <input
+              pInputText
               type="email"
               formControlName="email"
               autocomplete="username"
@@ -43,6 +47,7 @@ import { AuthSessionService } from '../application/auth-session.service';
           <label>
             <span>Mot de passe</span>
             <input
+              pInputText
               type="password"
               formControlName="password"
               autocomplete="current-password"
@@ -50,9 +55,11 @@ import { AuthSessionService } from '../application/auth-session.service';
             />
           </label>
 
-          <button type="submit" [disabled]="form.invalid || submitting()">
-            {{ submitting() ? 'Connexion...' : 'Se connecter' }}
-          </button>
+          <p-button
+            type="submit"
+            [label]="submitting() ? 'Connexion...' : 'Se connecter'"
+            [disabled]="form.invalid || submitting()"
+          />
         </form>
 
         <nav aria-label="Aide connexion" class="auth-links">

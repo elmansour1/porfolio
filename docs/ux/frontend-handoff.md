@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 3 — Conception UX/UI du portfolio. Mis à jour après implémentation compétences 5.4.
+Validé en Phase 3 — Conception UX/UI du portfolio. Mis à jour après correction transversale des formulaires admin du 2026-08-02.
 
 ## Objectif
 
@@ -105,7 +105,17 @@ Les modules projets, expériences, services, messages, médias et SEO restent d�
 - API typée centralisée dans `admin/skills/skills-api.service.ts`.
 - Section publique compétences alimentée par API.
 
-Réserve : inspection visuelle réelle à exécuter dès que le runtime complet est disponible.
+Réserve levée pour les formulaires existants le 2026-08-02 via inspection Chrome headless DevTools avec mock API local.
+
+## Correction formulaires admin 2026-08-02
+
+- Pages concernées : auth admin, profil, paramètres, compétences/catégories, expériences/formations/certifications.
+- Règle de champ : label au-dessus, contrôle pleine largeur, message proche du champ.
+- Règle de grille : une colonne mobile, deux colonnes desktop, pleine largeur pour textes longs, médias, listes et contenus traduits.
+- Règle multilingue : `p-tabs` FR/EN, un seul contenu long visible à la fois.
+- Règle booléens : `p-toggleswitch` pour les options principales ; éviter les Oui/Non en select.
+- Règle modales : `p-dialog` centré, corps scrollable, footer sticky, confirmation d'abandon lorsque le formulaire a changé.
+- Règle composants : pas de `<select>`, `<option>`, checkbox native ou file input natif dans les templates admin ; utiliser PrimeNG.
 
 ## PrimeNG / Tailwind / SCSS
 
@@ -134,7 +144,7 @@ Réserve : inspection visuelle réelle à exécuter dès que le runtime complet 
 - Prévoir une stratégie explicite lorsqu'une traduction FR/EN manque.
 - Garder le site public compatible SSR selon `ADR-0002`.
 - Ne pas accéder directement aux APIs dans les composants de présentation.
-- Ne pas créer de `<select>` natif dans les nouveaux formulaires ; utiliser les composants PrimeNG retenus.
+- Ne pas créer de `<select>`, `<option>`, checkbox native ou input file natif dans les nouveaux formulaires ; utiliser les composants PrimeNG retenus.
 - Prévoir les états chargement, vide, erreur, succès et accès refusé selon `docs/ux/state-model.md`.
 - Vérifier le responsive sur mobile, tablette, laptop et grand écran.
 - Exécuter une inspection visuelle réelle avant toute clôture frontend.
@@ -146,8 +156,8 @@ Réserve : inspection visuelle réelle à exécuter dès que le runtime complet 
 - Le rendu SaaS premium reste une exigence à valider sur écran réel.
 - Les contenus finaux FR/EN, médias, CV et textes légaux doivent être fournis ou explicitement marqués comme manquants.
 - Les choix hébergeur, e-mail, tailles médias et durées de conservation restent à confirmer hors UX.
-- Les sélecteurs natifs hérités de 5.3 dans profil/paramètres doivent être remplacés lors d'une passe UI/formulaires autorisée.
+- Aucun sélecteur natif hérité ne reste dans les templates admin après la correction 2026-08-02.
 
 ## Dernière mise à jour
 
-2026-07-26
+2026-08-02

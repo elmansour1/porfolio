@@ -1,4 +1,5 @@
 import { provideZonelessChangeDetection } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
@@ -13,6 +14,7 @@ describe('SettingsPage', () => {
       imports: [SettingsPage],
       providers: [
         provideZonelessChangeDetection(),
+        provideHttpClient(),
         {
           provide: ProfileApiService,
           useValue: {

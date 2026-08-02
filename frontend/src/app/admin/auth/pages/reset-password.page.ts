@@ -3,12 +3,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+
 import { authErrorMessage } from '../application/auth-message';
 import { AuthSessionService } from '../application/auth-session.service';
 
 @Component({
   selector: 'app-reset-password-page',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, ButtonModule, InputTextModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <main class="auth-page">
@@ -29,26 +32,28 @@ import { AuthSessionService } from '../application/auth-session.service';
         <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="auth-form">
           <label>
             <span>Jeton de réinitialisation</span>
-            <input type="text" formControlName="token" autocomplete="one-time-code" />
+            <input pInputText type="text" formControlName="token" autocomplete="one-time-code" />
           </label>
 
           <label>
             <span>Nouveau mot de passe</span>
-            <input type="password" formControlName="newPassword" autocomplete="new-password" />
+            <input pInputText type="password" formControlName="newPassword" autocomplete="new-password" />
           </label>
 
           <label>
             <span>Confirmation</span>
-            <input type="password" formControlName="confirmPassword" autocomplete="new-password" />
+            <input pInputText type="password" formControlName="confirmPassword" autocomplete="new-password" />
           </label>
 
           <p class="auth-hint">
             Minimum 12 caractères avec majuscule, minuscule, chiffre et symbole.
           </p>
 
-          <button type="submit" [disabled]="form.invalid || submitting()">
-            {{ submitting() ? 'Réinitialisation...' : 'Réinitialiser le mot de passe' }}
-          </button>
+          <p-button
+            type="submit"
+            [label]="submitting() ? 'Réinitialisation...' : 'Réinitialiser le mot de passe'"
+            [disabled]="form.invalid || submitting()"
+          />
         </form>
 
         <nav aria-label="Navigation réinitialisation" class="auth-links">

@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 2 — Architecture et conception. Migrations de fondation créées en Phases 4 et 5.1. Migration profil/paramètres créée en sous-phase 5.3. Migration compétences/catégories utilisée en sous-phase 5.4.
+Validé en Phase 2 — Architecture et conception. Migrations de fondation créées en Phases 4 et 5.1. Migration profil/paramètres créée en sous-phase 5.3. Migration compétences/catégories utilisée en sous-phase 5.4. Migration parcours professionnel créée en sous-phase 5.5. Migration projets et études de cas (`V6__projects.sql`) créée en sous-phase 5.6 : `project`, `project_translation`, `project_media`, `project_link`, `project_skill`.
 
 ## Principes
 
@@ -126,7 +126,7 @@ La migration `backend/src/main/resources/db/migration/V2__admin_authentication.s
 
 ## Dernière mise à jour
 
-2026-07-26
+2026-08-02 (ajout du modèle projets et études de cas — sous-phase 5.6)
 
 ## Sous-phase 5.5 — Modèle parcours
 
@@ -147,3 +147,22 @@ Règles principales :
 - Les expériences peuvent référencer les compétences existantes, sans dupliquer un référentiel technologies.
 - Les contenus `DRAFT` ou `ARCHIVED` ne sont pas retournés par l'API publique.
 - Une expérience confidentielle masque l'organisation et le lien public côté API publique.
+
+## Sous-phase 5.6 — Modèle projets et études de cas
+
+Tables ajoutées par `V6__projects.sql` :
+
+- `project`
+- `project_translation`
+- `project_media`
+- `project_link`
+- `project_skill`
+
+Règles principales :
+
+- `confidentiality` (`PUBLIC`/`ANONYMIZED`/`PRIVATE`) est un attribut propre au projet, distinct du statut de publication partagé (`PublicationStatus`).
+- `ANONYMIZED` masque `demo_url`/`github_url`/les liens dans les réponses publiques, mais conserve les médias.
+- `PRIVATE` est totalement exclu des requêtes publiques (liste, détail, mis en avant, médias).
+- Les technologies liées référencent le référentiel `skill` existant via `project_skill`, sans dupliquer de référentiel.
+- Les médias sont typés (`COVER`/`GALLERY`) avec un ordre explicite pour la galerie.
+- Le slug est unique et revalidé à chaque écriture (création et modification).

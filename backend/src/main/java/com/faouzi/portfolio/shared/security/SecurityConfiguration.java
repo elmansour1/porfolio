@@ -38,6 +38,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/v1/public/portfolio").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/public/skills").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/public/career").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/public/projects/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/public/profile/photo").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/public/profile/cv").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/public/settings/logo").permitAll()

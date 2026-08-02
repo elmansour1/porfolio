@@ -47,8 +47,7 @@ export const adminNavigationItems: readonly AdminNavigationItem[] = [
     label: 'Projets',
     route: '/admin/projects',
     icon: 'pi pi-folder-open',
-    status: 'disabled',
-    hint: 'Gestion non implémentée en 5.2',
+    status: 'available',
   },
   {
     label: 'Services',

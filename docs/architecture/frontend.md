@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 2 — Architecture et conception. Fondation Angular implémentée en Phase 4, authentification admin en sous-phase 5.1, layout et dashboard admin en sous-phase 5.2, profil/paramètres en 5.3 et compétences/catégories en 5.4.
+Validé en Phase 2 — Architecture et conception. Fondation Angular implémentée en Phase 4, authentification admin en sous-phase 5.1, layout et dashboard admin en sous-phase 5.2, profil/paramètres en 5.3, compétences/catégories en 5.4, parcours en 5.5 et correction formulaires admin le 2026-08-02.
 
 ## Stack
 
@@ -92,6 +92,14 @@ La sous-phase 5.4 ajoute :
 - section publique compétences alimentée par `/api/v1/public/skills` ;
 - conformité stricte des sélections 5.4 avec `p-select`, `p-toggleswitch` et `p-checkbox`.
 
+La correction formulaires du 2026-08-02 consolide les conventions UI admin existantes sans nouvelle fonctionnalité :
+
+- classes SCSS transverses `admin-form-grid`, `admin-form-section`, `admin-language-tabs`, `admin-toggle-row`, `admin-dialog-actions` ;
+- contrôles PrimeNG pleine largeur avec `min-width: 0` pour éviter les débordements ;
+- `p-tabs` pour contenus FR/EN ;
+- `p-fileupload` pour les uploads profil/paramètres ;
+- snapshot de formulaire dans les modales compétences/parcours pour confirmer l'abandon de modifications.
+
 ## Principes
 
 - Organisation par fonctionnalité.
@@ -178,6 +186,16 @@ Captures réalisées :
 - Scan `frontend/src/app` : aucun `<select>`, `<option>` ou `HTMLSelectElement` restant.
 - `npm run lint`, `npm run test:ci` et `npm run build` passent avec Node 20 temporaire.
 
+## Correction formulaires admin 2026-08-02
+
+- Auth admin : inputs et actions convertis aux composants PrimeNG (`pInputText`, `p-button`) tout en conservant les formulaires réactifs existants.
+- Profil/Paramètres : labels au-dessus, selects PrimeNG, toggles cohérents, upload média via `p-fileupload`, grilles et aside corrigés.
+- Compétences/Catégories : formulaires modaux structurés en sections, contenus FR/EN en `p-tabs`, footer sticky, confirmation d'abandon.
+- Parcours : formulaires expériences/formations/certifications structurés en sections, `p-select`, `p-multiselect`, `p-datepicker`, `p-inputnumber`, `p-toggleswitch`, `p-tabs`.
+- Scan templates admin : PASS, aucun `<select>`, `<option>`, `input[type="checkbox"]` ou `input[type="file"]` natif ajouté ou conservé.
+- Vérifications : `npm run lint` PASS ; tests Angular PASS — 29 tests ; build PASS avec warning budget initial +16,84 kB.
+- Inspection visuelle : PASS via Angular dev server, mock API local et Chrome headless DevTools ; captures dans `/tmp/portfolio-form-inspection`.
+
 ## Restructuration architecturale exceptionnelle 2026-07-26
 
 - DTO auth déplacés dans `admin/auth/models/dto`.
@@ -209,4 +227,4 @@ Vérifications :
 
 ## Dernière mise à jour
 
-2026-07-26
+2026-08-02

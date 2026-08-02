@@ -47,7 +47,7 @@ describe('AdminShellPage', () => {
     const disabledItems = Array.from(element.querySelectorAll<HTMLButtonElement>('.admin-nav-item--disabled'));
 
     expect(disabledItems.length).toBeGreaterThan(0);
-    expect(disabledItems.some((item) => item.textContent?.includes('Projets'))).toBeTrue();
+    expect(disabledItems.some((item) => item.textContent?.includes('Services'))).toBeTrue();
     expect(disabledItems.every((item) => item.disabled)).toBeTrue();
   });
 

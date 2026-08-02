@@ -55,3 +55,8 @@ app:
       storage-path: ${MEDIA_STORAGE_PATH:media}
       max-image-size: ${MEDIA_MAX_IMAGE_SIZE:3MB}
       max-pdf-size: ${MEDIA_MAX_PDF_SIZE:5MB}
+  project:
+    media:
+      storage-path: ${PROJECT_MEDIA_STORAGE_PATH:media/projects}
+      max-image-size: ${PROJECT_MEDIA_MAX_IMAGE_SIZE:4MB}
+      max-gallery-items: ${PROJECT_MEDIA_MAX_GALLERY_ITEMS:12}

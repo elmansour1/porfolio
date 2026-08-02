@@ -3,12 +3,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+
 import { authErrorMessage } from '../application/auth-message';
 import { AuthSessionService } from '../application/auth-session.service';
 
 @Component({
   selector: 'app-forgot-password-page',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, ButtonModule, InputTextModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <main class="auth-page">
@@ -39,12 +42,14 @@ import { AuthSessionService } from '../application/auth-session.service';
         <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="auth-form">
           <label>
             <span>Adresse e-mail</span>
-            <input type="email" formControlName="email" autocomplete="username" />
+            <input pInputText type="email" formControlName="email" autocomplete="username" />
           </label>
 
-          <button type="submit" [disabled]="form.invalid || submitting()">
-            {{ submitting() ? 'Préparation...' : 'Préparer la réinitialisation' }}
-          </button>
+          <p-button
+            type="submit"
+            [label]="submitting() ? 'Préparation...' : 'Préparer la réinitialisation'"
+            [disabled]="form.invalid || submitting()"
+          />
         </form>
 
         <nav aria-label="Navigation récupération" class="auth-links">

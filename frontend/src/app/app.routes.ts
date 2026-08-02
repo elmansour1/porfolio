@@ -10,6 +10,22 @@ export const routes: Routes = [
     title: 'Portfolio public - fondation',
   },
   {
+    path: 'projects',
+    loadComponent: () =>
+      import('./public/projects/pages/projects-list.page').then(
+        (module) => module.PublicProjectsListPage,
+      ),
+    title: 'Projets',
+  },
+  {
+    path: 'projects/:slug',
+    loadComponent: () =>
+      import('./public/projects/pages/project-detail.page').then(
+        (module) => module.PublicProjectDetailPage,
+      ),
+    title: 'Projet',
+  },
+  {
     path: 'admin/login',
     loadComponent: () =>
       import('./admin/auth/pages/login.page').then((module) => module.LoginPage),
@@ -94,6 +110,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./admin/career/pages/career.page').then((module) => module.CareerPage),
         title: 'Certifications',
+      },
+      {
+        path: 'projects',
+        loadComponent: () =>
+          import('./admin/projects/pages/projects.page').then((module) => module.ProjectsPage),
+        title: 'Projets',
       },
       {
         path: '**',

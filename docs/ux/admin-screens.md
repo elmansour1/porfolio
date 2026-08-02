@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 3 — Conception UX/UI du portfolio. Layout/dashboard implémentés en 5.2 ; profil et paramètres implémentés en 5.3 ; compétences et catégories implémentées en 5.4.
+Validé en Phase 3 — Conception UX/UI du portfolio. Layout/dashboard implémentés en 5.2 ; profil et paramètres implémentés en 5.3 ; compétences et catégories implémentées en 5.4 ; parcours implémenté en 5.5 ; correction transversale des formulaires exécutée le 2026-08-02.
 
 ## Principes admin
 
@@ -76,11 +76,12 @@ Sections :
 Statut sous-phase 5.3 :
 
 - route `/admin/profile` implémentée dans le shell ;
-- sections : identité, présentation FR/EN, disponibilité, coordonnées, photo, CV, liens, statistiques, visibilité ;
+- sections : identité, présentation FR/EN en `p-tabs`, disponibilité, coordonnées, photo, CV, liens, statistiques, visibilité ;
 - formulaires réactifs typés ;
-- upload/remplacement/suppression photo et CV ;
+- upload/remplacement/suppression photo et CV via `p-fileupload` ;
 - états chargement, erreur, vide, succès et modifications non enregistrées ;
-- inspection visuelle desktop/mobile exécutée.
+- inspection visuelle desktop/mobile exécutée ;
+- correction 2026-08-02 : labels au-dessus, champs pleine largeur, grilles responsive, panneaux latéraux sans chevauchement.
 
 ## A-004 — Projets
 
@@ -128,11 +129,11 @@ Statut sous-phase 5.4 :
 - formulaires en `p-dialog` centré ;
 - sélection catégorie, niveau et statut avec `p-select` ;
 - mise en avant avec `p-toggleswitch` ;
-- visibilité publique avec `p-checkbox` ;
+- visibilité publique avec `p-toggleswitch` depuis la correction 2026-08-02 ;
 - statuts avec `p-tag` ;
 - confirmations d'archivage/suppression sans `window.confirm` ;
 - aucun `<select>` natif dans le périmètre 5.4 ;
-- inspection visuelle réelle non exécutée, à reprendre dès runtime disponible.
+- correction 2026-08-02 : contenu FR/EN en `p-tabs`, footer de modale sticky, confirmation d'abandon des modifications, inspection Chrome headless exécutée.
 
 ## A-006 — Expériences
 
@@ -151,6 +152,15 @@ Champs :
 - technologies ;
 - confidentialité ;
 - ordre/publication.
+
+Statut sous-phase 5.5 et correction 2026-08-02 :
+
+- route `/admin/experiences` implémentée dans le shell ;
+- formulaires expériences, formations et certifications en `p-dialog` avec sections fonctionnelles ;
+- `p-select`, `p-multiselect`, `p-datepicker`, `p-inputnumber`, `p-toggleswitch` utilisés selon les champs ;
+- contenus FR/EN en `p-tabs`, sans compression simultanée ;
+- footer d'actions sticky et confirmation d'abandon des modifications ;
+- inspection Chrome headless exécutée sur desktop et mobile.
 
 ## A-007 — Services
 
@@ -276,7 +286,7 @@ Statut sous-phase 5.2 :
 
 ## Dernière mise à jour
 
-2026-07-26
+2026-08-02
 
 ## Sous-phase 5.5 — Écrans parcours
 
@@ -293,6 +303,16 @@ Principes UX :
 - États vides explicites pour expériences, formations et certifications.
 - Pas de select HTML natif ni de datepicker natif.
 
-Réserve :
+Correction 2026-08-02 :
 
-- Inspection visuelle navigateur authentifiée à compléter après récupération ou réinitialisation contrôlée du compte admin Docker existant.
+- Inspection visuelle navigateur exécutée avec mock API local et Chrome headless DevTools.
+- Modales parcours structurées en sections, onglets de langue, footer sticky et confirmation d'abandon.
+
+## Standard transversal des formulaires admin
+
+- Les labels sont au-dessus des contrôles.
+- Les contrôles comparables occupent toute la largeur de leur cellule.
+- Les formulaires longs sont organisés en sections.
+- Les modales longues gardent les actions visibles pendant le défilement.
+- Les contenus traduits sont édités par onglet de langue.
+- Les composants interactifs doivent rester PrimeNG, sauf exception documentée.

@@ -1,16 +1,21 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, PLATFORM_ID, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { forkJoin } from 'rxjs';
 
 import { CareerApiService } from '../admin/career/api/career-api.service';
 import { PublicCareer } from '../admin/career/models/dto/career.dto';
 import { ProfileApiService } from '../admin/profile/api/profile-api.service';
 import { PublicPortfolio } from '../admin/profile/models/dto/profile.dto';
+import { ProjectApiService } from '../admin/projects/api/project-api.service';
+import { PublicProjectSummary } from '../admin/projects/models/dto/project.dto';
 import { SkillsApiService } from '../admin/skills/api/skills-api.service';
 import { PublicSkills } from '../admin/skills/models/dto/skills.dto';
+import { projectTypeLabel } from './projects/project-labels';
 
 @Component({
   selector: 'app-public-placeholder-page',
+  imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <main class="public-profile" [class.public-profile--loading]="loading()">
@@ -35,6 +40,7 @@ import { PublicSkills } from '../admin/skills/models/dto/skills.dto';
               </button>
             }
           </div>
+          <a routerLink="/projects">Projets</a>
           <a href="/admin/login">Administration</a>
         </nav>
 
@@ -140,6 +146,40 @@ import { PublicSkills } from '../admin/skills/models/dto/skills.dto';
                 </div>
               </section>
             }
+          }
+
+          @if (featuredProjects().length) {
+            <section class="public-skills" aria-labelledby="public-projects-title">
+              <p class="public-eyebrow">
+                {{ selectedLanguage() === 'en' ? 'Selected work' : 'Projets phares' }}
+              </p>
+              <h2 id="public-projects-title">
+                {{ selectedLanguage() === 'en' ? 'Featured projects' : 'Projets mis en avant' }}
+              </h2>
+              <div class="public-projects-grid">
+                @for (project of featuredProjects(); track project.slug) {
+                  <article class="public-project-card">
+                    <a class="public-project-card__media" [routerLink]="['/projects', project.slug]">
+                      @if (project.coverUrl) {
+                        <img [src]="project.coverUrl" [alt]="project.title" />
+                      } @else {
+                        <span>{{ project.title.charAt(0).toUpperCase() }}</span>
+                      }
+                    </a>
+                    <div class="public-project-card__body">
+                      <p class="public-eyebrow">{{ projectType(project) }}</p>
+                      <h2><a [routerLink]="['/projects', project.slug]">{{ project.title }}</a></h2>
+                      @if (project.summary) {
+                        <p>{{ project.summary }}</p>
+                      }
+                    </div>
+                  </article>
+                }
+              </div>
+              <a class="public-button" routerLink="/projects">
+                {{ selectedLanguage() === 'en' ? 'View all projects' : 'Voir tous les projets' }}
+              </a>
+            </section>
           }
 
           @if (publicCareer(); as career) {
@@ -276,6 +316,7 @@ export class PublicPlaceholderPage {
   private readonly api = inject(ProfileApiService);
   private readonly skillsApi = inject(SkillsApiService);
   private readonly careerApi = inject(CareerApiService);
+  private readonly projectApi = inject(ProjectApiService);
   private readonly platformId = inject(PLATFORM_ID);
 
   readonly selectedLanguage = signal<'fr' | 'en'>('fr');
@@ -283,6 +324,7 @@ export class PublicPlaceholderPage {
   readonly portfolio = signal<PublicPortfolio | null>(null);
   readonly publicSkills = signal<PublicSkills | null>(null);
   readonly publicCareer = signal<PublicCareer | null>(null);
+  readonly featuredProjects = signal<readonly PublicProjectSummary[]>([]);
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
@@ -312,20 +354,27 @@ export class PublicPlaceholderPage {
       portfolio: this.api.publicPortfolio(language),
       skills: this.skillsApi.publicSkills(language),
       career: this.careerApi.publicCareer(language),
+      projects: this.projectApi.publicFeatured(language),
     }).subscribe({
-      next: ({ portfolio, skills, career }) => {
+      next: ({ portfolio, skills, career, projects }) => {
         this.portfolio.set(portfolio);
         this.publicSkills.set(skills);
         this.publicCareer.set(career);
+        this.featuredProjects.set(projects);
         this.loading.set(false);
       },
       error: () => {
         this.portfolio.set(null);
         this.publicSkills.set(null);
         this.publicCareer.set(null);
+        this.featuredProjects.set([]);
         this.loading.set(false);
       },
     });
+  }
+
+  projectType(project: PublicProjectSummary): string {
+    return projectTypeLabel(project.projectType, this.selectedLanguage());
   }
 
   period(startDate: string, endDate: string | null, current: boolean): string {

@@ -4,7 +4,6 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Observable, finalize, forkJoin } from 'rxjs';
 
 import { ButtonModule } from 'primeng/button';
-import { CheckboxModule } from 'primeng/checkbox';
 import { DatePickerModule } from 'primeng/datepicker';
 import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -12,6 +11,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SelectModule } from 'primeng/select';
 import { TableModule } from 'primeng/table';
+import { TabsModule } from 'primeng/tabs';
 import { TagModule } from 'primeng/tag';
 import { TextareaModule } from 'primeng/textarea';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
@@ -56,7 +56,6 @@ type DeleteTarget =
     ReactiveFormsModule,
     NgTemplateOutlet,
     ButtonModule,
-    CheckboxModule,
     DatePickerModule,
     DialogModule,
     InputNumberModule,
@@ -64,6 +63,7 @@ type DeleteTarget =
     MultiSelectModule,
     SelectModule,
     TableModule,
+    TabsModule,
     TagModule,
     TextareaModule,
     ToggleSwitchModule,
@@ -193,70 +193,156 @@ type DeleteTarget =
       }
     </div>
 
-    <p-dialog [header]="dialogTitle()" [visible]="dialogOpen()" (visibleChange)="onDialogVisibility($event)" [modal]="true" [style]="{ width: 'min(68rem, calc(100vw - 2rem))' }">
+    <p-dialog
+      [header]="dialogTitle()"
+      [visible]="dialogOpen()"
+      (visibleChange)="onDialogVisibility($event)"
+      [modal]="true"
+      styleClass="admin-dialog"
+    >
       @if (activeDialog() === 'experience') {
         <form class="admin-dialog-form" [formGroup]="experienceForm" (ngSubmit)="saveExperience()">
-          <div class="admin-form-grid">
-            <label for="experience-status"><span>Statut</span><p-select inputId="experience-status" formControlName="publicationStatus" [options]="statusOptions()" optionLabel="label" optionValue="value" /></label>
-            <label for="experience-type"><span>Type</span><p-select inputId="experience-type" formControlName="experienceType" [options]="metadata().experienceTypes" optionLabel="label" optionValue="value" /></label>
-            <label for="experience-contract"><span>Contrat</span><p-select inputId="experience-contract" formControlName="contractType" [options]="metadata().contractTypes" optionLabel="label" optionValue="value" [showClear]="true" placeholder="Facultatif" /></label>
-            <label for="experience-work-mode"><span>Mode</span><p-select inputId="experience-work-mode" formControlName="workMode" [options]="metadata().workModes" optionLabel="label" optionValue="value" /></label>
-            <label for="experience-role"><span>Poste</span><input id="experience-role" pInputText formControlName="roleTitle" /></label>
-            <label for="experience-org"><span>Entreprise/client</span><input id="experience-org" pInputText formControlName="organization" /></label>
-            <label for="experience-location"><span>Localisation</span><input id="experience-location" pInputText formControlName="location" /></label>
-            <label for="experience-url"><span>Lien public</span><input id="experience-url" pInputText formControlName="organizationUrl" /></label>
-            <label for="experience-start"><span>Date de début</span><p-datepicker inputId="experience-start" formControlName="startDate" dateFormat="yy-mm-dd" [showIcon]="true" /></label>
-            <label for="experience-end"><span>Date de fin</span><p-datepicker inputId="experience-end" formControlName="endDate" dateFormat="yy-mm-dd" [showIcon]="true" /></label>
-            <label for="experience-skills"><span>Technologies</span><p-multiselect inputId="experience-skills" formControlName="skillIds" [options]="skillOptions()" optionLabel="label" optionValue="value" [filter]="true" placeholder="Associer des compétences" emptyMessage="Aucune compétence disponible" /></label>
-            <label for="experience-order"><span>Ordre</span><p-inputnumber inputId="experience-order" formControlName="displayOrder" [min]="0" /></label>
-            <label class="admin-toggle-field" for="experience-current"><span>En cours</span><p-toggleswitch inputId="experience-current" formControlName="currentPosition" (onChange)="syncExperienceDates()" /></label>
-            <label class="admin-toggle-field" for="experience-confidential"><span>Confidentiel</span><p-checkbox inputId="experience-confidential" formControlName="confidential" [binary]="true" /></label>
-          </div>
-          <div class="admin-language-grid">
-            <fieldset><legend>Français</legend><label><span>Résumé</span><textarea pTextarea formControlName="summaryFr" rows="3"></textarea></label><label><span>Missions</span><textarea pTextarea formControlName="missionsFr" rows="4"></textarea></label><label><span>Réalisations</span><textarea pTextarea formControlName="achievementsFr" rows="4"></textarea></label><label><span>Libellé confidentiel</span><input pInputText formControlName="confidentialLabelFr" /></label></fieldset>
-            <fieldset><legend>English</legend><label><span>Summary</span><textarea pTextarea formControlName="summaryEn" rows="3"></textarea></label><label><span>Missions</span><textarea pTextarea formControlName="missionsEn" rows="4"></textarea></label><label><span>Achievements</span><textarea pTextarea formControlName="achievementsEn" rows="4"></textarea></label><label><span>Confidential label</span><input pInputText formControlName="confidentialLabelEn" /></label></fieldset>
-          </div>
+          <section class="admin-form-section">
+            <div class="admin-form-section__header">
+              <h3>Informations générales</h3>
+              <p>Typologie, poste, organisation et mode de travail de l'expérience.</p>
+            </div>
+            <div class="admin-form-grid">
+              <label for="experience-status"><span>Statut</span><p-select inputId="experience-status" formControlName="publicationStatus" [options]="statusOptions()" optionLabel="label" optionValue="value" /></label>
+              <label for="experience-type"><span>Type</span><p-select inputId="experience-type" formControlName="experienceType" [options]="metadata().experienceTypes" optionLabel="label" optionValue="value" /></label>
+              <label for="experience-contract"><span>Contrat</span><p-select inputId="experience-contract" formControlName="contractType" [options]="metadata().contractTypes" optionLabel="label" optionValue="value" [showClear]="true" placeholder="Facultatif" /></label>
+              <label for="experience-work-mode"><span>Mode</span><p-select inputId="experience-work-mode" formControlName="workMode" [options]="metadata().workModes" optionLabel="label" optionValue="value" /></label>
+              <label for="experience-role"><span>Poste</span><input id="experience-role" pInputText formControlName="roleTitle" /></label>
+              <label for="experience-org"><span>Entreprise/client</span><input id="experience-org" pInputText formControlName="organization" /></label>
+              <label for="experience-location"><span>Localisation</span><input id="experience-location" pInputText formControlName="location" /></label>
+              <label for="experience-url"><span>Lien public</span><input id="experience-url" pInputText formControlName="organizationUrl" /></label>
+            </div>
+          </section>
+          <section class="admin-form-section">
+            <div class="admin-form-section__header">
+              <h3>Période, technologies et options</h3>
+              <p>La date de fin est désactivée lorsqu'une expérience est en cours.</p>
+            </div>
+            <div class="admin-form-grid">
+              <label for="experience-start"><span>Date de début</span><p-datepicker inputId="experience-start" formControlName="startDate" dateFormat="yy-mm-dd" [showIcon]="true" /></label>
+              <label for="experience-end"><span>Date de fin</span><p-datepicker inputId="experience-end" formControlName="endDate" dateFormat="yy-mm-dd" [showIcon]="true" /></label>
+              <label for="experience-skills" class="admin-field--full"><span>Technologies</span><p-multiselect inputId="experience-skills" formControlName="skillIds" [options]="skillOptions()" optionLabel="label" optionValue="value" [filter]="true" placeholder="Associer des compétences" emptyMessage="Aucune compétence disponible" /></label>
+              <label for="experience-order"><span>Ordre</span><p-inputnumber inputId="experience-order" formControlName="displayOrder" [min]="0" /></label>
+              <label class="admin-toggle-row" for="experience-current"><span>En cours<small>Cette expérience ne possède pas encore de date de fin.</small></span><p-toggleswitch inputId="experience-current" formControlName="currentPosition" (onChange)="syncExperienceDates()" /></label>
+              <label class="admin-toggle-row admin-field--full" for="experience-confidential"><span>Confidentiel<small>Masque l'organisation et le lien public dans les contenus exposés.</small></span><p-toggleswitch inputId="experience-confidential" formControlName="confidential" /></label>
+            </div>
+          </section>
+          <section class="admin-form-section">
+            <div class="admin-form-section__header">
+              <h3>Contenu traduit</h3>
+              <p>Résumé, missions et réalisations restent lisibles dans un onglet par langue.</p>
+            </div>
+            <p-tabs value="fr" class="admin-language-tabs">
+              <p-tablist>
+                <p-tab value="fr">Français</p-tab>
+                <p-tab value="en">English</p-tab>
+              </p-tablist>
+              <p-tabpanels>
+                <p-tabpanel value="fr">
+                  <label><span>Résumé</span><textarea pTextarea formControlName="summaryFr" rows="4"></textarea></label>
+                  <label><span>Missions</span><textarea pTextarea formControlName="missionsFr" rows="5"></textarea></label>
+                  <label><span>Réalisations</span><textarea pTextarea formControlName="achievementsFr" rows="5"></textarea></label>
+                  <label><span>Libellé confidentiel</span><input pInputText formControlName="confidentialLabelFr" /></label>
+                </p-tabpanel>
+                <p-tabpanel value="en">
+                  <label><span>Summary</span><textarea pTextarea formControlName="summaryEn" rows="4"></textarea></label>
+                  <label><span>Missions</span><textarea pTextarea formControlName="missionsEn" rows="5"></textarea></label>
+                  <label><span>Achievements</span><textarea pTextarea formControlName="achievementsEn" rows="5"></textarea></label>
+                  <label><span>Confidential label</span><input pInputText formControlName="confidentialLabelEn" /></label>
+                </p-tabpanel>
+              </p-tabpanels>
+            </p-tabs>
+          </section>
           <ng-container *ngTemplateOutlet="dialogActions" />
         </form>
       }
 
       @if (activeDialog() === 'education') {
         <form class="admin-dialog-form" [formGroup]="educationForm" (ngSubmit)="saveEducation()">
-          <div class="admin-form-grid">
-            <label for="education-status"><span>Statut</span><p-select inputId="education-status" formControlName="publicationStatus" [options]="statusOptions()" optionLabel="label" optionValue="value" /></label>
-            <label for="education-level"><span>Niveau</span><p-select inputId="education-level" formControlName="educationLevel" [options]="metadata().educationLevels" optionLabel="label" optionValue="value" [showClear]="true" /></label>
-            <label for="education-institution"><span>Établissement</span><input id="education-institution" pInputText formControlName="institution" /></label>
-            <label for="education-location"><span>Localisation</span><input id="education-location" pInputText formControlName="location" /></label>
-            <label for="education-url"><span>Lien</span><input id="education-url" pInputText formControlName="url" /></label>
-            <label for="education-start"><span>Date de début</span><p-datepicker inputId="education-start" formControlName="startDate" dateFormat="yy-mm-dd" [showIcon]="true" /></label>
-            <label for="education-end"><span>Date de fin</span><p-datepicker inputId="education-end" formControlName="endDate" dateFormat="yy-mm-dd" [showIcon]="true" /></label>
-            <label for="education-order"><span>Ordre</span><p-inputnumber inputId="education-order" formControlName="displayOrder" [min]="0" /></label>
-            <label class="admin-toggle-field" for="education-current"><span>En cours</span><p-toggleswitch inputId="education-current" formControlName="currentEducation" (onChange)="syncEducationDates()" /></label>
-          </div>
-          <div class="admin-language-grid">
-            <fieldset><legend>Français</legend><label><span>Intitulé</span><input pInputText formControlName="titleFr" /></label><label><span>Domaine</span><input pInputText formControlName="fieldFr" /></label><label><span>Description</span><textarea pTextarea formControlName="descriptionFr" rows="4"></textarea></label></fieldset>
-            <fieldset><legend>English</legend><label><span>Title</span><input pInputText formControlName="titleEn" /></label><label><span>Field</span><input pInputText formControlName="fieldEn" /></label><label><span>Description</span><textarea pTextarea formControlName="descriptionEn" rows="4"></textarea></label></fieldset>
-          </div>
+          <section class="admin-form-section">
+            <div class="admin-form-section__header">
+              <h3>Informations générales</h3>
+              <p>Établissement, niveau, période et publication de la formation.</p>
+            </div>
+            <div class="admin-form-grid">
+              <label for="education-status"><span>Statut</span><p-select inputId="education-status" formControlName="publicationStatus" [options]="statusOptions()" optionLabel="label" optionValue="value" /></label>
+              <label for="education-level"><span>Niveau</span><p-select inputId="education-level" formControlName="educationLevel" [options]="metadata().educationLevels" optionLabel="label" optionValue="value" [showClear]="true" /></label>
+              <label for="education-institution"><span>Établissement</span><input id="education-institution" pInputText formControlName="institution" /></label>
+              <label for="education-location"><span>Localisation</span><input id="education-location" pInputText formControlName="location" /></label>
+              <label for="education-url"><span>Lien</span><input id="education-url" pInputText formControlName="url" /></label>
+              <label for="education-order"><span>Ordre</span><p-inputnumber inputId="education-order" formControlName="displayOrder" [min]="0" /></label>
+              <label for="education-start"><span>Date de début</span><p-datepicker inputId="education-start" formControlName="startDate" dateFormat="yy-mm-dd" [showIcon]="true" /></label>
+              <label for="education-end"><span>Date de fin</span><p-datepicker inputId="education-end" formControlName="endDate" dateFormat="yy-mm-dd" [showIcon]="true" /></label>
+              <label class="admin-toggle-row admin-field--full" for="education-current"><span>En cours<small>La formation ne possède pas encore de date de fin.</small></span><p-toggleswitch inputId="education-current" formControlName="currentEducation" (onChange)="syncEducationDates()" /></label>
+            </div>
+          </section>
+          <section class="admin-form-section">
+            <div class="admin-form-section__header">
+              <h3>Contenu traduit</h3>
+              <p>Intitulé, domaine et description sont édités langue par langue.</p>
+            </div>
+            <p-tabs value="fr" class="admin-language-tabs">
+              <p-tablist><p-tab value="fr">Français</p-tab><p-tab value="en">English</p-tab></p-tablist>
+              <p-tabpanels>
+                <p-tabpanel value="fr">
+                  <label><span>Intitulé</span><input pInputText formControlName="titleFr" /></label>
+                  <label><span>Domaine</span><input pInputText formControlName="fieldFr" /></label>
+                  <label><span>Description</span><textarea pTextarea formControlName="descriptionFr" rows="5"></textarea></label>
+                </p-tabpanel>
+                <p-tabpanel value="en">
+                  <label><span>Title</span><input pInputText formControlName="titleEn" /></label>
+                  <label><span>Field</span><input pInputText formControlName="fieldEn" /></label>
+                  <label><span>Description</span><textarea pTextarea formControlName="descriptionEn" rows="5"></textarea></label>
+                </p-tabpanel>
+              </p-tabpanels>
+            </p-tabs>
+          </section>
           <ng-container *ngTemplateOutlet="dialogActions" />
         </form>
       }
 
       @if (activeDialog() === 'certification') {
         <form class="admin-dialog-form" [formGroup]="certificationForm" (ngSubmit)="saveCertification()">
-          <div class="admin-form-grid">
-            <label for="certification-status"><span>Statut</span><p-select inputId="certification-status" formControlName="publicationStatus" [options]="statusOptions()" optionLabel="label" optionValue="value" /></label>
-            <label for="certification-issuer"><span>Organisme</span><input id="certification-issuer" pInputText formControlName="issuer" /></label>
-            <label for="certification-issue"><span>Date d'obtention</span><p-datepicker inputId="certification-issue" formControlName="issueDate" dateFormat="yy-mm-dd" [showIcon]="true" /></label>
-            <label for="certification-expiry"><span>Date d'expiration</span><p-datepicker inputId="certification-expiry" formControlName="expiryDate" dateFormat="yy-mm-dd" [showIcon]="true" /></label>
-            <label for="certification-id"><span>Identifiant</span><input id="certification-id" pInputText formControlName="credentialId" /></label>
-            <label for="certification-url"><span>URL de vérification</span><input id="certification-url" pInputText formControlName="verificationUrl" /></label>
-            <label for="certification-order"><span>Ordre</span><p-inputnumber inputId="certification-order" formControlName="displayOrder" [min]="0" /></label>
-            <label class="admin-toggle-field" for="certification-no-expiry"><span>Sans expiration</span><p-toggleswitch inputId="certification-no-expiry" formControlName="noExpiry" (onChange)="syncCertificationDates()" /></label>
-          </div>
-          <div class="admin-language-grid">
-            <fieldset><legend>Français</legend><label><span>Nom</span><input pInputText formControlName="nameFr" /></label><label><span>Description</span><textarea pTextarea formControlName="descriptionFr" rows="4"></textarea></label></fieldset>
-            <fieldset><legend>English</legend><label><span>Name</span><input pInputText formControlName="nameEn" /></label><label><span>Description</span><textarea pTextarea formControlName="descriptionEn" rows="4"></textarea></label></fieldset>
-          </div>
+          <section class="admin-form-section">
+            <div class="admin-form-section__header">
+              <h3>Informations générales</h3>
+              <p>Organisme, validité, identifiant et lien de vérification.</p>
+            </div>
+            <div class="admin-form-grid">
+              <label for="certification-status"><span>Statut</span><p-select inputId="certification-status" formControlName="publicationStatus" [options]="statusOptions()" optionLabel="label" optionValue="value" /></label>
+              <label for="certification-issuer"><span>Organisme</span><input id="certification-issuer" pInputText formControlName="issuer" /></label>
+              <label for="certification-issue"><span>Date d'obtention</span><p-datepicker inputId="certification-issue" formControlName="issueDate" dateFormat="yy-mm-dd" [showIcon]="true" /></label>
+              <label for="certification-expiry"><span>Date d'expiration</span><p-datepicker inputId="certification-expiry" formControlName="expiryDate" dateFormat="yy-mm-dd" [showIcon]="true" /></label>
+              <label for="certification-id"><span>Identifiant</span><input id="certification-id" pInputText formControlName="credentialId" /></label>
+              <label for="certification-url"><span>URL de vérification</span><input id="certification-url" pInputText formControlName="verificationUrl" /></label>
+              <label for="certification-order"><span>Ordre</span><p-inputnumber inputId="certification-order" formControlName="displayOrder" [min]="0" /></label>
+              <label class="admin-toggle-row" for="certification-no-expiry"><span>Sans expiration<small>La date d'expiration est désactivée.</small></span><p-toggleswitch inputId="certification-no-expiry" formControlName="noExpiry" (onChange)="syncCertificationDates()" /></label>
+            </div>
+          </section>
+          <section class="admin-form-section">
+            <div class="admin-form-section__header">
+              <h3>Contenu traduit</h3>
+              <p>Nom et description sont édités langue par langue.</p>
+            </div>
+            <p-tabs value="fr" class="admin-language-tabs">
+              <p-tablist><p-tab value="fr">Français</p-tab><p-tab value="en">English</p-tab></p-tablist>
+              <p-tabpanels>
+                <p-tabpanel value="fr">
+                  <label><span>Nom</span><input pInputText formControlName="nameFr" /></label>
+                  <label><span>Description</span><textarea pTextarea formControlName="descriptionFr" rows="5"></textarea></label>
+                </p-tabpanel>
+                <p-tabpanel value="en">
+                  <label><span>Name</span><input pInputText formControlName="nameEn" /></label>
+                  <label><span>Description</span><textarea pTextarea formControlName="descriptionEn" rows="5"></textarea></label>
+                </p-tabpanel>
+              </p-tabpanels>
+            </p-tabs>
+          </section>
           <ng-container *ngTemplateOutlet="dialogActions" />
         </form>
       }
@@ -286,11 +372,28 @@ type DeleteTarget =
         </div>
       }
     </p-dialog>
+
+    <p-dialog
+      header="Modifications non enregistrées"
+      [visible]="unsavedCloseRequested()"
+      (visibleChange)="cancelPendingClose()"
+      [modal]="true"
+      [style]="{ width: 'min(32rem, calc(100vw - 2rem))' }"
+    >
+      <div class="admin-dialog-form">
+        <p>Des modifications sont en cours dans ce formulaire. Confirmez l'abandon pour fermer la modale.</p>
+        <div class="admin-dialog-actions">
+          <p-button label="Continuer l'édition" severity="secondary" type="button" (onClick)="cancelPendingClose()" />
+          <p-button label="Abandonner" icon="pi pi-times" severity="danger" type="button" (onClick)="confirmPendingClose()" />
+        </div>
+      </div>
+    </p-dialog>
   `,
 })
 export class CareerPage {
   private readonly api = inject(CareerApiService);
   private readonly skillsApi = inject(SkillsApiService);
+  private initialDialogFormValue = '';
 
   readonly loading = signal(true);
   readonly saving = signal(false);
@@ -309,6 +412,7 @@ export class CareerPage {
   });
   readonly activeDialog = signal<CareerDialog | null>(null);
   readonly deleteTarget = signal<DeleteTarget | null>(null);
+  readonly unsavedCloseRequested = signal(false);
   readonly experienceStatusFilter = new FormControl<PublicationStatus | null>(null);
   readonly statusOptions = computed(() => this.metadata().publicationStatuses);
 
@@ -437,6 +541,7 @@ export class CareerPage {
     this.formMessage.set(null);
     this.experienceForm.reset(experienceFormValue(experience, this.nextOrder(this.experiences())));
     this.syncExperienceDates();
+    this.initialDialogFormValue = this.formSnapshot(this.experienceForm);
     this.activeDialog.set('experience');
   }
 
@@ -444,6 +549,7 @@ export class CareerPage {
     this.formMessage.set(null);
     this.educationForm.reset(educationFormValue(item, this.nextOrder(this.education())));
     this.syncEducationDates();
+    this.initialDialogFormValue = this.formSnapshot(this.educationForm);
     this.activeDialog.set('education');
   }
 
@@ -451,6 +557,7 @@ export class CareerPage {
     this.formMessage.set(null);
     this.certificationForm.reset(certificationFormValue(item, this.nextOrder(this.certifications())));
     this.syncCertificationDates();
+    this.initialDialogFormValue = this.formSnapshot(this.certificationForm);
     this.activeDialog.set('certification');
   }
 
@@ -526,10 +633,23 @@ export class CareerPage {
   }
 
   closeDialog(): void {
-    if (!this.saving()) {
-      this.activeDialog.set(null);
-      this.formMessage.set(null);
+    if (this.saving()) {
+      return;
     }
+    if (this.activeFormDirty()) {
+      this.unsavedCloseRequested.set(true);
+      return;
+    }
+    this.forceCloseDialog();
+  }
+
+  cancelPendingClose(): void {
+    this.unsavedCloseRequested.set(false);
+  }
+
+  confirmPendingClose(): void {
+    this.unsavedCloseRequested.set(false);
+    this.forceCloseDialog();
   }
 
   closeDeleteDialog(): void {
@@ -638,5 +758,29 @@ export class CareerPage {
 
   private textFor(value: string | null | undefined): string {
     return value?.trim() || 'Non renseigné';
+  }
+
+  private activeFormDirty(): boolean {
+    const dialog = this.activeDialog();
+    return (
+      (dialog === 'experience' && this.initialDialogFormValue !== this.formSnapshot(this.experienceForm)) ||
+      (dialog === 'education' && this.initialDialogFormValue !== this.formSnapshot(this.educationForm)) ||
+      (dialog === 'certification' && this.initialDialogFormValue !== this.formSnapshot(this.certificationForm))
+    );
+  }
+
+  private forceCloseDialog(): void {
+    this.activeDialog.set(null);
+    this.formMessage.set(null);
+    this.experienceForm.markAsPristine();
+    this.educationForm.markAsPristine();
+    this.certificationForm.markAsPristine();
+    this.initialDialogFormValue = '';
+  }
+
+  private formSnapshot(
+    form: CareerExperienceForm | CareerEducationForm | CareerCertificationForm,
+  ): string {
+    return JSON.stringify(form.getRawValue());
   }
 }
