@@ -70,6 +70,22 @@ Pour chaque projet publiable :
 - Livrables possibles.
 - Types de clients ou missions visés.
 
+## Landing publique
+
+Avant mise en ligne, vérifier et publier :
+
+- profil principal complet en français et anglais ;
+- titre professionnel réel ;
+- résumé court crédible ;
+- disponibilité réelle ou masquée ;
+- statistiques uniquement si vérifiables ;
+- compétences principales publiées ;
+- expériences/formations/certifications publiables ;
+- projets mis en avant avec visuels autorisés ;
+- services réellement proposés ;
+- méthode de travail publiée ;
+- coordonnées ou liens de contact autorisés.
+
 ## Identité
 
 - Monogramme ou logo éventuel.
@@ -83,4 +99,4 @@ Ne préparer que des témoignages réels et autorisés. Si aucun témoignage ré
 
 ## Dernière mise à jour
 
-2026-07-21
+2026-08-03 (ajout préparation landing publique 5.8)

@@ -15,6 +15,9 @@
 | TD-012 | Validation visuelle interactive non exécutée pour le module projets (aucun navigateur/outil de capture disponible dans cet environnement) | Frontend/QA | Moyen | Haute avant release | 2026-08-02 |
 | TD-013 | Build Angular passe avec un warning de budget initial dépassé de 22,75 kB après l'ajout du module services | Frontend/performance | Faible à moyen | Moyenne avant release | 2026-08-03 |
 | TD-014 | Aucun harnais E2E authentifié n'est disponible pour capturer automatiquement `/admin/services` et ses modales ; la tentative CDP temporaire 5.7 est restée bloquée | Frontend/QA | Moyen | Haute avant release | 2026-08-03 |
+| TD-015 | Build Angular passe avec un warning de budget initial dépassé de 34,21 kB après assemblage de la landing publique | Frontend/performance | Faible à moyen | Moyenne avant release | 2026-08-03 |
+| TD-016 | La landing publique réutilise des services API situés sous `admin/**`; les appels restent publics, mais un data-access public dédié doit isoler les contrats | Frontend/architecture | Moyen | Moyenne | 2026-08-03 |
+| TD-017 | Aucun harnais Playwright/axe automatisé n'est disponible pour rejouer responsive, clavier, menu mobile et profils publiés sur la landing | Frontend/QA | Moyen | Haute avant release | 2026-08-03 |
 
 ## Dette résolue
 
@@ -26,4 +29,4 @@
 
 ## Dernière mise à jour
 
-2026-08-03 (ajout TD-013 à TD-014 — sous-phase 5.7)
+2026-08-03 (ajout TD-015 à TD-017 — sous-phase 5.8)

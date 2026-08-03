@@ -2,7 +2,7 @@
 
 ## Statut global
 
-`PHASE_5_7_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
+`PHASE_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
 
 ## Mode détecté
 
@@ -10,7 +10,7 @@
 
 ## Phase autorisée
 
-Sous-phase 5.7 — Services professionnels et méthode de travail (clôturée).
+Sous-phase 5.8 — Assemblage final de la landing page publique (clôturée).
 
 ## Phase en cours
 
@@ -18,11 +18,11 @@ Aucune.
 
 ## Dernière phase clôturée
 
-Sous-phase 5.7 — Services professionnels et méthode de travail (clôturée le 2026-08-03).
+Sous-phase 5.8 — Assemblage final de la landing page publique (clôturée le 2026-08-03).
 
 ## Dernier GO reçu
 
-2026-08-03 — `GO — SOUS-PHASE 5.7 : SERVICES ET MÉTHODE DE TRAVAIL`, avec exécution autonome complète, audits après chaque étape, construction du domaine services professionnels/méthode de bout en bout (backend, frontend, tests, sécurité, UX/UI, contenus, documentation) et arrêt sans lancer 5.8.
+2026-08-03 — `GO — SOUS-PHASE 5.8 : ASSEMBLAGE FINAL DE LA LANDING PAGE PUBLIQUE`, avec exécution autonome multi-agents, assemblage frontend public, tests, inspection visuelle, revues indépendantes, documentation et arrêt sans lancer 5.9.
 
 ## Étapes terminées
 
@@ -78,6 +78,13 @@ Sous-phase 5.7 — Services professionnels et méthode de travail (clôturée le
 | 5.7.6 | Builds, tests, lint et scans qualité | DONE | CONFORME AVEC RÉSERVE TRACÉE |
 | 5.7.7 | Audits sécurité, contenu, UX/UI et inspection visuelle | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
 | 5.7.8 | Documentation, handoff, audit final et arrêt | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.8.1 | Orchestration multi-agents, matrice de propriété et graphes de dépendances | DONE | CONFORME |
+| 5.8.2 | Validation produit/contenu et audit des données publiques | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.8.3 | Composition UX/UI et stratégie responsive/accessibilité | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.8.4 | Implémentation frontend landing modulaire et data-access centralisé | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.8.5 | Tests, builds, inspection visuelle et corrections | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.8.6 | Revues indépendantes et réaudit final | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.8.7 | Documentation, rapports, handoff et arrêt | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
 
 ## Audits récents
 
@@ -102,6 +109,10 @@ Sous-phase 5.7 — Services professionnels et méthode de travail (clôturée le
 | 2026-08-03 | Sous-phase 5.7 — Sécurité/publication/CTA | CONFORME |
 | 2026-08-03 | Sous-phase 5.7 — Contenus services et méthode | CONFORME |
 | 2026-08-03 | Sous-phase 5.7 — UX/UI SaaS premium et inspection visuelle partielle | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 2026-08-03 | Sous-phase 5.8 — Orchestration multi-agents | CONFORME |
+| 2026-08-03 | Sous-phase 5.8 — Frontend landing publique | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 2026-08-03 | Sous-phase 5.8 — UX/UI et accessibilité | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 2026-08-03 | Sous-phase 5.8 — Sécurité données publiques | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
 
 ## Blocages
 
@@ -126,6 +137,9 @@ Réserves tracées :
 - Sous-phase 5.6 : vérification runtime Docker complète non rejouée dans cette session (dernière vérification Docker complète effectuée en 5.5) ; builds et tests locaux (backend 34/34, frontend 37/37, lint) réexécutés et confirmés PASS le 2026-08-02.
 - Sous-phase 5.7 : build Angular PASS avec avertissement de budget initial dépassé de 22,75 kB après ajout du module services.
 - Sous-phase 5.7 : inspection visuelle réelle publique exécutée avec backend H2 + SSR + Chrome headless sur desktop/mobile ; inspection admin authentifiée des écrans Services/Méthode non capturée car le script CDP temporaire est resté bloqué, remplacée par tests composants, lint et revue statique.
+- Sous-phase 5.8 : build Angular PASS avec avertissement de budget initial dépassé de 34,21 kB (total 534,21 kB) après assemblage landing.
+- Sous-phase 5.8 : inspection visuelle réelle exécutée sur l'état disponible en H2 (`profilePublished=false`, services/méthode publiés) ; le rendu complet avec profil réel publié reste à vérifier avant mise en ligne.
+- Sous-phase 5.8 : la landing réutilise encore des services API localisés dans `admin/**`; aucune URL admin n'est appelée, mais un data-access public dédié reste une dette d'architecture.
 
 ## Risques actifs
 
@@ -133,9 +147,9 @@ Voir `.agents/state/RISKS.md`.
 
 ## Prochaine action autorisée
 
-Attendre un `GO` humain explicite pour la sous-phase 5.8 ou une sous-phase nommée.
+Attendre un `GO` humain explicite pour la sous-phase 5.9 ou une sous-phase nommée.
 
-La sous-phase 5.8 n'est pas autorisée. Aucun témoignage, contact complet, messages, médiathèque complète, SEO avancé, assemblage final de landing page ou fonctionnalité hors périmètre ne doit être commencé.
+La sous-phase 5.9 n'est pas autorisée. Aucun témoignage, contact complet, messages, médiathèque complète, SEO avancé ou fonctionnalité hors périmètre ne doit être commencé.
 
 ## Dernière mise à jour
 

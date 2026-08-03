@@ -64,11 +64,11 @@ Architecture validée en Phase 2 : monolithe modulaire Spring Boot, frontend Ang
 
 - Mode : Nouveau projet défini (Mode B)
 - Phase courante : Aucune phase en cours
-- Statut : `PHASE_5_7_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
-- Code applicatif : Fondations techniques, authentification administrateur, layout/dashboard admin, profil professionnel, paramètres généraux, médias principaux, compétences/catégories, parcours, projets/études de cas, services professionnels et méthode de travail implémentés
+- Statut : `PHASE_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
+- Code applicatif : Fondations techniques, authentification administrateur, layout/dashboard admin, profil professionnel, paramètres généraux, médias principaux, compétences/catégories, parcours, projets/études de cas, services professionnels, méthode de travail et landing publique assemblée implémentés
 - Framework IA : Installé
 - Brief produit : Renseigné
-- Dernière intervention clôturée : Sous-phase 5.7 — Services professionnels et méthode de travail
+- Dernière intervention clôturée : Sous-phase 5.8 — Assemblage final de la landing page publique
 
 ## Contraintes
 
@@ -175,6 +175,17 @@ Risques majeurs initiaux : scope trop large, contenu insuffisant, design génér
 - Les contenus initiaux sont des seeds conservateurs cohérents avec le profil Java/Spring Boot/Angular, sans tarifs, délais garantis, faux clients ni promesses chiffrées.
 - ADR applicable : `docs/adr/ADR-0013-services-et-methode-de-travail.md`.
 
+## Décisions Phase 5.8
+
+- La route publique `/` est désormais une landing page modulaire sous `frontend/src/app/public/home/**`, et l'ancien composant provisoire `PublicPlaceholderPage` a été supprimé.
+- La landing charge d'abord `/api/v1/public/portfolio`, respecte `sections.visible`, puis charge uniquement les endpoints publics nécessaires aux sections visibles.
+- Aucun endpoint backend agrégé n'a été ajouté en 5.8 ; les endpoints publics existants restent la source de données.
+- La route racine est rendue en `RenderMode.Server` pour éviter un prerender statique incohérent avec les contenus publics dynamiques.
+- Le header public gère menu mobile, langue, skip link et CTA conditionnel ; les CTA vers des ancres absentes sont supprimés.
+- Les sections vides ou désactivées sont masquées ; le profil non publié affiche un état public propre tout en conservant les services/méthode publiés.
+- Le lien admin a été retiré du footer public de la landing.
+- Réserves : data-access public encore couplé aux services API localisés sous `admin/**`, budget initial Angular à 534,21 kB, inspection complète du profil publié réel à exécuter avant mise en ligne.
+
 ## Décisions de restructuration architecturale
 
 - Le backend est organisé progressivement par domaine/fonctionnalité, avec DTO REST en `api/dto/request` et `api/dto/response`, services applicatifs en `application/service`, mappers en `application/mapper`, modèles en `domain/model` et persistance en `infrastructure/persistence`.
@@ -233,8 +244,9 @@ docker compose up --build
 - Rapport Phase 5.4 : `.agents/state/PHASE_5_4_REPORT.md`
 - Rapport Phase 5.5 : `.agents/state/PHASE_5_5_REPORT.md`
 - Rapport Phase 5.7 : `.agents/state/PHASE_5_7_REPORT.md`
+- Rapport Phase 5.8 : `.agents/state/PHASE_5_8_REPORT.md`
 - Rapport restructuration : `.agents/state/ARCHITECTURE_RESTRUCTURING_REPORT.md`
 
 ## Dernière mise à jour
 
-2026-08-03
+2026-08-03 (clôture sous-phase 5.8)

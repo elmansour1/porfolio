@@ -50,3 +50,15 @@ Validé en Phase 3 — Conception UX/UI du portfolio. Mis à jour après sous-ph
 ## Dernière mise à jour
 
 2026-07-26
+## Validation 5.8 — Landing publique
+
+| Écran/état | Validation | Résultat | Réserve |
+|------------|------------|----------|---------|
+| `/` desktop | Chrome headless 1440px + SSR H2 | PASS | Profil réel publié non disponible |
+| `/` mobile | Chrome headless 390px + SSR H2 | PASS | Profil réel publié non disponible |
+| `/` tablette | Chrome headless 768px + SSR H2 | PASS | Profil réel publié non disponible |
+| Menu mobile | CDP click + capture | PASS | — |
+| Page complète | Capture full-page CDP | PASS | — |
+| Reduced motion | Chrome `--force-prefers-reduced-motion` | PASS | — |
+| Navigation clavier | CDP Tab order | PASS | Test manuel automatisé léger, pas Playwright |
+| Sections désactivées | Tests Angular | PASS | 48 tests au total |

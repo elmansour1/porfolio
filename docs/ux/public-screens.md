@@ -210,3 +210,24 @@ Règles UX :
 - Aucun CTA sans destination réelle.
 - Les sections peuvent apparaître même si le profil principal n'est pas encore publié, car leur publication est indépendante.
 - Inspection visuelle publique exécutée via Chrome headless sur desktop et mobile.
+## Sous-phase 5.8 — Landing publique finale
+
+La landing publique assemblée présente, selon les données publiées et visibles :
+
+1. Header public avec monogramme, navigation courte, langues, CTA contact conditionnel et menu mobile.
+2. Hero avec état profil publié ou état propre “portfolio en préparation”.
+3. Indicateurs professionnels réels si publiés.
+4. À propos si profil publié et contenu disponible.
+5. Compétences si section visible et données publiées.
+6. Projets mis en avant si disponibles.
+7. Parcours avec expériences et formations/certifications selon visibilité séparée.
+8. Services publiés avec bénéfices et CTA valides.
+9. Méthode de travail publiée dans l'ordre.
+10. CTA collaboration/contact si section Contact visible.
+11. Footer public sans lien admin principal.
+
+Inspection réelle 5.8 :
+
+- Desktop, mobile, tablette, menu mobile, pleine page, reduced motion et navigation clavier vérifiés via backend H2 + SSR + Chrome headless.
+- Captures principales dans `/tmp/home-desktop-final.png`, `/tmp/home-mobile-final.png`, `/tmp/home-mobile-menu.png`, `/tmp/home-fullpage.png`, `/tmp/home-reduced-motion-final.png`.
+- Réserve : l'état réellement inspecté contient `profilePublished=false` et des services/méthode publiés ; le rendu complet avec profil réel publié doit être recapturé avant mise en ligne.

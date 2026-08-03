@@ -2,13 +2,38 @@
 
 ## Dernière tâche
 
-5.7.8 — Documentation, audit final et arrêt sous-phase 5.7 — État : DONE
+5.8.7 — Documentation, audit final et arrêt sous-phase 5.8 — État : DONE
 
 ## Objectif de la dernière tâche
 
-Clôturer la sous-phase 5.7 — Services professionnels et méthode de travail : livrer le domaine métier complet (backend, frontend, sécurité, UX/UI, contenus, tests), documenter et arrêter sans lancer 5.8.
+Clôturer la sous-phase 5.8 — Assemblage final de la landing page publique : assembler les domaines publics existants dans une landing modulaire, vérifier responsive/accessibilité/sécurité, documenter et arrêter sans lancer 5.9.
 
 ## Fichiers créés
+
+Sous-phase 5.8 — Assemblage final de la landing page publique — 2026-08-03 :
+
+- `frontend/src/app/public/home/models/home-page.model.ts`
+- `frontend/src/app/public/home/data-access/home-page-data.service.ts`
+- `frontend/src/app/public/home/pages/home-page/home-page.component.ts`
+- `frontend/src/app/public/home/pages/home-page/home-page.component.spec.ts`
+- `frontend/src/app/public/home/components/public-header/public-header.component.ts`
+- `frontend/src/app/public/home/components/hero-section/hero-section.component.ts`
+- `frontend/src/app/public/home/components/about-section/about-section.component.ts`
+- `frontend/src/app/public/home/components/skills-section/skills-section.component.ts`
+- `frontend/src/app/public/home/components/featured-projects-section/featured-projects-section.component.ts`
+- `frontend/src/app/public/home/components/career-section/career-section.component.ts`
+- `frontend/src/app/public/home/components/services-section/services-section.component.ts`
+- `frontend/src/app/public/home/components/work-process-section/work-process-section.component.ts`
+- `frontend/src/app/public/home/components/collaboration-cta/collaboration-cta.component.ts`
+- `frontend/src/app/public/home/components/public-footer/public-footer.component.ts`
+- `.agents/state/PHASE_5_8_ORCHESTRATION_REPORT.md`
+- `.agents/state/PHASE_5_8_IMPLEMENTATION_REPORT.md`
+- `.agents/state/PHASE_5_8_FRONTEND_AUDIT.md`
+- `.agents/state/PHASE_5_8_UX_UI_AUDIT.md`
+- `.agents/state/PHASE_5_8_ACCESSIBILITY_AUDIT.md`
+- `.agents/state/PHASE_5_8_SECURITY_AUDIT.md`
+- `.agents/state/PHASE_5_8_VISUAL_INSPECTION.md`
+- `.agents/state/PHASE_5_8_REPORT.md`
 
 Sous-phase 5.7 — Services professionnels et méthode de travail — 2026-08-03 :
 
@@ -70,6 +95,29 @@ Historique antérieur conservé :
 - `docs/api/postman-skills.postman_collection.json`
 
 ## Fichiers modifiés
+
+Sous-phase 5.8 — Assemblage final de la landing page publique — 2026-08-03 :
+
+- `frontend/src/app/app.routes.ts`
+- `frontend/src/app/app.routes.server.ts`
+- `frontend/src/styles.scss`
+- `PROJECT.md`
+- `PLANS.md`
+- `.agents/state/PROJECT_STATE.md`
+- `.agents/state/HUMAN_GATES.md`
+- `.agents/state/HANDOFF.md`
+- `.agents/state/RISKS.md`
+- `.agents/state/TECHNICAL_DEBT.md`
+- `docs/architecture/frontend.md`
+- `docs/ux/public-screens.md`
+- `docs/ux/frontend-handoff.md`
+- `docs/ux/screen-validation-matrix.md`
+- `docs/api/README.md`
+
+Fichiers supprimés :
+
+- `frontend/src/app/public/public-placeholder.page.ts`
+- `frontend/src/app/public/public-placeholder.page.spec.ts`
 
 Sous-phase 5.7 — Services professionnels et méthode de travail — 2026-08-03 :
 
@@ -155,6 +203,12 @@ Historique antérieur conservé :
 
 ## Décisions
 
+- Sous-phase 5.8 : la route `/` utilise une feature `public/home` modulaire au lieu du placeholder public provisoire.
+- Sous-phase 5.8 : la landing charge d'abord le portfolio public, applique `sections.visible`, puis charge uniquement les endpoints publics utiles.
+- Sous-phase 5.8 : aucun endpoint backend agrégé n'a été ajouté ; la solution reste proportionnée aux APIs publiques existantes.
+- Sous-phase 5.8 : la route racine est passée en `RenderMode.Server` pour les contenus publics dynamiques.
+- Sous-phase 5.8 : les CTA vers `#contact` sont conditionnels et ne s'affichent pas si la section Contact est désactivée.
+- Sous-phase 5.8 : le lien `/admin/login` a été retiré du footer public de la landing.
 - Sous-phase 5.7 : les services professionnels sont un domaine dédié `service` avec DTO séparés request/response, service applicatif transactionnel, mappers, entités JPA isolées et repositories Spring Data.
 - Sous-phase 5.7 : les technologies et compétences liées aux services réutilisent le référentiel `skill`, via `service_skill` typé `TECHNOLOGY`/`SKILL`; aucune table de technologies parallèle n'a été créée.
 - Sous-phase 5.7 : bénéfices et livrables sont structurés, traduisibles, ordonnables et activables.
@@ -173,6 +227,13 @@ Historique antérieur conservé :
 
 | Test | Résultat |
 |------|----------|
+| Frontend `npm run lint` (sous-phase 5.8) | PASS |
+| Frontend `npm run test:ci` avec Node 20 (sous-phase 5.8) | PASS — 48 tests |
+| Frontend `npm run build` avec Node 20 (sous-phase 5.8) | PASS avec warning budget initial +34,21 kB |
+| Backend `mvn test` (régression sous-phase 5.8) | PASS — 40 tests |
+| Endpoints publics `/portfolio`, `/services`, `/services/work-process/steps` via backend H2 | PASS — HTTP 200 |
+| HTML SSR `/` via `localhost:4100` | PASS — HTTP 200, titre `Portfolio professionnel`, aucune occurrence `/api/v1/admin` ni `/admin/login` |
+| Inspection visuelle Chrome headless 5.8 | PASS avec réserve profil publié réel |
 | Backend `mvn test` (sous-phase 5.7) | PASS — 40 tests |
 | Frontend `npm run lint` avec Node 20 (sous-phase 5.7) | PASS |
 | Frontend `npm run test:ci` avec Node 20 (sous-phase 5.7) | PASS — 42 tests |
@@ -195,6 +256,11 @@ Historique antérieur conservé :
 
 | Audit | Verdict |
 |-------|---------|
+| Orchestration multi-agents (5.8) | CONFORME |
+| Product/contenu (5.8) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| Frontend architecture/code (5.8) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| UX/UI + accessibilité (5.8) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| Sécurité données publiques (5.8) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
 | Backend senior (5.7) | CONFORME |
 | Frontend senior + PrimeNG (5.7) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
 | Sécurité publication/CTA/public (5.7) | CONFORME |
@@ -214,6 +280,9 @@ Historique antérieur conservé :
 
 ## Réserves
 
+- Build Angular 5.8 : PASS avec warning budget initial dépassé de 34,21 kB (total 534,21 kB).
+- Inspection visuelle 5.8 : exécutée avec backend H2 + SSR + Chrome headless sur desktop, mobile, tablette, menu mobile, pleine page, clavier et reduced motion ; état disponible `profilePublished=false`, services/méthode publiés. Le rendu complet avec profil réel publié reste à valider avant mise en ligne.
+- Architecture frontend 5.8 : la landing consomme uniquement des méthodes publiques, mais les services API réutilisés résident encore sous `admin/**`; isoler un data-access public dédié avant release si possible.
 - Build Angular 5.7 : PASS avec warning budget initial dépassé de 22,75 kB.
 - Inspection visuelle 5.7 : rendu public Services/Méthode validé par Chrome headless avec backend H2 + SSR sur desktop et mobile ; écran admin login capturé ; écran admin Services/Méthode authentifié non capturé car le script CDP temporaire est resté bloqué. Couverture de remplacement : tests composants, lint, scan PrimeNG/no-native-select et revue statique du template.
 - Inspection visuelle 5.4 : levée le 2026-07-26 via vérification runtime HTTP/HTML (stack Docker complète up/healthy) ; aucune capture d'écran interactive réalisée.
@@ -227,7 +296,7 @@ Voir `.agents/state/RISKS.md` et `.agents/state/TECHNICAL_DEBT.md`.
 
 ## Éléments à préserver
 
-- Ne pas lancer 5.8 sans `GO`.
+- Ne pas lancer 5.9 sans `GO`.
 - Ne pas implémenter témoignages, messages, contact complet, médiathèque complète, SEO avancé ou assemblage final de landing page.
 - Ne pas afficher de statistiques fictives.
 - Ne pas exposer les coordonnées masquées ni les projets `PRIVATE`/brouillons dans les réponses publiques.
@@ -236,17 +305,31 @@ Voir `.agents/state/RISKS.md` et `.agents/state/TECHNICAL_DEBT.md`.
 
 ## Prochaine action autorisée
 
-Attendre un `GO` humain explicite pour la sous-phase 5.8 ou une sous-phase nommée.
+Attendre un `GO` humain explicite pour la sous-phase 5.9 ou une sous-phase nommée.
 
 ## Statut humain
 
 - Phase autorisée : Aucune
-- Gate en attente : Oui — sous-phase 5.8 ou prochaine sous-phase nommée
-- Statut global : `PHASE_5_7_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
+- Gate en attente : Oui — sous-phase 5.9 ou prochaine sous-phase nommée
+- Statut global : `PHASE_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
 
 ## Outil source
 
-OpenAI Codex — sous-phase 5.7 du 2026-08-03.
+OpenAI Codex — sous-phase 5.8 du 2026-08-03.
+
+## Sous-phase 5.8 — Assemblage final de la landing page publique — 2026-08-03
+
+- Frontend : feature `public/home` ajoutée avec modèle de page, data-access centralisé, page orchestratrice et composants de sections isolés.
+- Route `/` : basculée vers `HomePageComponent`, titre `Portfolio professionnel`, rendu serveur dynamique `RenderMode.Server`.
+- Données : endpoints publics existants consommés (`portfolio`, `skills`, `career`, `projects/featured`, `services`, `work-process/steps`) avec erreurs partielles et respect des sections visibles.
+- UX/UI : header sticky, skip link, menu mobile accessible, hero, services, méthode, CTA collaboration, footer, responsive mobile/tablette/desktop et reduced motion.
+- Sécurité : aucun endpoint admin appelé par la landing, aucun `withCredentials` public ajouté, lien admin retiré du footer, CTA externes avec `rel="noopener noreferrer"`.
+- Vérifié : frontend lint PASS ; frontend tests PASS — 48 tests ; frontend build PASS avec warning budget initial +34,21 kB ; backend `mvn test` PASS — 40 tests ; endpoints publics 200 ; HTML SSR 200.
+- Inspection visuelle : Chrome headless avec backend H2 + SSR sur desktop, mobile, tablette, menu mobile, pleine page, reduced motion et navigation clavier. Captures : `/tmp/home-desktop-final.png`, `/tmp/home-mobile-final.png`, `/tmp/home-mobile-menu.png`, `/tmp/home-fullpage.png`, `/tmp/home-reduced-motion-final.png`, `/tmp/home-desktop-after-review.png`, `/tmp/home-mobile-after-review.png`.
+- Réserves : profil réel publié non disponible dans les données H2 ; data-access public à isoler des services API `admin/**` ; budget initial Angular au-dessus du seuil.
+- Rapports : `.agents/state/PHASE_5_8_ORCHESTRATION_REPORT.md`, `.agents/state/PHASE_5_8_IMPLEMENTATION_REPORT.md`, `.agents/state/PHASE_5_8_FRONTEND_AUDIT.md`, `.agents/state/PHASE_5_8_UX_UI_AUDIT.md`, `.agents/state/PHASE_5_8_ACCESSIBILITY_AUDIT.md`, `.agents/state/PHASE_5_8_SECURITY_AUDIT.md`, `.agents/state/PHASE_5_8_VISUAL_INSPECTION.md`, `.agents/state/PHASE_5_8_REPORT.md`.
+- Statut global : `PHASE_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`.
+- Prochaine action autorisée : attendre un `GO` humain explicite pour 5.9 ; ne pas lancer 5.9 automatiquement.
 
 ## Sous-phase 5.7 — Services professionnels et méthode de travail — 2026-08-03
 

@@ -6,8 +6,10 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./public/public-placeholder.page').then((module) => module.PublicPlaceholderPage),
-    title: 'Portfolio public - fondation',
+      import('./public/home/pages/home-page/home-page.component').then(
+        (module) => module.HomePageComponent,
+      ),
+    title: 'Portfolio professionnel',
   },
   {
     path: 'projects',

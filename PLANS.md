@@ -121,11 +121,11 @@
 ## Phase 5 — Implémentation incrémentale
 
 **État :** `READY`
-**Dernière autorisation clôturée :** `GO — SOUS-PHASE 5.7 : SERVICES ET MÉTHODE DE TRAVAIL` (2026-08-03)
+**Dernière autorisation clôturée :** `GO — SOUS-PHASE 5.8 : ASSEMBLAGE FINAL DE LA LANDING PAGE PUBLIQUE` (2026-08-03)
 **Dépendances :** Phase 4 clôturée
-**Dernier périmètre autorisé :** Services professionnels et méthode de travail : domaine métier, DTO, persistance, migration, API admin/public, interfaces TypeScript, formulaires, administration PrimeNG, affichage public, publication, archivage, traductions FR/EN, ordre, mise en avant, bénéfices, livrables, technologies/compétences liées, CTA, tests, documentation et audits.
-**Exclusions :** Tarification, paiement, panier, devis, réservation, calendrier, espace client, contrats, facturation, CRM, témoignages, formulaire de contact complet, landing page finale complète, IA, synchronisation externe, sous-phase 5.8.
-**Statut en cours :** `PHASE_5_7_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`. Aucune sous-phase suivante n'est autorisée.
+**Dernier périmètre autorisé :** Assemblage final de la landing page publique : orchestration multi-agents, composition frontend modulaire, consommation des API publiques existantes, header, hero, services, méthode, CTA de collaboration, footer, états, visibilité de sections, responsive, accessibilité, tests, inspection visuelle et documentation.
+**Exclusions :** Formulaire de contact complet, gestion des messages, témoignages fictifs, blog, newsletter, paiement, réservation, analytics avancés, personnalisation de thème, nouvelle architecture globale, nouvelle gestion de contenu, sous-phase 5.9.
+**Statut en cours :** `PHASE_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`. Aucune sous-phase suivante n'est autorisée.
 
 ### Sous-phase 5.1 — Authentification administrateur
 
@@ -307,6 +307,27 @@
 **Rapports :** `.agents/state/PHASE_5_7_IMPLEMENTATION_REPORT.md`, `.agents/state/PHASE_5_7_BACKEND_AUDIT.md`, `.agents/state/PHASE_5_7_FRONTEND_AUDIT.md`, `.agents/state/PHASE_5_7_UX_UI_AUDIT.md`, `.agents/state/PHASE_5_7_SECURITY_AUDIT.md`, `.agents/state/PHASE_5_7_CONTENT_COMPLIANCE.md`, `.agents/state/PHASE_5_7_VISUAL_INSPECTION.md`, `.agents/state/PHASE_5_7_REPORT.md`
 **Statut final :** `PHASE_5_7_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
 
+### Sous-phase 5.8 — Assemblage final de la landing page publique
+
+**Objectif :** Assembler les fonctionnalités publiques déjà livrées pour produire la landing page finale du portfolio sans reconstruire les domaines métier ni ajouter de fonctionnalités exclues.
+**État :** `DONE`
+**Autorisation :** `GO — SOUS-PHASE 5.8 : ASSEMBLAGE FINAL DE LA LANDING PAGE PUBLIQUE` (2026-08-03)
+**Date de clôture :** 2026-08-03
+**Exclusions :** Formulaire de contact complet, gestion des messages, témoignages fictifs, blog, newsletter, paiement, réservation, analytics avancés, personnalisation de thème, nouvelle architecture globale, nouvelle gestion de contenu, sous-phase 5.9, commit.
+
+| ID | Titre | Agents | État | Audit |
+|----|-------|--------|------|-------|
+| 5.8.1 | Orchestration multi-agents, matrice de propriété et graphe de dépendances | Orchestrateur, Product, UX/UI, Backend, QA | DONE | CONFORME |
+| 5.8.2 | Validation produit/contenu et audit des données publiques | Product, Métier, Documentation, Backend, Architecte, Security | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.8.3 | Composition UX/UI et stratégie responsive/accessibilité | UX/UI, Accessibility, Reviewer UX/UI | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.8.4 | Implémentation frontend landing modulaire et data-access centralisé | Frontend Architecture, Frontend Data Access, Frontend UI | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.8.5 | Tests, builds, inspection visuelle et correction des non-conformités | QA Frontend, QA Integration, QA Accessibility, QA Performance | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.8.6 | Revues indépendantes code, UX/accessibilité et sécurité, réaudit final | Reviewer Code, Reviewer UX/UI, Security Reviewer | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.8.7 | Documentation, rapports, handoff et arrêt sans lancer 5.9 | Orchestrateur, Documentation | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+
+**Rapports :** `.agents/state/PHASE_5_8_ORCHESTRATION_REPORT.md`, `.agents/state/PHASE_5_8_IMPLEMENTATION_REPORT.md`, `.agents/state/PHASE_5_8_FRONTEND_AUDIT.md`, `.agents/state/PHASE_5_8_UX_UI_AUDIT.md`, `.agents/state/PHASE_5_8_ACCESSIBILITY_AUDIT.md`, `.agents/state/PHASE_5_8_SECURITY_AUDIT.md`, `.agents/state/PHASE_5_8_VISUAL_INSPECTION.md`, `.agents/state/PHASE_5_8_REPORT.md`
+**Statut final :** `PHASE_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
+
 ## Phase 6 — Stabilisation
 
 **État :** `BACKLOG` — Dépend de Phase 5
@@ -323,4 +344,4 @@
 
 ## Dernière mise à jour
 
-2026-08-03 (clôture sous-phase 5.7 — Services professionnels et méthode de travail)
+2026-08-03 (clôture sous-phase 5.8 — Assemblage final de la landing page publique)

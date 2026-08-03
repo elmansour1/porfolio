@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres généraux livrés en sous-phase 5.3. Compétences et catégories livrées en sous-phase 5.4. Parcours professionnel livré en sous-phase 5.5. Projets et études de cas livrés en sous-phase 5.6. Services professionnels et méthode de travail livrés en sous-phase 5.7.
+Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres généraux livrés en sous-phase 5.3. Compétences et catégories livrées en sous-phase 5.4. Parcours professionnel livré en sous-phase 5.5. Projets et études de cas livrés en sous-phase 5.6. Services professionnels et méthode de travail livrés en sous-phase 5.7. Landing publique assemblée en sous-phase 5.8.
 
 ## Exigences MVP
 
@@ -31,6 +31,7 @@ Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres gén
 
 | ID | Statut | Commentaire |
 |----|--------|-------------|
+| FR-001 | Livré en 5.8 avec réserve contenu | La route `/` assemble header, hero, sections publiques existantes, services, méthode, CTA collaboration et footer ; inspection complète avec profil réel publié à refaire avant mise en ligne. |
 | FR-007 | Partiellement livré | Authentification admin et protection des routes/endpoints livrées en 5.1 ; rôles complexes exclus du MVP. |
 | FR-008 | Livré en 5.3 | Profil, coordonnées, réseaux, CV, photo, traductions, statistiques réelles et visibilité publique sont administrables. |
 | FR-009 | Livré en 5.4 | Catégories et compétences administrables, traduisibles, ordonnables, publiables, archivables, sans pourcentages arbitraires. |
@@ -73,7 +74,7 @@ Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres gén
 
 ## Dernière mise à jour
 
-2026-08-03 (avancement FR-012 et FR-015 — sous-phase 5.7)
+2026-08-03 (avancement FR-001 — sous-phase 5.8)
 
 ## Sous-phase 5.5 — Exigences livrées
 
@@ -101,3 +102,16 @@ Exclusions maintenues :
 Exclusions maintenues :
 
 - Tarifs, paiement, devis, réservation, CRM, témoignages, formulaire de contact complet et landing page finale complète.
+
+## Sous-phase 5.8 — Exigences livrées
+
+- Landing publique `/` assemblée à partir des domaines publics existants.
+- Respect des sections visibles et masquage des sections vides.
+- Header public, Hero, services, méthode, CTA collaboration et footer.
+- Erreurs partielles par section.
+- Responsive mobile/tablette/desktop, menu mobile, skip link et navigation clavier.
+- Route racine en SSR dynamique.
+
+Exclusions maintenues :
+
+- Formulaire de contact complet, gestion des messages, témoignages fictifs, blog, newsletter, paiement, réservation, analytics avancés et nouvelle gestion de contenu.

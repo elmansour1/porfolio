@@ -20,6 +20,7 @@
 | R-018 | Mot de passe du compte admin Docker existant inconnu | Moyen | Moyenne | Demander au propriétaire le mot de passe actuel ou autorisation explicite de réinitialiser le volume/compte admin avant inspection complète des écrans authentifiés | ACTIF |
 | R-019 | Validation visuelle interactive non exécutée pour la sous-phase 5.6 (aucun navigateur/outil de capture disponible) | Moyen | Moyenne | Réaliser une inspection visuelle réelle (desktop/tablette/mobile) du module projets avant mise en production | ACTIF |
 | R-020 | Inspection visuelle admin authentifiée 5.7 non capturée | Moyen | Moyenne | Installer un harnais Playwright/axe avec login admin pour inspecter `/admin/services`, les modales et les onglets avant release | ACTIF |
+| R-021 | Landing 5.8 validée visuellement sans profil publié réel | Moyen | Moyenne | Publier un profil réel de test/production et refaire captures desktop/tablette/mobile de toutes les sections avant mise en ligne | ACTIF |
 
 ## Risques clos
 
@@ -32,4 +33,4 @@
 
 ## Dernière mise à jour
 
-2026-08-03 (ajout R-020 — sous-phase 5.7)
+2026-08-03 (ajout R-021 — sous-phase 5.8)

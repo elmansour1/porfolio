@@ -338,3 +338,25 @@ Contrats :
 - `ProjectRequest` est réutilisé pour création et modification ; l'identifiant est serveur-généré et le slug est revalidé à chaque écriture (`existsBySlug`/`existsBySlugAndIdNot`).
 - Les écritures admin exigent une session administrateur et un CSRF valide.
 - Les écritures admin nécessitent session admin et CSRF.
+## Sous-phase 5.8 — Landing publique
+
+Aucun endpoint agrégé de landing n'a été ajouté en 5.8.
+
+La landing publique consomme les endpoints publics existants :
+
+- `GET /api/v1/public/portfolio?lang=fr|en`
+- `GET /api/v1/public/skills?lang=fr|en`
+- `GET /api/v1/public/career?lang=fr|en`
+- `GET /api/v1/public/projects/featured?lang=fr|en`
+- `GET /api/v1/public/services?lang=fr|en`
+- `GET /api/v1/public/services/work-process/steps?lang=fr|en`
+
+Règles côté frontend :
+
+- charger le portfolio en premier ;
+- respecter `sections[].visible` ;
+- éviter les appels aux sections désactivées ;
+- gérer les erreurs secondaires sans faire échouer toute la page ;
+- ne jamais appeler `/api/v1/admin/**` depuis la landing.
+
+Décision différée : un endpoint public agrégé `GET /api/v1/public/site?lang=...` pourra être étudié avant release si le nombre d'appels ou le besoin SEO/cache le justifie.

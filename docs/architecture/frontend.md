@@ -60,7 +60,8 @@ frontend/
     app.config.ts
     app.routes.ts
     public/
-      public-placeholder.page.ts
+      home/
+      projects/
     admin/
       auth/
       shell/
@@ -70,6 +71,8 @@ frontend/
   tailwind.config.js
   eslint.config.js
 ```
+
+La sous-phase 5.8 remplace le placeholder public par `public/home/**` pour la landing publique assemblée.
 
 La sous-phase 5.1 ajoute uniquement les écrans et services d'authentification admin.
 
@@ -245,3 +248,21 @@ Vérifications :
 ## Dernière mise à jour
 
 2026-08-02
+## Sous-phase 5.8 — Landing publique assemblée
+
+La route publique `/` est portée par la feature `frontend/src/app/public/home/**`.
+
+Organisation livrée :
+
+- `models/home-page.model.ts` : langage public, clés de sections, erreurs partielles, copy UI FR/EN.
+- `data-access/home-page-data.service.ts` : orchestration des appels publics, chargement du portfolio en premier, respect de `sections.visible`, erreurs partielles par section.
+- `pages/home-page/home-page.component.ts` : page orchestratrice, signaux de chargement, SEO minimal, règles d'affichage et composition des sections.
+- `components/*` : header, hero, about, skills, projects, career, services, work-process, collaboration CTA et footer sans appels HTTP directs.
+
+Décisions :
+
+- Aucun endpoint backend agrégé n'a été ajouté en 5.8 ; la landing consomme les endpoints publics existants.
+- La route racine est passée en `RenderMode.Server` dans `app.routes.server.ts`.
+- Les sections désactivées ou vides sont masquées, y compris Hero, Contact et les sous-sections parcours.
+- Les CTA vers `#contact` sont conditionnels ; si la section Contact est désactivée, aucun lien vers cette ancre n'est rendu.
+- Réserve : les services API publics sont encore des méthodes de services situés sous `admin/**`. Aucun endpoint admin n'est appelé, mais un data-access public dédié est recommandé avant release.

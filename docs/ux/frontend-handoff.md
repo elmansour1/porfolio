@@ -161,3 +161,25 @@ Réserve levée pour les formulaires existants le 2026-08-02 via inspection Chro
 ## Dernière mise à jour
 
 2026-08-02
+## Handoff 5.8 — Landing publique
+
+Feature livrée : `frontend/src/app/public/home/**`.
+
+Points d'intégration :
+
+- `HomePageDataService` charge `PublicPortfolio` puis les sections publiques visibles.
+- Les composants de section sont purement présentations et ne déclenchent aucun HTTP.
+- Les labels UI de la landing sont dans `HOME_COPY`; les contenus éditoriaux viennent des API publiques.
+- Les CTA doivent toujours pointer vers une route/ancre existante ou ne pas être rendus.
+- Les sections masquées dans les paramètres généraux ne doivent produire ni appel inutile ni bloc vide.
+
+Tests de référence :
+
+- `frontend/src/app/public/home/pages/home-page/home-page.component.spec.ts`
+- Scénarios couverts : rendu landing, section services désactivée, Hero désactivé, Contact désactivé sans lien `#contact`, visibilité séparée expériences/formations, erreur partielle, changement de langue.
+
+Réserves à traiter avant release :
+
+- Isoler un data-access public dédié au lieu de réutiliser les services API localisés sous `admin/**`.
+- Rejouer l'inspection visuelle avec un profil réel publié et des sections profil/skills/career/projects complètes.
+- Ajouter un harnais Playwright/axe pour rejouer automatiquement menu mobile, clavier, responsive et accessibilité.
