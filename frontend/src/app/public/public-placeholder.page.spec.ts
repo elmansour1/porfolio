@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { ProfileApiService } from '../admin/profile/api/profile-api.service';
 import { CareerApiService } from '../admin/career/api/career-api.service';
 import { ProjectApiService } from '../admin/projects/api/project-api.service';
+import { ServicesApiService } from '../admin/services/api/services-api.service';
 import { SkillsApiService } from '../admin/skills/api/skills-api.service';
 import { PublicPlaceholderPage } from './public-placeholder.page';
 
@@ -54,6 +55,13 @@ describe('PublicPlaceholderPage', () => {
           provide: ProjectApiService,
           useValue: {
             publicFeatured: () => of([]),
+          },
+        },
+        {
+          provide: ServicesApiService,
+          useValue: {
+            publicServices: () => of([]),
+            publicWorkProcessSteps: () => of([]),
           },
         },
       ],

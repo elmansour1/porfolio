@@ -42,12 +42,13 @@ describe('AdminShellPage', () => {
     expect(element.textContent).toContain('admin@example.test');
   });
 
-  it('keeps future content sections disabled instead of implementing their CRUD', () => {
+  it('keeps future content sections disabled while services are available', () => {
     const element = fixture.nativeElement as HTMLElement;
     const disabledItems = Array.from(element.querySelectorAll<HTMLButtonElement>('.admin-nav-item--disabled'));
 
     expect(disabledItems.length).toBeGreaterThan(0);
-    expect(disabledItems.some((item) => item.textContent?.includes('Services'))).toBeTrue();
+    expect(disabledItems.some((item) => item.textContent?.includes('Messages'))).toBeTrue();
+    expect(element.textContent).toContain('Services');
     expect(disabledItems.every((item) => item.disabled)).toBeTrue();
   });
 

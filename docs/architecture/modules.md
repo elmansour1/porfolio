@@ -15,7 +15,7 @@ Validé en Phase 2 — Architecture et conception.
 | Skills | Catégories, compétences, niveaux qualitatifs, ordre | Oui, lecture publiée | Oui |
 | Experience | Expériences, formations, certifications, technologies | Oui, lecture publiée | Oui |
 | Projects | Projets, études de cas, slugs, mise en avant, galerie | Oui, lecture publiée | Oui |
-| Services | Services proposés, bénéfices, livrables | Oui, lecture publiée | Oui |
+| Services | Services proposés, bénéfices, livrables, CTA, méthode de travail, liens compétences/technologies | Oui, lecture publiée | Oui |
 | Testimonials | Témoignages réels, masqués si absents | Oui, lecture publiée | Oui |
 | Contact | Soumission publique, statuts admin, spam | Soumission uniquement | Oui |
 | Media | Images, captures, CV PDF, alt text, usages | Lecture contrôlée | Oui |
@@ -55,4 +55,4 @@ Validé en Phase 2 — Architecture et conception.
 
 ## Dernière mise à jour
 
-2026-07-26
+2026-08-03

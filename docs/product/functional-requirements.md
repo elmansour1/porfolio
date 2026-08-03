@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres généraux livrés en sous-phase 5.3. Compétences et catégories livrées en sous-phase 5.4. Parcours professionnel livré en sous-phase 5.5. Projets et études de cas livrés en sous-phase 5.6.
+Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres généraux livrés en sous-phase 5.3. Compétences et catégories livrées en sous-phase 5.4. Parcours professionnel livré en sous-phase 5.5. Projets et études de cas livrés en sous-phase 5.6. Services professionnels et méthode de travail livrés en sous-phase 5.7.
 
 ## Exigences MVP
 
@@ -36,14 +36,19 @@ Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres gén
 | FR-009 | Livré en 5.4 | Catégories et compétences administrables, traduisibles, ordonnables, publiables, archivables, sans pourcentages arbitraires. |
 | FR-010 | Livré en 5.5 | Expériences, formations et certifications administrables, traduisibles, ordonnables, publiables, confidentialité appliquée côté API publique. |
 | FR-011 | Livré en 5.6 | Projets et études de cas administrables, traduisibles, ordonnables, publiables, avec confidentialité dédiée (public/anonymisé/privé), galerie média et technologies liées via le référentiel compétences existant. |
+| FR-012 | Livré en 5.7 | Services professionnels administrables, traduisibles, ordonnables, publiables, archivables, avec bénéfices/livrables structurés, CTA validés, mise en avant et méthode de travail publiée. |
 | FR-013 | Partiellement livré | Médias principaux profil/paramètres livrés ; galerie média par projet livrée en 5.6 ; médiathèque générique complète hors périmètre. |
-| FR-015 | Partiellement livré | Authentification, profil, paramètres, médias sensibles, modifications compétences/catégories, parcours et projets journalisés ; autres contenus à venir. |
+| FR-015 | Partiellement livré | Authentification, profil, paramètres, médias sensibles, modifications compétences/catégories, parcours, projets, services et méthode journalisés ; autres contenus à venir. |
 
 ## Règles métier clés
 
 - Brouillon et archive ne sont pas publics.
 - Slug projet unique requis pour projet publié.
 - Projet publié : titre, résumé et image de couverture ou visuel de remplacement requis.
+- Service publié : au moins un contenu traduit exploitable, un bénéfice actif et un livrable actif.
+- Service archivé ou dépublié : retiré du public et de la mise en avant.
+- CTA service : type stable, destination existante ou URL/e-mail validé côté backend.
+- Étape de méthode publiée : titre et description traduits requis, ordre explicite, numéro non inclus dans le texte traduit.
 - Compétence rattachée à une catégorie.
 - Pas de niveaux de compétence en pourcentages arbitraires.
 - Nouveau message marqué non lu.
@@ -68,7 +73,7 @@ Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres gén
 
 ## Dernière mise à jour
 
-2026-08-02 (avancement FR-010, FR-011, FR-013, FR-015 — sous-phase 5.6)
+2026-08-03 (avancement FR-012 et FR-015 — sous-phase 5.7)
 
 ## Sous-phase 5.5 — Exigences livrées
 
@@ -82,3 +87,17 @@ Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres gén
 Exclusions maintenues :
 
 - Projets, services, témoignages, contact, messages et médiathèque complète.
+
+## Sous-phase 5.7 — Exigences livrées
+
+- Gestion admin des services professionnels réellement proposés.
+- Bénéfices et livrables structurés, traduisibles, ordonnables et activables.
+- Association des services au référentiel `skill` existant pour technologies et compétences.
+- Publication, dépublication, archivage, ordre et mise en avant.
+- CTA typés et validés.
+- Gestion admin des étapes de méthode de travail.
+- Sections publiques Services et Méthode alimentées par API.
+
+Exclusions maintenues :
+
+- Tarifs, paiement, devis, réservation, CRM, témoignages, formulaire de contact complet et landing page finale complète.

@@ -46,7 +46,8 @@ Validé en Phase 2 — Architecture et conception. À réauditer à chaque impl�
 | T-012 | Échec e-mail après contact | Message perdu ou faux succès | Stocker avant notification, journaliser échec e-mail | À tester |
 | T-013 | Énumération du compte via reset mot de passe | Ciblage du compte admin | Réponse reset générique, journalisation sans token, token exposable seulement par configuration locale/test | Testé Phase 5.1 |
 | T-014 | Vol ou réutilisation du jeton reset | Prise de contrôle du compte | Jeton aléatoire, haché en base, usage unique, expiration courte | Testé Phase 5.1 |
+| T-015 | Exposition publique de services brouillons ou CTA malveillant | Atteinte crédibilité, fuite de contenu non publié, redirection dangereuse | Filtrage `PUBLISHED`, archivage retirant la mise en avant, validation CTA/URL côté backend, échappement Angular | Testé Phase 5.7 |
 
 ## Dernière mise à jour
 
-2026-07-21
+2026-08-03

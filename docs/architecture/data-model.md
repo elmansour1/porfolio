@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 2 — Architecture et conception. Migrations de fondation créées en Phases 4 et 5.1. Migration profil/paramètres créée en sous-phase 5.3. Migration compétences/catégories utilisée en sous-phase 5.4. Migration parcours professionnel créée en sous-phase 5.5. Migration projets et études de cas (`V6__projects.sql`) créée en sous-phase 5.6 : `project`, `project_translation`, `project_media`, `project_link`, `project_skill`.
+Validé en Phase 2 — Architecture et conception. Migrations de fondation créées en Phases 4 et 5.1. Migration profil/paramètres créée en sous-phase 5.3. Migration compétences/catégories utilisée en sous-phase 5.4. Migration parcours professionnel créée en sous-phase 5.5. Migration projets et études de cas (`V6__projects.sql`) créée en sous-phase 5.6. Migration services professionnels et méthode (`V7__professional_services.sql`) créée en sous-phase 5.7.
 
 ## Principes
 
@@ -36,7 +36,8 @@ Validé en Phase 2 — Architecture et conception. Migrations de fondation cré�
 | `education` | Formation/certification | 1-n traductions, n-1 média document optionnel |
 | `project` | Projet ou étude de cas | 1-n traductions, n-n technologies, 1-n médias |
 | `technology` | Technologie réutilisable | n-n projets/expériences |
-| `service_offer` | Service proposé | 1-n traductions |
+| `professional_service` | Service professionnel proposé | 1-n traductions, 1-n bénéfices, 1-n livrables, n-n compétences/technologies |
+| `work_process_step` | Étape de méthode de travail | 1-n traductions |
 | `testimonial` | Témoignage réel | 1-n traductions, média photo optionnel |
 | `contact_message` | Message visiteur | aucun accès public |
 | `media_asset` | Métadonnées de fichier | usages par profil/projet/etc. |
@@ -122,11 +123,11 @@ La migration `backend/src/main/resources/db/migration/V2__admin_authentication.s
 - Type PostgreSQL enum vs check constraints.
 - Stratégie de soft delete pour ressources admin.
 - Contraintes de taille des champs.
-- Migrations métier de contenu portfolio restantes : projets, services, messages et SEO.
+- Migrations métier de contenu portfolio restantes : messages, SEO et éventuels témoignages réels.
 
 ## Dernière mise à jour
 
-2026-08-02 (ajout du modèle projets et études de cas — sous-phase 5.6)
+2026-08-03 (ajout du modèle services professionnels et méthode — sous-phase 5.7)
 
 ## Sous-phase 5.5 — Modèle parcours
 
@@ -166,3 +167,27 @@ Règles principales :
 - Les technologies liées référencent le référentiel `skill` existant via `project_skill`, sans dupliquer de référentiel.
 - Les médias sont typés (`COVER`/`GALLERY`) avec un ordre explicite pour la galerie.
 - Le slug est unique et revalidé à chaque écriture (création et modification).
+
+## Sous-phase 5.7 — Modèle services professionnels et méthode
+
+Tables ajoutées par `V7__professional_services.sql` :
+
+- `professional_service`
+- `professional_service_translation`
+- `service_benefit`
+- `service_benefit_translation`
+- `service_deliverable`
+- `service_deliverable_translation`
+- `service_skill`
+- `work_process_step`
+- `work_process_step_translation`
+
+Règles principales :
+
+- Les statuts restent `DRAFT`, `PUBLISHED`, `ARCHIVED`.
+- Un service archivé ou dépublié ne peut pas rester mis en avant.
+- Les CTA utilisent `CONTACT`, `PROJECTS`, `EMAIL`, `RESUME`, `EXTERNAL_URL`.
+- Les bénéfices et livrables sont ordonnés, activables et traduits séparément.
+- Les technologies et compétences liées réutilisent la table `skill` existante via `service_skill`, sans référentiel parallèle.
+- Les étapes de méthode sont publiables indépendamment, ordonnées explicitement et traduites.
+- Les APIs publiques filtrent les brouillons, archives et traductions incomplètes.

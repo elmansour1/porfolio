@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 2 — Architecture et conception. Fondation Angular implémentée en Phase 4, authentification admin en sous-phase 5.1, layout et dashboard admin en sous-phase 5.2, profil/paramètres en 5.3, compétences/catégories en 5.4, parcours en 5.5 et correction formulaires admin le 2026-08-02.
+Validé en Phase 2 — Architecture et conception. Fondation Angular implémentée en Phase 4, authentification admin en sous-phase 5.1, layout et dashboard admin en sous-phase 5.2, profil/paramètres en 5.3, compétences/catégories en 5.4, parcours en 5.5, projets en 5.6, services/méthode en 5.7 et correction formulaires admin le 2026-08-02.
 
 ## Stack
 
@@ -100,6 +100,14 @@ La correction formulaires du 2026-08-02 consolide les conventions UI admin exist
 - `p-fileupload` pour les uploads profil/paramètres ;
 - snapshot de formulaire dans les modales compétences/parcours pour confirmer l'abandon de modifications.
 
+La sous-phase 5.7 ajoute :
+
+- route enfant `/admin/services` ;
+- feature `admin/services` avec `api/`, `models/dto/`, `models/forms/`, `mappers/` et `pages/` ;
+- formulaires réactifs typés pour services, bénéfices, livrables et étapes de méthode ;
+- composants PrimeNG `p-table`, `p-dialog`, `p-tabs`, `p-select`, `p-multiselect`, `p-toggleswitch`, `p-inputnumber`, `p-tag` et `p-button` ;
+- sections publiques Services et Méthode alimentées par `/api/v1/public/services` et `/api/v1/public/services/work-process/steps`.
+
 ## Principes
 
 - Organisation par fonctionnalité.
@@ -177,6 +185,15 @@ Captures réalisées :
 - `npm run build` avec Node 20 temporaire : PASS avec warning budget initial +2,94 kB.
 - Audit `<select>/<option>` sur `admin/skills` et ajouts publics : PASS.
 - Inspection visuelle réelle : NOT EXECUTED, runtime complet indisponible.
+
+## Vérifications Phase 5.7
+
+- `npm run lint` avec Node 20 : PASS.
+- `npm run test:ci` avec Node 20 : PASS, 42 tests Chrome Headless.
+- `npm run build` avec Node 20 : PASS avec warning budget initial +22,75 kB.
+- Scan `<select>/<option>` dans `admin/services` et la page publique : PASS.
+- Inspection visuelle publique : PASS sur desktop et mobile via backend H2 + SSR + Chrome headless.
+- Inspection visuelle admin authentifiée : NOT EXECUTED, script CDP temporaire bloqué ; couverture par tests composants, lint et revue statique.
 
 ## Correctif qualité frontend 2026-07-26
 

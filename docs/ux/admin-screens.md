@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 3 — Conception UX/UI du portfolio. Layout/dashboard implémentés en 5.2 ; profil et paramètres implémentés en 5.3 ; compétences et catégories implémentées en 5.4 ; parcours implémenté en 5.5 ; correction transversale des formulaires exécutée le 2026-08-02.
+Validé en Phase 3 — Conception UX/UI du portfolio. Layout/dashboard implémentés en 5.2 ; profil et paramètres implémentés en 5.3 ; compétences et catégories implémentées en 5.4 ; parcours implémenté en 5.5 ; services et méthode implémentés en 5.7 ; correction transversale des formulaires exécutée le 2026-08-02.
 
 ## Principes admin
 
@@ -176,6 +176,17 @@ Champs :
 - icône ;
 - ordre ;
 - activation/publication.
+
+Statut sous-phase 5.7 :
+
+- route `/admin/services` implémentée dans le shell ;
+- liste services en `p-table` avec recherche, filtre statut `p-select`, filtre mise en avant, statut `p-tag`, ordre et actions ;
+- formulaire service en `p-dialog` large avec sections générales, traductions FR/EN en `p-tabs`, bénéfices, livrables, technologies/compétences, CTA, présentation, publication et ordre ;
+- bénéfices et livrables dynamiques avec ordre, activation et traductions ;
+- référentiel compétences/technologies consommé depuis l'API metadata, via `p-multiselect` ;
+- étapes de méthode gérées sur le même écran avec liste, publication, archivage, ordre et formulaire traduit ;
+- aucun `<select>` natif dans le périmètre ;
+- inspection visuelle publique exécutée ; inspection admin authentifiée non capturée et tracée en réserve.
 
 ## A-008 — Messages
 

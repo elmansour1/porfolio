@@ -2,7 +2,7 @@
 
 ## Statut global
 
-`PHASE_5_6_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
+`PHASE_5_7_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
 
 ## Mode détecté
 
@@ -10,7 +10,7 @@
 
 ## Phase autorisée
 
-Sous-phase 5.6 — Projets et études de cas (clôturée).
+Sous-phase 5.7 — Services professionnels et méthode de travail (clôturée).
 
 ## Phase en cours
 
@@ -18,11 +18,11 @@ Aucune.
 
 ## Dernière phase clôturée
 
-Sous-phase 5.6 — Projets et études de cas (clôturée le 2026-08-02).
+Sous-phase 5.7 — Services professionnels et méthode de travail (clôturée le 2026-08-03).
 
 ## Dernier GO reçu
 
-2026-08-02 — `GO — SOUS-PHASE 5.6 : PROJETS ET ÉTUDES DE CAS`, avec exécution autonome complète, audits après chaque étape, construction du domaine projets/études de cas de bout en bout (backend, frontend, tests, sécurité, UX/UI), documentation et arrêt sans lancer 5.7.
+2026-08-03 — `GO — SOUS-PHASE 5.7 : SERVICES ET MÉTHODE DE TRAVAIL`, avec exécution autonome complète, audits après chaque étape, construction du domaine services professionnels/méthode de bout en bout (backend, frontend, tests, sécurité, UX/UI, contenus, documentation) et arrêt sans lancer 5.8.
 
 ## Étapes terminées
 
@@ -70,6 +70,14 @@ Sous-phase 5.6 — Projets et études de cas (clôturée le 2026-08-02).
 | 5.6.7 | Audit sécurité médias/brouillons/confidentialité | DONE | CONFORME AVEC RÉSERVE MINEURE TRACÉE |
 | 5.6.8 | Audit UX/UI SaaS premium (revue statique) | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
 | 5.6.9 | Documentation, handoff, audit final et arrêt | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.7.1 | Cadrage Product/Domain et réutilisation des référentiels existants | DONE | CONFORME |
+| 5.7.2 | Modèle de données services/méthode, migration V7 et contraintes | DONE | CONFORME |
+| 5.7.3 | API backend admin/public, publication, archivage, CTA, ordre et tests | DONE | CONFORME |
+| 5.7.4 | Interface admin services/méthode avec PrimeNG et formulaires typés | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.7.5 | Sections publiques Services et Méthode | DONE | CONFORME |
+| 5.7.6 | Builds, tests, lint et scans qualité | DONE | CONFORME AVEC RÉSERVE TRACÉE |
+| 5.7.7 | Audits sécurité, contenu, UX/UI et inspection visuelle | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.7.8 | Documentation, handoff, audit final et arrêt | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
 
 ## Audits récents
 
@@ -89,6 +97,11 @@ Sous-phase 5.6 — Projets et études de cas (clôturée le 2026-08-02).
 | 2026-08-02 | Sous-phase 5.6 — Projets et études de cas (frontend + PrimeNG) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
 | 2026-08-02 | Sous-phase 5.6 — Sécurité médias/brouillons/confidentialité | CONFORME AVEC RÉSERVE MINEURE TRACÉE |
 | 2026-08-02 | Sous-phase 5.6 — UX/UI SaaS premium (revue statique, validation visuelle non exécutée) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 2026-08-03 | Sous-phase 5.7 — Backend services/méthode | CONFORME |
+| 2026-08-03 | Sous-phase 5.7 — Frontend admin/public + PrimeNG | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 2026-08-03 | Sous-phase 5.7 — Sécurité/publication/CTA | CONFORME |
+| 2026-08-03 | Sous-phase 5.7 — Contenus services et méthode | CONFORME |
+| 2026-08-03 | Sous-phase 5.7 — UX/UI SaaS premium et inspection visuelle partielle | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
 
 ## Blocages
 
@@ -111,6 +124,8 @@ Réserves tracées :
 - Sous-phase 5.6 : build Angular PASS avec avertissement de budget initial dépassé de 20,54 kB (augmentation de 16,84 kB à 20,54 kB avec l'ajout du module projets).
 - Sous-phase 5.6 : validation visuelle interactive non exécutée (aucun navigateur/outil de capture disponible dans cet environnement pour ce périmètre) ; audit UX/UI limité à une revue statique du code et des styles, focus clavier vérifié via la règle globale `:focus-visible` déjà en vigueur.
 - Sous-phase 5.6 : vérification runtime Docker complète non rejouée dans cette session (dernière vérification Docker complète effectuée en 5.5) ; builds et tests locaux (backend 34/34, frontend 37/37, lint) réexécutés et confirmés PASS le 2026-08-02.
+- Sous-phase 5.7 : build Angular PASS avec avertissement de budget initial dépassé de 22,75 kB après ajout du module services.
+- Sous-phase 5.7 : inspection visuelle réelle publique exécutée avec backend H2 + SSR + Chrome headless sur desktop/mobile ; inspection admin authentifiée des écrans Services/Méthode non capturée car le script CDP temporaire est resté bloqué, remplacée par tests composants, lint et revue statique.
 
 ## Risques actifs
 
@@ -118,10 +133,10 @@ Voir `.agents/state/RISKS.md`.
 
 ## Prochaine action autorisée
 
-Attendre un `GO` humain explicite pour la sous-phase 5.7 ou une sous-phase nommée.
+Attendre un `GO` humain explicite pour la sous-phase 5.8 ou une sous-phase nommée.
 
-La sous-phase 5.7 n'est pas autorisée. Aucun CRUD services, témoignages, contact, messages, médiathèque complète ou SEO avancé ne doit être commencé.
+La sous-phase 5.8 n'est pas autorisée. Aucun témoignage, contact complet, messages, médiathèque complète, SEO avancé, assemblage final de landing page ou fonctionnalité hors périmètre ne doit être commencé.
 
 ## Dernière mise à jour
 
-2026-08-02
+2026-08-03

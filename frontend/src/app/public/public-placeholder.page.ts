@@ -9,6 +9,8 @@ import { ProfileApiService } from '../admin/profile/api/profile-api.service';
 import { PublicPortfolio } from '../admin/profile/models/dto/profile.dto';
 import { ProjectApiService } from '../admin/projects/api/project-api.service';
 import { PublicProjectSummary } from '../admin/projects/models/dto/project.dto';
+import { ServicesApiService } from '../admin/services/api/services-api.service';
+import { PublicService, PublicWorkProcessStep } from '../admin/services/models/dto/service.dto';
 import { SkillsApiService } from '../admin/skills/api/skills-api.service';
 import { PublicSkills } from '../admin/skills/models/dto/skills.dto';
 import { projectTypeLabel } from './projects/project-labels';
@@ -40,6 +42,7 @@ import { projectTypeLabel } from './projects/project-labels';
               </button>
             }
           </div>
+          <a href="#services">Services</a>
           <a routerLink="/projects">Projets</a>
           <a href="/admin/login">Administration</a>
         </nav>
@@ -302,6 +305,83 @@ import { projectTypeLabel } from './projects/project-labels';
             <a href="/admin/login">Accéder à l'administration</a>
           </section>
         }
+
+        @if (publicServices().length) {
+          <section id="services" class="public-services" aria-labelledby="public-services-title">
+            <p class="public-eyebrow">
+              {{ selectedLanguage() === 'en' ? 'Services' : 'Services' }}
+            </p>
+            <h2 id="public-services-title">
+              {{ selectedLanguage() === 'en' ? 'Professional services' : 'Services professionnels' }}
+            </h2>
+            <div class="public-services__grid">
+              @for (service of publicServices(); track service.slug || service.title) {
+                <article class="public-service-card" [class.public-service-card--featured]="service.featured">
+                  <div class="public-service-card__icon">
+                    <i [class]="service.icon || 'pi pi-sitemap'" aria-hidden="true"></i>
+                  </div>
+                  <div>
+                    <h3>{{ service.title }}</h3>
+                    @if (service.summary) {
+                      <p>{{ service.summary }}</p>
+                    }
+                    @if (service.problem) {
+                      <p class="public-service-card__problem">{{ service.problem }}</p>
+                    }
+                  </div>
+                  @if (service.benefits.length) {
+                    <ul>
+                      @for (benefit of service.benefits.slice(0, 3); track benefit.label) {
+                        <li>{{ benefit.label }}</li>
+                      }
+                    </ul>
+                  }
+                  @if (service.technologies.length || service.skills.length) {
+                    <div class="public-featured-skills" aria-label="Référentiels liés">
+                      @for (technology of service.technologies.slice(0, 4); track technology.id) {
+                        <span>{{ technology.name }}</span>
+                      }
+                      @for (skill of service.skills.slice(0, 3); track skill.id) {
+                        <span>{{ skill.name }}</span>
+                      }
+                    </div>
+                  }
+                  @if (service.ctaType && service.ctaTarget && service.ctaLabel) {
+                    <a class="public-button" [href]="service.ctaTarget" [target]="ctaTarget(service)">
+                      {{ service.ctaLabel }}
+                    </a>
+                  }
+                </article>
+              }
+            </div>
+          </section>
+        }
+
+        @if (workProcessSteps().length) {
+          <section class="public-method" aria-labelledby="public-method-title">
+            <p class="public-eyebrow">
+              {{ selectedLanguage() === 'en' ? 'Method' : 'Méthode' }}
+            </p>
+            <h2 id="public-method-title">
+              {{ selectedLanguage() === 'en' ? 'How collaboration works' : 'Déroulement d’une collaboration' }}
+            </h2>
+            <div class="public-method__steps">
+              @for (step of workProcessSteps(); track step.title; let index = $index) {
+                <article>
+                  <span>{{ index + 1 }}</span>
+                  <i [class]="step.icon || 'pi pi-circle'" aria-hidden="true"></i>
+                  <h3>{{ step.title }}</h3>
+                  @if (step.description) {
+                    <p>{{ step.description }}</p>
+                  }
+                  @if (step.expectedResult) {
+                    <strong>{{ step.expectedResult }}</strong>
+                  }
+                </article>
+              }
+            </div>
+          </section>
+        }
       } @else if (loading()) {
         <section class="public-empty" aria-live="polite">Chargement du portfolio...</section>
       } @else {
@@ -317,6 +397,7 @@ export class PublicPlaceholderPage {
   private readonly skillsApi = inject(SkillsApiService);
   private readonly careerApi = inject(CareerApiService);
   private readonly projectApi = inject(ProjectApiService);
+  private readonly servicesApi = inject(ServicesApiService);
   private readonly platformId = inject(PLATFORM_ID);
 
   readonly selectedLanguage = signal<'fr' | 'en'>('fr');
@@ -325,6 +406,8 @@ export class PublicPlaceholderPage {
   readonly publicSkills = signal<PublicSkills | null>(null);
   readonly publicCareer = signal<PublicCareer | null>(null);
   readonly featuredProjects = signal<readonly PublicProjectSummary[]>([]);
+  readonly publicServices = signal<readonly PublicService[]>([]);
+  readonly workProcessSteps = signal<readonly PublicWorkProcessStep[]>([]);
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
@@ -355,12 +438,16 @@ export class PublicPlaceholderPage {
       skills: this.skillsApi.publicSkills(language),
       career: this.careerApi.publicCareer(language),
       projects: this.projectApi.publicFeatured(language),
+      services: this.servicesApi.publicServices(language),
+      workProcess: this.servicesApi.publicWorkProcessSteps(language),
     }).subscribe({
-      next: ({ portfolio, skills, career, projects }) => {
+      next: ({ portfolio, skills, career, projects, services, workProcess }) => {
         this.portfolio.set(portfolio);
         this.publicSkills.set(skills);
         this.publicCareer.set(career);
         this.featuredProjects.set(projects);
+        this.publicServices.set(services);
+        this.workProcessSteps.set(workProcess);
         this.loading.set(false);
       },
       error: () => {
@@ -368,6 +455,8 @@ export class PublicPlaceholderPage {
         this.publicSkills.set(null);
         this.publicCareer.set(null);
         this.featuredProjects.set([]);
+        this.publicServices.set([]);
+        this.workProcessSteps.set([]);
         this.loading.set(false);
       },
     });
@@ -391,5 +480,9 @@ export class PublicPlaceholderPage {
       CORE_EXPERTISE: this.selectedLanguage() === 'en' ? 'Core expertise' : 'Expertise principale',
     };
     return labels[level] ?? level;
+  }
+
+  ctaTarget(service: PublicService): '_blank' | '_self' {
+    return service.ctaType === 'EXTERNAL_URL' ? '_blank' : '_self';
   }
 }

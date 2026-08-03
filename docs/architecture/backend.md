@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 2 — Architecture et conception. Fondation Spring Boot implémentée en Phase 4, authentification administrateur en sous-phase 5.1, profil/paramètres en 5.3 et compétences/catégories en 5.4.
+Validé en Phase 2 — Architecture et conception. Fondation Spring Boot implémentée en Phase 4, authentification administrateur en sous-phase 5.1, profil/paramètres en 5.3, compétences/catégories en 5.4, parcours en 5.5, projets en 5.6 et services/méthode en 5.7.
 
 ## Stack
 
@@ -52,7 +52,7 @@ backend/
     db/migration/V1__foundation_schema.sql
 ```
 
-La structure Phase 5.1 ajoute le module `auth` et le journal `audit`. La sous-phase 5.3 ajoute le module `profile`. La sous-phase 5.4 ajoute le module `skills`.
+La structure Phase 5.1 ajoute le module `auth` et le journal `audit`. La sous-phase 5.3 ajoute le module `profile`. La sous-phase 5.4 ajoute le module `skills`. La sous-phase 5.7 ajoute le module `service`.
 
 Structure par module :
 
@@ -143,7 +143,7 @@ Les services de lecture publique filtrent systématiquement :
 - langue publiée ;
 - contenu non confidentiel.
 
-Ces règles sont implémentées pour le profil/paramètres et les compétences. Les autres ressources métier seront ajoutées par sous-phase autorisée.
+Ces règles sont implémentées pour le profil/paramètres, les compétences, le parcours, les projets, les services et les étapes de méthode.
 
 ## Authentification admin Phase 5.1
 
@@ -175,6 +175,16 @@ Ces règles sont implémentées pour le profil/paramètres et les compétences. 
 - Filtrage public brouillons/archives/visibilité/traductions : PASS.
 - Accès admin anonyme refusé : PASS.
 
+## Vérifications Phase 5.7
+
+- `mvn test` : PASS, 40 tests.
+- Migration `V7__professional_services.sql` : PASS via profil test H2/Flyway.
+- API services admin/public : PASS.
+- API étapes de méthode admin/public : PASS.
+- Publication, dépublication, archivage, mise en avant, ordre, CTA et filtrage public : PASS.
+- Accès admin anonyme refusé : PASS.
+- Scan Lombok interdit (`@Data`, `@Setter`, `@SneakyThrows`) dans `service` : PASS.
+
 ## Vérifications restructuration 2026-07-26
 
 - `mvn test` : PASS, 22 tests.
@@ -185,4 +195,4 @@ Ces règles sont implémentées pour le profil/paramètres et les compétences. 
 
 ## Dernière mise à jour
 
-2026-07-26
+2026-08-03

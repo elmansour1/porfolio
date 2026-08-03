@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 2 — Architecture et conception. Endpoints d'authentification administrateur implémentés en sous-phase 5.1. Endpoints profil/paramètres implémentés en sous-phase 5.3. Endpoints compétences/catégories implémentés en sous-phase 5.4. Endpoints parcours professionnel implémentés en sous-phase 5.5. Endpoints projets et études de cas implémentés en sous-phase 5.6.
+Validé en Phase 2 — Architecture et conception. Endpoints d'authentification administrateur implémentés en sous-phase 5.1. Endpoints profil/paramètres implémentés en sous-phase 5.3. Endpoints compétences/catégories implémentés en sous-phase 5.4. Endpoints parcours professionnel implémentés en sous-phase 5.5. Endpoints projets et études de cas implémentés en sous-phase 5.6. Endpoints services professionnels et méthode de travail implémentés en sous-phase 5.7.
 
 ## Conventions
 
@@ -51,6 +51,10 @@ Validé en Phase 2 — Architecture et conception. Endpoints d'authentification 
 | GET | `/api/v1/public/settings/logo` | Logo publié si disponible | Non |
 | GET | `/api/v1/public/settings/favicon` | Favicon publié si disponible | Non |
 | GET | `/api/v1/public/skills?lang=fr` | Catégories et compétences publiées pour la langue demandée | Non |
+| GET | `/api/v1/public/services?lang=fr` | Services professionnels publiés pour la langue demandée | Non |
+| GET | `/api/v1/public/services/featured?lang=fr` | Services publiés mis en avant | Non |
+| GET | `/api/v1/public/services/{slug}?lang=fr` | Détail public d'un service publié | Non |
+| GET | `/api/v1/public/services/work-process/steps?lang=fr` | Étapes publiées de la méthode de travail | Non |
 
 ## Endpoints auth admin
 
@@ -128,7 +132,8 @@ Règle CSRF : les écritures admin et auth POST doivent utiliser le token obtenu
 | Expériences | CRUD `/api/v1/admin/experiences`, ordre/publication |
 | Formations | CRUD `/api/v1/admin/education`, ordre/publication |
 | Projets | CRUD `/api/v1/admin/projects`, `POST /{id}/publish`, `POST /{id}/unpublish`, `POST /{id}/archive`, `PUT /{id}/featured`, `PUT /{id}/order`, `POST/DELETE/PUT /{id}/media` |
-| Services | CRUD `/api/v1/admin/services`, activation/publication/ordre |
+| Services | `GET /api/v1/admin/services/metadata`, CRUD `/api/v1/admin/services`, `POST /{id}/publish`, `POST /{id}/unpublish`, `POST /{id}/archive`, `PUT /{id}/featured`, `PUT /order` |
+| Méthode de travail | CRUD `/api/v1/admin/work-process-steps`, `POST /{id}/publish`, `POST /{id}/unpublish`, `POST /{id}/archive`, `PUT /order` |
 | Témoignages | CRUD `/api/v1/admin/testimonials`, publication/ordre |
 | Messages | `GET /api/v1/admin/contact-messages`, `GET /{id}`, `PUT /{id}/status`, archive/spam |
 | Médias | `POST /api/v1/admin/media`, `GET /api/v1/admin/media`, `PUT /{id}`, `DELETE /{id}` |
@@ -158,6 +163,42 @@ Collection Phase 5.1 : `docs/api/postman-authentication.postman_collection.json`
 Collection Phase 5.3 : `docs/api/postman-profile-settings.postman_collection.json`.
 
 Collection Phase 5.4 : `docs/api/postman-skills.postman_collection.json`.
+
+## Contrats services et méthode — Phase 5.7
+
+### Public
+
+`GET /api/v1/public/services?lang=fr|en` retourne uniquement les services `PUBLISHED`, triés par `displayOrder`, avec contenus traduits, bénéfices actifs, livrables actifs, technologies/compétences liées et CTA exploitable.
+
+`GET /api/v1/public/services/featured?lang=fr|en` limite la réponse aux services publiés mis en avant.
+
+`GET /api/v1/public/services/{slug}?lang=fr|en` retourne un service publié par slug ou `404`.
+
+`GET /api/v1/public/services/work-process/steps?lang=fr|en` retourne uniquement les étapes de méthode `PUBLISHED`, triées par ordre explicite.
+
+Les réponses publiques excluent les brouillons, archives, statuts internes, dates d'audit, logs, identifiants techniques inutiles et contenus sans traduction exploitable.
+
+### Administration
+
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/api/v1/admin/services/metadata` | Options statuts, CTA, compétences et technologies issues du référentiel `skill` |
+| GET | `/api/v1/admin/services?status=&featured=&query=&page=&size=` | Liste paginée filtrable |
+| GET | `/api/v1/admin/services/{id}` | Détail admin complet |
+| POST | `/api/v1/admin/services` | Création d'un service |
+| PUT | `/api/v1/admin/services/{id}` | Modification d'un service |
+| POST | `/api/v1/admin/services/{id}/publish` | Publication explicite après validation métier |
+| POST | `/api/v1/admin/services/{id}/unpublish` | Dépublication et retrait de la mise en avant |
+| POST | `/api/v1/admin/services/{id}/archive` | Archivage et retrait public |
+| PUT | `/api/v1/admin/services/{id}/featured?featured=true` | Mise en avant uniquement si publié |
+| PUT | `/api/v1/admin/services/order` | Réordonnancement stable par identifiants |
+| GET/POST/PUT | `/api/v1/admin/work-process-steps` | Liste, création et modification des étapes |
+| POST | `/api/v1/admin/work-process-steps/{id}/publish` | Publication d'une étape complète |
+| POST | `/api/v1/admin/work-process-steps/{id}/unpublish` | Dépublication d'une étape |
+| POST | `/api/v1/admin/work-process-steps/{id}/archive` | Archivage d'une étape |
+| PUT | `/api/v1/admin/work-process-steps/order` | Réordonnancement des étapes |
+
+Règles : les CTA externes et URLs de visuels sont validés côté backend, les compétences/technologies sont sélectionnées par identifiant `skill`, et bénéfices/livrables restent structurés avec traductions et ordre.
 
 ## Contrats profil et paramètres — Phase 5.3
 

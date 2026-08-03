@@ -118,6 +118,12 @@ export const routes: Routes = [
         title: 'Projets',
       },
       {
+        path: 'services',
+        loadComponent: () =>
+          import('./admin/services/pages/services.page').then((module) => module.ServicesPage),
+        title: 'Services',
+      },
+      {
         path: '**',
         loadComponent: () =>
           import('./admin/shell/admin-not-found.page').then((module) => module.AdminNotFoundPage),

@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 2 — Architecture et conception. Authentification administrateur implémentée en sous-phase 5.1. Profil, paramètres et médias principaux sécurisés en sous-phase 5.3. Compétences/catégories sécurisées en sous-phase 5.4.
+Validé en Phase 2 — Architecture et conception. Authentification administrateur implémentée en sous-phase 5.1. Profil, paramètres et médias principaux sécurisés en sous-phase 5.3. Compétences/catégories sécurisées en sous-phase 5.4. Services professionnels et méthode sécurisés en sous-phase 5.7.
 
 ## Authentification administrateur
 
@@ -45,7 +45,10 @@ Validé en Phase 2 — Architecture et conception. Authentification administrate
 - L'email de réception interne des contacts n'est jamais retourné par l'API publique.
 - Les API publiques compétences ne retournent que catégories et compétences publiées, visibles et traduites.
 - Les opérations d'écriture compétences/catégories sont réservées aux routes `/api/v1/admin/**`, exigent session admin et CSRF.
+- Les opérations d'écriture services/méthode sont réservées aux routes `/api/v1/admin/**`, exigent session admin et CSRF.
+- Les API publiques services/méthode ne retournent ni brouillons, ni archives, ni dates d'audit, ni identifiants techniques inutiles.
 - Les valeurs issues des sélections frontend, notamment statut, niveau et catégorie, sont validées côté backend.
+- Les valeurs issues des sélections services, notamment statut, CTA et identifiants compétences/technologies, sont validées côté backend.
 
 ## Formulaire de contact
 
@@ -89,6 +92,8 @@ Les journaux Phase 5.3 enregistrent les modifications sensibles de profil, param
 
 Les journaux Phase 5.4 enregistrent les créations, modifications, publications, archivages et suppressions compétences/catégories sans contenu sensible inutile.
 
+Les journaux Phase 5.7 enregistrent les créations, modifications, publications, dépublications, archivages, mises en avant et réordonnancements services/méthode sans contenu sensible inutile.
+
 ## Confidentialité
 
 - Consentement requis avant contact.
@@ -97,7 +102,7 @@ Les journaux Phase 5.4 enregistrent les créations, modifications, publications,
 
 ## Dernière mise à jour
 
-2026-07-26
+2026-08-03
 
 ## Sous-phase 5.5 — Sécurité parcours
 
@@ -106,3 +111,13 @@ Les journaux Phase 5.4 enregistrent les créations, modifications, publications,
 - Les URLs publiques sont validées côté backend.
 - Les valeurs de sélection envoyées par le frontend sont validées côté backend via enums/contrats stables.
 - La confidentialité d'une expérience masque aussi le lien public de l'organisation.
+
+## Sous-phase 5.7 — Sécurité services et méthode
+
+- Les endpoints admin services/méthode restent sous `/api/v1/admin/**` et exigent authentification + CSRF.
+- Les endpoints publics ne retournent que des services et étapes `PUBLISHED`.
+- Un service `ARCHIVED` ou dépublié est retiré de la mise en avant côté domaine.
+- Les CTA externes et URLs de visuel facultatives sont validés en `http/https` avec hôte.
+- Les CTA e-mail exigent une adresse valide.
+- Les identifiants de compétences/technologies sont vérifiés dans le référentiel `skill` existant.
+- Les bénéfices/livrables incomplets ne permettent pas la publication.

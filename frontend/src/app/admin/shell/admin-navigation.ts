@@ -53,8 +53,7 @@ export const adminNavigationItems: readonly AdminNavigationItem[] = [
     label: 'Services',
     route: '/admin/services',
     icon: 'pi pi-sitemap',
-    status: 'disabled',
-    hint: 'Gestion non implémentée en 5.2',
+    status: 'available',
   },
   {
     label: 'Messages',

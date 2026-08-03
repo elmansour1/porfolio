@@ -13,6 +13,8 @@
 | TD-010 | `ProjectMapper.skillReference`/`categoryName` retournent la traduction compétence/catégorie codée en `"fr"` indépendamment de la langue demandée ; motif identique et préexistant dans `CareerMapper` | Backend/project, career | Faible à moyen | Moyenne | 2026-08-02 |
 | TD-011 | Build Angular passe avec un warning de budget initial dépassé de 20,54 kB après l'ajout du module projets | Frontend/performance | Faible à moyen | Moyenne avant release | 2026-08-02 |
 | TD-012 | Validation visuelle interactive non exécutée pour le module projets (aucun navigateur/outil de capture disponible dans cet environnement) | Frontend/QA | Moyen | Haute avant release | 2026-08-02 |
+| TD-013 | Build Angular passe avec un warning de budget initial dépassé de 22,75 kB après l'ajout du module services | Frontend/performance | Faible à moyen | Moyenne avant release | 2026-08-03 |
+| TD-014 | Aucun harnais E2E authentifié n'est disponible pour capturer automatiquement `/admin/services` et ses modales ; la tentative CDP temporaire 5.7 est restée bloquée | Frontend/QA | Moyen | Haute avant release | 2026-08-03 |
 
 ## Dette résolue
 
@@ -24,4 +26,4 @@
 
 ## Dernière mise à jour
 
-2026-08-02 (ajout TD-009 à TD-012 — sous-phase 5.6)
+2026-08-03 (ajout TD-013 à TD-014 — sous-phase 5.7)

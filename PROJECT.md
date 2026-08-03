@@ -64,11 +64,11 @@ Architecture validée en Phase 2 : monolithe modulaire Spring Boot, frontend Ang
 
 - Mode : Nouveau projet défini (Mode B)
 - Phase courante : Aucune phase en cours
-- Statut : `RESTRUCTURATION_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
-- Code applicatif : Fondations techniques, authentification administrateur, layout/dashboard admin, profil professionnel, paramètres généraux, médias principaux, compétences/catégories et affichage public limité implémentés
+- Statut : `PHASE_5_7_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
+- Code applicatif : Fondations techniques, authentification administrateur, layout/dashboard admin, profil professionnel, paramètres généraux, médias principaux, compétences/catégories, parcours, projets/études de cas, services professionnels et méthode de travail implémentés
 - Framework IA : Installé
 - Brief produit : Renseigné
-- Dernière intervention clôturée : Restructuration architecturale senior du projet
+- Dernière intervention clôturée : Sous-phase 5.7 — Services professionnels et méthode de travail
 
 ## Contraintes
 
@@ -164,6 +164,17 @@ Risques majeurs initiaux : scope trop large, contenu insuffisant, design génér
 - Le site public consomme `/api/v1/public/career` et affiche uniquement les contenus publiés et traduits, sans inventer de données.
 - La sous-phase 5.6 n'a pas été lancée.
 
+## Décisions Phase 5.7
+
+- Les services professionnels et les étapes de méthode de travail sont administrables, traduisibles, ordonnables, publiables, dépubliables et archivables.
+- Les bénéfices et livrables sont stockés dans des tables structurées, activables et traduisibles, pas dans une chaîne libre ni un JSON non contrôlé.
+- Les technologies et compétences liées aux services réutilisent le référentiel `skill` existant avec un type de relation `TECHNOLOGY` ou `SKILL`.
+- Les CTA utilisent les types stables `CONTACT`, `PROJECTS`, `EMAIL`, `RESUME`, `EXTERNAL_URL`; les liens externes et visuels facultatifs sont validés côté backend.
+- Les APIs publiques `/api/v1/public/services` et `/api/v1/public/services/work-process/steps` excluent brouillons, archives, audit interne et identifiants techniques inutiles.
+- Le site public affiche les sections Services et Méthode depuis les API, même si le profil principal n'est pas encore publié.
+- Les contenus initiaux sont des seeds conservateurs cohérents avec le profil Java/Spring Boot/Angular, sans tarifs, délais garantis, faux clients ni promesses chiffrées.
+- ADR applicable : `docs/adr/ADR-0013-services-et-methode-de-travail.md`.
+
 ## Décisions de restructuration architecturale
 
 - Le backend est organisé progressivement par domaine/fonctionnalité, avec DTO REST en `api/dto/request` et `api/dto/response`, services applicatifs en `application/service`, mappers en `application/mapper`, modèles en `domain/model` et persistance en `infrastructure/persistence`.
@@ -221,8 +232,9 @@ docker compose up --build
 - Rapport Phase 5.3 : `.agents/state/PHASE_5_3_REPORT.md`
 - Rapport Phase 5.4 : `.agents/state/PHASE_5_4_REPORT.md`
 - Rapport Phase 5.5 : `.agents/state/PHASE_5_5_REPORT.md`
+- Rapport Phase 5.7 : `.agents/state/PHASE_5_7_REPORT.md`
 - Rapport restructuration : `.agents/state/ARCHITECTURE_RESTRUCTURING_REPORT.md`
 
 ## Dernière mise à jour
 
-2026-07-26
+2026-08-03

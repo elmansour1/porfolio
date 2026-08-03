@@ -1078,12 +1078,75 @@ body {
   object-fit: contain;
 }
 
-.skills-page {
+.skills-page,
+.services-page {
   --p-primary-color: var(--color-accent);
   --p-primary-hover-color: #115e59;
   --p-form-field-border-color: #cbd5e1;
   --p-form-field-border-radius: var(--radius-sm);
   --p-overlay-select-border-radius: var(--radius-md);
+}
+
+.admin-form-dialog {
+  width: min(56rem, calc(100vw - 2rem));
+}
+
+.admin-form-dialog--wide {
+  width: min(76rem, calc(100vw - 2rem));
+}
+
+.admin-form-dialog .p-dialog-content {
+  padding: 0;
+}
+
+.admin-form--dialog {
+  display: grid;
+  min-width: 0;
+}
+
+.admin-dialog-body {
+  max-height: min(72vh, 48rem);
+  overflow-y: auto;
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.admin-dialog-footer {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  border-top: 1px solid #e2e8f0;
+  padding: 1rem 1.25rem;
+  background: #fff;
+}
+
+.admin-dynamic-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-dynamic-item {
+  display: grid;
+  gap: 0.85rem;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  background: #f8fafc;
+}
+
+.admin-field {
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+}
+
+.admin-field > span {
+  color: #334155;
+  font-size: 0.875rem;
+  font-weight: 750;
 }
 
 .admin-prime-table {
@@ -1210,6 +1273,8 @@ body {
 .public-about,
 .public-skills,
 .public-career,
+.public-services,
+.public-method,
 .public-footer,
 .public-empty {
   width: min(100%, 72rem);
@@ -1286,6 +1351,8 @@ body {
 .public-hero,
 .public-skills,
 .public-career,
+.public-services,
+.public-method,
 .public-empty {
   border: 1px solid #d8dee8;
   border-radius: var(--radius-md);
@@ -1663,6 +1730,86 @@ body {
   font-weight: 800;
 }
 
+.public-services,
+.public-method {
+  display: grid;
+  gap: 1.25rem;
+  border: 1px solid #d8dee8;
+  border-radius: var(--radius-md);
+  padding: clamp(1.25rem, 4vw, 2rem);
+  background: #fff;
+}
+
+.public-services h2,
+.public-method h2 {
+  margin: 0;
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+}
+
+.public-services__grid,
+.public-method__steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.public-service-card,
+.public-method__steps article {
+  display: grid;
+  gap: 0.9rem;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 1.1rem;
+  background: #fff;
+}
+
+.public-service-card--featured {
+  border-color: #99f6e4;
+  box-shadow: inset 0 0 0 1px #ccfbf1;
+}
+
+.public-service-card__icon,
+.public-method__steps article > span {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: inline-grid;
+  place-items: center;
+  border-radius: var(--radius-md);
+  background: #0f766e;
+  color: #fff;
+  font-weight: 900;
+}
+
+.public-service-card h3,
+.public-method__steps h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.public-service-card p,
+.public-method__steps p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.65;
+}
+
+.public-service-card__problem {
+  border-left: 3px solid #0f766e;
+  padding-left: 0.75rem;
+}
+
+.public-service-card ul {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding-left: 1.1rem;
+  color: #334155;
+}
+
+.public-method__steps strong {
+  color: #0f766e;
+}
+
 .public-pagination {
   width: min(100%, 72rem);
   margin: 0 auto;
@@ -1733,6 +1880,8 @@ body {
   .admin-form-grid,
   .public-skill-groups,
   .public-career__grid,
+  .public-services__grid,
+  .public-method__steps,
   .public-projects-grid,
   .public-project-detail,
   .public-project-gallery {
@@ -1750,6 +1899,8 @@ body {
   .public-stats,
   .public-skill-groups,
   .public-career__grid,
+  .public-services__grid,
+  .public-method__steps,
   .public-projects-grid,
   .public-project-detail,
   .public-project-gallery {

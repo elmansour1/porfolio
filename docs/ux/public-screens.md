@@ -2,7 +2,7 @@
 
 ## Statut
 
-Validé en Phase 3 — Conception UX/UI du portfolio. Section compétences alimentée par données publiques implémentée en sous-phase 5.4.
+Validé en Phase 3 — Conception UX/UI du portfolio. Section compétences alimentée par données publiques implémentée en sous-phase 5.4. Sections Services et Méthode alimentées par API implémentées en sous-phase 5.7.
 
 ## Écran P-001 — Landing page `/`
 
@@ -178,7 +178,7 @@ Permettre de récupérer une navigation lorsque la page est introuvable.
 
 ## Dernière mise à jour
 
-2026-07-26
+2026-08-03
 
 ## Sous-phase 5.5 — Section publique parcours
 
@@ -194,3 +194,19 @@ Règles UX :
 - Aucun bloc vide ne doit être affiché.
 - Les expériences confidentielles affichent un libellé public maîtrisé.
 - La section doit valoriser le parcours sans recopier un CV brut.
+
+## Sous-phase 5.7 — Sections publiques Services et Méthode
+
+La page publique affiche désormais, lorsque les données sont publiées :
+
+- services professionnels avec titre, résumé, problème résolu, bénéfices principaux et CTA ;
+- mise en avant visuelle modérée pour les services `featured` ;
+- méthode de travail avec étapes ordonnées, numéro affiché hors texte traduit, description et résultat attendu ;
+- contenus issus des APIs publiques, sans services codés en dur dans le template Angular.
+
+Règles UX :
+
+- Aucun tarif, délai garanti, faux client, témoignage ou promesse chiffrée.
+- Aucun CTA sans destination réelle.
+- Les sections peuvent apparaître même si le profil principal n'est pas encore publié, car leur publication est indépendante.
+- Inspection visuelle publique exécutée via Chrome headless sur desktop et mobile.

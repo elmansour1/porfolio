@@ -24,6 +24,7 @@ Utiliser le template : `.agents/templates/adr-template.md`
 | ADR-0010 | Design system et UX/UI | Accepté | 2026-07-21 |
 | ADR-0011 | Récupération du mot de passe administrateur | Accepté | 2026-07-21 |
 | ADR-0012 | Restructuration architecturale senior | Accepté | 2026-07-26 |
+| ADR-0013 | Services professionnels et méthode de travail | Accepté | 2026-08-03 |
 
 ## Décisions différées
 
@@ -37,4 +38,4 @@ Utiliser le template : `.agents/templates/adr-template.md`
 
 ## Dernière mise à jour
 
-2026-07-26
+2026-08-03

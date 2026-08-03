@@ -121,11 +121,11 @@
 ## Phase 5 — Implémentation incrémentale
 
 **État :** `READY`
-**Dernière autorisation clôturée :** `GO — SOUS-PHASE 5.6 : PROJETS ET ÉTUDES DE CAS` (2026-08-02)
+**Dernière autorisation clôturée :** `GO — SOUS-PHASE 5.7 : SERVICES ET MÉTHODE DE TRAVAIL` (2026-08-03)
 **Dépendances :** Phase 4 clôturée
-**Dernier périmètre autorisé :** Projets et études de cas : domaine métier, DTO, persistance, migrations, API admin/public, interfaces TypeScript, formulaires, administration PrimeNG, affichage public, publication, archivage, traductions FR/EN, ordre, mise en avant, confidentialité (public/anonymisé/privé), galerie média, SEO basique par projet, tests, documentation et audits.
-**Exclusions :** Tarification, paiement, panier, devis, réservation, calendrier, espace client, contrats, facturation, CRM, services, témoignages, contact, messages, médiathèque complète, SEO avancé, sous-phase 5.7.
-**Statut en cours :** `PHASE_5_6_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`. Aucune sous-phase suivante n'est autorisée.
+**Dernier périmètre autorisé :** Services professionnels et méthode de travail : domaine métier, DTO, persistance, migration, API admin/public, interfaces TypeScript, formulaires, administration PrimeNG, affichage public, publication, archivage, traductions FR/EN, ordre, mise en avant, bénéfices, livrables, technologies/compétences liées, CTA, tests, documentation et audits.
+**Exclusions :** Tarification, paiement, panier, devis, réservation, calendrier, espace client, contrats, facturation, CRM, témoignages, formulaire de contact complet, landing page finale complète, IA, synchronisation externe, sous-phase 5.8.
+**Statut en cours :** `PHASE_5_7_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`. Aucune sous-phase suivante n'est autorisée.
 
 ### Sous-phase 5.1 — Authentification administrateur
 
@@ -285,6 +285,28 @@
 **Rapports :** `.agents/state/PHASE_5_6_IMPLEMENTATION_REPORT.md`, `.agents/state/PHASE_5_6_BACKEND_AUDIT.md`, `.agents/state/PHASE_5_6_FRONTEND_AUDIT.md`, `.agents/state/PHASE_5_6_UX_UI_AUDIT.md`, `.agents/state/PHASE_5_6_SECURITY_AUDIT.md`, `.agents/state/PHASE_5_6_REPORT.md`
 **Statut final :** `PHASE_5_6_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
 
+### Sous-phase 5.7 — Services professionnels et méthode de travail
+
+**Objectif :** Permettre à l'administrateur de gérer et publier les services réellement proposés, leurs problèmes résolus, bénéfices, livrables, technologies/compétences liées, CTA et les étapes de méthode de travail.
+**État :** `DONE`
+**Autorisation :** `GO — SOUS-PHASE 5.7 : SERVICES ET MÉTHODE DE TRAVAIL` (2026-08-03)
+**Date de clôture :** 2026-08-03
+**Exclusions :** Tarification, paiement, panier, devis, réservation, calendrier, espace client, contrats, facturation, CRM, témoignages, formulaire de contact complet, landing page finale complète, génération automatique de propositions, IA, synchronisation externe, sous-phase 5.8, commit.
+
+| ID | Titre | Agents | État | Audit |
+|----|-------|--------|------|-------|
+| 5.7.1 | Cadrage Product/Domain et réutilisation des référentiels existants | Product, Métier, Architecte, Security, QA | DONE | CONFORME |
+| 5.7.2 | Modèle de données services/méthode, migration V7 et contraintes | Database, Backend, Security, QA | DONE | CONFORME |
+| 5.7.3 | API backend admin/public, publication, archivage, CTA, ordre et tests | Backend, Security, Database, QA | DONE | CONFORME |
+| 5.7.4 | Interface admin services/méthode avec PrimeNG et formulaires typés | Frontend, UX/UI, Accessibility, QA | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.7.5 | Sections publiques Services et Méthode | Product, Frontend, UX/UI, Security, QA | DONE | CONFORME |
+| 5.7.6 | Builds, tests, lint et scans qualité | Frontend, Backend, QA, Reviewer Code | DONE | CONFORME AVEC RÉSERVE TRACÉE |
+| 5.7.7 | Audits sécurité, contenu, UX/UI et inspection visuelle | Security, Reviewer Code, Reviewer UX/UI, Documentation | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| 5.7.8 | Documentation, handoff, audit final et arrêt | Orchestrateur, Documentation, Reviewer Code, Reviewer UX/UI | DONE | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+
+**Rapports :** `.agents/state/PHASE_5_7_IMPLEMENTATION_REPORT.md`, `.agents/state/PHASE_5_7_BACKEND_AUDIT.md`, `.agents/state/PHASE_5_7_FRONTEND_AUDIT.md`, `.agents/state/PHASE_5_7_UX_UI_AUDIT.md`, `.agents/state/PHASE_5_7_SECURITY_AUDIT.md`, `.agents/state/PHASE_5_7_CONTENT_COMPLIANCE.md`, `.agents/state/PHASE_5_7_VISUAL_INSPECTION.md`, `.agents/state/PHASE_5_7_REPORT.md`
+**Statut final :** `PHASE_5_7_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
+
 ## Phase 6 — Stabilisation
 
 **État :** `BACKLOG` — Dépend de Phase 5
@@ -301,4 +323,4 @@
 
 ## Dernière mise à jour
 
-2026-08-02 (clôture sous-phase 5.6 — Projets et études de cas)
+2026-08-03 (clôture sous-phase 5.7 — Services professionnels et méthode de travail)

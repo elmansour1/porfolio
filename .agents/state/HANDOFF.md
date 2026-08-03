@@ -2,13 +2,29 @@
 
 ## Dernière tâche
 
-5.6.9 — Documentation, audit final et arrêt sous-phase 5.6 — État : DONE
+5.7.8 — Documentation, audit final et arrêt sous-phase 5.7 — État : DONE
 
 ## Objectif de la dernière tâche
 
-Clôturer la sous-phase 5.6 — Projets et études de cas : livrer le domaine métier complet (backend, frontend, médias, sécurité, UX/UI), documenter et arrêter sans lancer 5.7.
+Clôturer la sous-phase 5.7 — Services professionnels et méthode de travail : livrer le domaine métier complet (backend, frontend, sécurité, UX/UI, contenus, tests), documenter et arrêter sans lancer 5.8.
 
 ## Fichiers créés
+
+Sous-phase 5.7 — Services professionnels et méthode de travail — 2026-08-03 :
+
+- `backend/src/main/java/com/faouzi/portfolio/service/**`
+- `backend/src/main/resources/db/migration/V7__professional_services.sql`
+- `backend/src/test/java/com/faouzi/portfolio/service/ProfessionalServiceControllerTests.java`
+- `frontend/src/app/admin/services/**`
+- `docs/adr/ADR-0013-services-et-methode-de-travail.md`
+- `.agents/state/PHASE_5_7_IMPLEMENTATION_REPORT.md`
+- `.agents/state/PHASE_5_7_BACKEND_AUDIT.md`
+- `.agents/state/PHASE_5_7_FRONTEND_AUDIT.md`
+- `.agents/state/PHASE_5_7_UX_UI_AUDIT.md`
+- `.agents/state/PHASE_5_7_SECURITY_AUDIT.md`
+- `.agents/state/PHASE_5_7_CONTENT_COMPLIANCE.md`
+- `.agents/state/PHASE_5_7_VISUAL_INSPECTION.md`
+- `.agents/state/PHASE_5_7_REPORT.md`
 
 Sous-phase 5.6 — Projets et études de cas — 2026-08-02 :
 
@@ -54,6 +70,30 @@ Historique antérieur conservé :
 - `docs/api/postman-skills.postman_collection.json`
 
 ## Fichiers modifiés
+
+Sous-phase 5.7 — Services professionnels et méthode de travail — 2026-08-03 :
+
+- `backend/src/main/java/com/faouzi/portfolio/shared/security/SecurityConfiguration.java`
+- `frontend/src/app/app.routes.ts`
+- `frontend/src/app/admin/shell/admin-navigation.ts`
+- `frontend/src/app/admin/shell/admin-shell.page.spec.ts`
+- `frontend/src/app/public/public-placeholder.page.ts`
+- `frontend/src/app/public/public-placeholder.page.spec.ts`
+- `frontend/src/styles.scss`
+- `PROJECT.md`
+- `PLANS.md`
+- `.agents/state/PROJECT_STATE.md`
+- `.agents/state/HUMAN_GATES.md`
+- `.agents/state/RISKS.md`
+- `.agents/state/TECHNICAL_DEBT.md`
+- `docs/api/README.md`
+- `docs/architecture/backend.md`
+- `docs/architecture/data-model.md`
+- `docs/architecture/frontend.md`
+- `docs/product/functional-requirements.md`
+- `docs/ux/admin-screens.md`
+- `docs/ux/public-screens.md`
+- `docs/adr/README.md`
 
 Sous-phase 5.6 — Projets et études de cas — 2026-08-02 :
 
@@ -115,6 +155,11 @@ Historique antérieur conservé :
 
 ## Décisions
 
+- Sous-phase 5.7 : les services professionnels sont un domaine dédié `service` avec DTO séparés request/response, service applicatif transactionnel, mappers, entités JPA isolées et repositories Spring Data.
+- Sous-phase 5.7 : les technologies et compétences liées aux services réutilisent le référentiel `skill`, via `service_skill` typé `TECHNOLOGY`/`SKILL`; aucune table de technologies parallèle n'a été créée.
+- Sous-phase 5.7 : bénéfices et livrables sont structurés, traduisibles, ordonnables et activables.
+- Sous-phase 5.7 : les étapes de méthode sont administrables séparément, publiables et affichées dans l'ordre sans numéro inscrit dans le texte traduit.
+- Sous-phase 5.7 : les CTA sont limités à des types stables et validés côté backend ; aucun CTA ne pointe vers une fonctionnalité future.
 - Sous-phase 5.6 : `ProjectRequest` réutilisé tel quel pour création et modification (motif identique à `career`/`skills`), sans risque puisque l'identifiant est serveur-généré et le slug revalidé à chaque écriture.
 - Sous-phase 5.6 : confidentialité `PUBLIC`/`ANONYMIZED`/`PRIVATE` dédiée au module projet, appliquée uniquement côté service applicatif.
 - Sous-phase 5.6 : référentiel de compétences existant réutilisé pour les technologies liées aux projets, sans duplication de modèle.
@@ -128,6 +173,12 @@ Historique antérieur conservé :
 
 | Test | Résultat |
 |------|----------|
+| Backend `mvn test` (sous-phase 5.7) | PASS — 40 tests |
+| Frontend `npm run lint` avec Node 20 (sous-phase 5.7) | PASS |
+| Frontend `npm run test:ci` avec Node 20 (sous-phase 5.7) | PASS — 42 tests |
+| Frontend `npm run build` avec Node 20 (sous-phase 5.7) | PASS avec warning budget initial +22,75 kB |
+| Scan `<select>/<option>` périmètre 5.7 | PASS |
+| Scan Lombok interdit `@Data/@Setter/@SneakyThrows` périmètre service | PASS |
 | Backend `mvn test` (sous-phase 5.6) | PASS — 34 tests |
 | Frontend `npx eslint .` (sous-phase 5.6) | PASS |
 | Frontend `npx ng test --watch=false --browsers=ChromeHeadless` (sous-phase 5.6) | PASS — 37 tests |
@@ -144,6 +195,11 @@ Historique antérieur conservé :
 
 | Audit | Verdict |
 |-------|---------|
+| Backend senior (5.7) | CONFORME |
+| Frontend senior + PrimeNG (5.7) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
+| Sécurité publication/CTA/public (5.7) | CONFORME |
+| Conformité contenus services/méthode (5.7) | CONFORME |
+| UX/UI SaaS premium (5.7, inspection publique réelle, admin non capturée) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
 | Backend senior (5.6) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
 | Frontend senior + PrimeNG (5.6) | CONFORME AVEC RÉSERVES ACCEPTÉES ET TRACÉES |
 | Sécurité médias/brouillons/confidentialité (5.6) | CONFORME AVEC RÉSERVE MINEURE TRACÉE |
@@ -158,6 +214,8 @@ Historique antérieur conservé :
 
 ## Réserves
 
+- Build Angular 5.7 : PASS avec warning budget initial dépassé de 22,75 kB.
+- Inspection visuelle 5.7 : rendu public Services/Méthode validé par Chrome headless avec backend H2 + SSR sur desktop et mobile ; écran admin login capturé ; écran admin Services/Méthode authentifié non capturé car le script CDP temporaire est resté bloqué. Couverture de remplacement : tests composants, lint, scan PrimeNG/no-native-select et revue statique du template.
 - Inspection visuelle 5.4 : levée le 2026-07-26 via vérification runtime HTTP/HTML (stack Docker complète up/healthy) ; aucune capture d'écran interactive réalisée.
 - Build Angular restructuration PASS avec warning budget initial dépassé de 2,93 kB.
 - Aucun E2E automatisé ni axe/Lighthouse n'est installé.
@@ -169,8 +227,8 @@ Voir `.agents/state/RISKS.md` et `.agents/state/TECHNICAL_DEBT.md`.
 
 ## Éléments à préserver
 
-- Ne pas lancer 5.7 sans `GO`.
-- Ne pas implémenter services, témoignages, messages, contact, médiathèque complète ou SEO avancé.
+- Ne pas lancer 5.8 sans `GO`.
+- Ne pas implémenter témoignages, messages, contact complet, médiathèque complète, SEO avancé ou assemblage final de landing page.
 - Ne pas afficher de statistiques fictives.
 - Ne pas exposer les coordonnées masquées ni les projets `PRIVATE`/brouillons dans les réponses publiques.
 - Ne pas transformer les paramètres en système générique non typé.
@@ -178,17 +236,28 @@ Voir `.agents/state/RISKS.md` et `.agents/state/TECHNICAL_DEBT.md`.
 
 ## Prochaine action autorisée
 
-Attendre un `GO` humain explicite pour la sous-phase 5.7 ou une sous-phase nommée.
+Attendre un `GO` humain explicite pour la sous-phase 5.8 ou une sous-phase nommée.
 
 ## Statut humain
 
 - Phase autorisée : Aucune
-- Gate en attente : Oui — sous-phase 5.7 ou prochaine sous-phase nommée
-- Statut global : `PHASE_5_6_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
+- Gate en attente : Oui — sous-phase 5.8 ou prochaine sous-phase nommée
+- Statut global : `PHASE_5_7_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
 
 ## Outil source
 
-Claude Code — sous-phase 5.6 du 2026-08-02.
+OpenAI Codex — sous-phase 5.7 du 2026-08-03.
+
+## Sous-phase 5.7 — Services professionnels et méthode de travail — 2026-08-03
+
+- Backend : module `service` ajouté par domaine (`api`, `api/dto/request`, `api/dto/response`, `application/mapper`, `application/service`, `domain/model`, `infrastructure/persistence`), migration `V7__professional_services.sql`, API admin `/api/v1/admin/services` et `/api/v1/admin/work-process-steps`, API publique `/api/v1/public/services` et `/api/v1/public/services/work-process/steps`.
+- Frontend : feature `admin/services` ajoutée avec DTO, formulaires typés, mapper, client API avec CSRF, page admin PrimeNG pour services et méthode ; route `/admin/services` activée.
+- Public : sections Services et Méthode ajoutées à `/`, alimentées par API et affichées indépendamment de la publication du profil principal.
+- Vérifié : backend `mvn test` PASS — 40 tests ; frontend `npm run lint` PASS ; frontend `npm run test:ci` PASS — 42 tests ; frontend `npm run build` PASS avec warning budget initial +22,75 kB.
+- Inspection visuelle : public desktop/mobile PASS via Chrome headless (`/tmp/portfolio-5-7-public-desktop-corrected.png`, `/tmp/portfolio-5-7-public-mobile-corrected-wait.png`) ; admin login capturé ; admin Services/Méthode authentifié non capturé, réserve tracée.
+- Rapports : `.agents/state/PHASE_5_7_IMPLEMENTATION_REPORT.md`, `.agents/state/PHASE_5_7_BACKEND_AUDIT.md`, `.agents/state/PHASE_5_7_FRONTEND_AUDIT.md`, `.agents/state/PHASE_5_7_UX_UI_AUDIT.md`, `.agents/state/PHASE_5_7_SECURITY_AUDIT.md`, `.agents/state/PHASE_5_7_CONTENT_COMPLIANCE.md`, `.agents/state/PHASE_5_7_VISUAL_INSPECTION.md`, `.agents/state/PHASE_5_7_REPORT.md`.
+- Statut global : `PHASE_5_7_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`.
+- Prochaine action autorisée : attendre un `GO` humain explicite pour 5.8 ; ne pas lancer 5.8 automatiquement.
 
 ## Sous-phase 5.6 — Projets et études de cas — 2026-08-02
 
