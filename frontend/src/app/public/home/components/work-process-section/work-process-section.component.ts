@@ -14,24 +14,25 @@ import { HomeCopy } from '../../models/home-page.model';
           <h2 id="home-method-title">{{ copy().methodTitle }}</h2>
         </div>
 
-        <ol class="home-method-list">
+        <ol class="home-method-grid">
           @for (step of steps(); track step.title + step.displayOrder; let index = $index) {
-            <li class="home-method-list__item">
-              <span class="home-method-list__number" aria-hidden="true">{{ index + 1 }}</span>
-              <div>
-                <div class="home-method-list__heading">
-                  @if (step.icon) {
-                    <i [class]="step.icon" aria-hidden="true"></i>
-                  }
-                  <h3>{{ step.title }}</h3>
-                </div>
-                @if (step.description) {
-                  <p>{{ step.description }}</p>
+            <li class="home-card home-method-card">
+              <span class="home-method-card__number" aria-hidden="true">{{ index + 1 }}</span>
+              <div class="home-method-card__heading">
+                @if (step.icon) {
+                  <i [class]="step.icon" aria-hidden="true"></i>
                 }
-                @if (step.expectedResult) {
-                  <strong>{{ copy().expectedResult }} : {{ step.expectedResult }}</strong>
-                }
+                <h3>{{ step.title }}</h3>
               </div>
+              @if (step.description) {
+                <p>{{ step.description }}</p>
+              }
+              @if (step.expectedResult) {
+                <p class="home-method-card__result">
+                  <span>{{ copy().expectedResult }}</span>
+                  {{ step.expectedResult }}
+                </p>
+              }
             </li>
           }
         </ol>

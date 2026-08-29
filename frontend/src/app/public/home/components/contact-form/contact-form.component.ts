@@ -23,6 +23,7 @@ type ContactFormState = 'idle' | 'submitting' | 'success' | 'error-validation' |
   selector: 'app-contact-form',
   imports: [ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { class: 'home-contact-form-host' },
   template: `
     <div class="home-contact-form">
       <h3>{{ copy().contactFormTitle }}</h3>

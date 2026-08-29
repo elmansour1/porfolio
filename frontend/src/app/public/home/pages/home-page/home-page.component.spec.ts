@@ -48,6 +48,9 @@ describe('HomePageComponent', () => {
     expect(compiled.textContent).toContain('Projet vitrine');
     expect(compiled.textContent).toContain('Services professionnels');
     expect(compiled.textContent).toContain('Méthode de travail');
+    expect(compiled.querySelectorAll('.home-method-card').length).toBeGreaterThan(0);
+    expect(compiled.querySelector('.home-method-list')).toBeNull();
+    expect(compiled.querySelector('.home-contact-form')).not.toBeNull();
   });
 
   it('hides a disabled public section', () => {
