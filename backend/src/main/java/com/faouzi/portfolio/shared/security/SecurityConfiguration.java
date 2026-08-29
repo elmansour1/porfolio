@@ -44,6 +44,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/v1/public/profile/cv").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/public/settings/logo").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/public/settings/favicon").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/public/contact/csrf").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/public/contact").permitAll()
                         .requestMatchers(HttpMethod.GET, "/actuator/health", "/actuator/health/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/admin/auth/csrf").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/admin/auth/login").permitAll()

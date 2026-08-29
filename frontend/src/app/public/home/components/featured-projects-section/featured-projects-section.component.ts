@@ -11,10 +11,11 @@ import { HomeCopy, PublicLanguage } from '../../models/home-page.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (projects().length) {
-      <section class="home-section home-section--muted" id="projects" aria-labelledby="home-projects-title">
-        <div class="home-section__intro">
+      <section class="home-section home-section--muted home-section--projects" id="projects" aria-labelledby="home-projects-title">
+        <div class="home-section__intro home-section__intro--wide">
           <p class="home-eyebrow">{{ copy().projectsEyebrow }}</p>
           <h2 id="home-projects-title">{{ copy().projectsTitle }}</h2>
+          <p class="home-section__lede">{{ copy().projectsSubtitle }}</p>
         </div>
 
         <div class="home-project-grid">
@@ -40,12 +41,18 @@ import { HomeCopy, PublicLanguage } from '../../models/home-page.model';
                     }
                   </div>
                 }
+                <a class="home-project-card__link" [routerLink]="['/projects', project.slug]">
+                  {{ copy().projectCaseStudyLink }}
+                  <span aria-hidden="true">→</span>
+                </a>
               </div>
             </article>
           }
         </div>
 
-        <a class="home-button" routerLink="/projects">{{ copy().projectsLink }}</a>
+        <div class="home-section__footer">
+          <a class="home-button home-button--primary" routerLink="/projects">{{ copy().projectsLink }}</a>
+        </div>
       </section>
     }
   `,

@@ -63,25 +63,27 @@ import {
                 <p>{{ copy().unavailableMessage }}</p>
               </section>
             } @else {
-              @if (sectionVisible('HERO')) {
-                <app-hero-section
-                  [profile]="profile()"
-                  [copy]="copy()"
-                  [contactHref]="contactHref()"
-                  [servicesHref]="servicesHref()"
-                />
-              }
+              <div class="home-hero-band">
+                @if (sectionVisible('HERO')) {
+                  <app-hero-section
+                    [profile]="profile()"
+                    [copy]="copy()"
+                    [contactHref]="contactHref()"
+                    [servicesHref]="servicesHref()"
+                  />
+                }
 
-              @if (statistics().length && sectionVisible('HERO')) {
-                <section class="home-stats" [attr.aria-label]="copy().professionalIndicators">
-                  @for (statistic of statistics(); track statistic.label) {
-                    <article>
-                      <strong>{{ statistic.value }}</strong>
-                      <span>{{ statistic.label }}</span>
-                    </article>
-                  }
-                </section>
-              }
+                @if (statistics().length && sectionVisible('HERO')) {
+                  <section class="home-stats" [attr.aria-label]="copy().professionalIndicators">
+                    @for (statistic of statistics(); track statistic.label) {
+                      <article>
+                        <strong>{{ statistic.value }}</strong>
+                        <span>{{ statistic.label }}</span>
+                      </article>
+                    }
+                  </section>
+                }
+              </div>
 
               @if (partialErrors().length) {
                 <p class="home-partial-error" role="status">{{ copy().partialError }}</p>
@@ -91,16 +93,16 @@ import {
                 <app-about-section [profile]="profile()" [copy]="copy()" />
               }
 
-              @if (sectionVisible('SKILLS')) {
-                <app-skills-section [skills]="current.skills" [copy]="copy()" [language]="selectedLanguage()" />
-              }
-
               @if (sectionVisible('PROJECTS')) {
                 <app-featured-projects-section
                   [projects]="current.featuredProjects"
                   [copy]="copy()"
                   [language]="selectedLanguage()"
                 />
+              }
+
+              @if (sectionVisible('SKILLS')) {
+                <app-skills-section [skills]="current.skills" [copy]="copy()" [language]="selectedLanguage()" />
               }
 
               @if (sectionVisible('EXPERIENCES') || sectionVisible('EDUCATION')) {
@@ -125,7 +127,11 @@ import {
               }
 
               @if (sectionVisible('CONTACT')) {
-                <app-collaboration-cta [profile]="profile()" [copy]="copy()" />
+                <app-collaboration-cta
+                  [profile]="profile()"
+                  [copy]="copy()"
+                  [language]="selectedLanguage()"
+                />
               }
             }
           }
@@ -173,8 +179,17 @@ export class HomePageComponent {
     if (profile && this.sectionVisible('ABOUT')) {
       items.push({ fragment: 'about', label: copy.aboutEyebrow });
     }
+    if (this.sectionVisible('PROJECTS') && (data?.featuredProjects.length ?? 0) > 0) {
+      items.push({ fragment: 'projects', label: copy.navProjects });
+    }
     if (this.sectionVisible('SKILLS') && (data?.skills?.categories.length || data?.skills?.featuredSkills.length)) {
       items.push({ fragment: 'skills', label: copy.skillsEyebrow });
+    }
+    if (
+      (this.sectionVisible('EXPERIENCES') || this.sectionVisible('EDUCATION')) &&
+      (data?.career?.experiences.length || data?.career?.education.length || data?.career?.certifications.length)
+    ) {
+      items.push({ fragment: 'career', label: copy.navCareer });
     }
     if (this.sectionVisible('SERVICES') && data?.services.length) {
       items.push({ fragment: 'services', label: copy.servicesEyebrow });

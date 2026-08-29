@@ -6,35 +6,19 @@ Une phase ne passe à `AUTHORIZED` qu'après un `GO` explicite de l'utilisateur,
 
 ## Gates
 
-| Phase | Décision | Date | Périmètre | Exclusions | Autorisation étapes internes | Statut final |
-|-------|----------|------|-----------|------------|------------------------------|--------------|
-| 0 — Initialisation | INITIALISATION_DU_FRAMEWORK | 2026-07-21 | Installation framework, analyse du brief portfolio, documentation projet, plan initial, risques, audit | Code applicatif, bootstrap Angular/Spring, base de données, authentification, landing page, administration, commit | Oui (exécution autonome Phase 0) | CLÔTURÉE |
-| 1 — Cadrage produit | GO | 2026-07-21 | Cadrage produit complet : problème, cible, proposition de valeur, MVP, exclusions, parcours, exigences, risques, contenus à préparer, audits, clôture | Implémentation applicative, architecture détaillée Phase 2, ADR acceptés, génération Angular/Spring/PostgreSQL, phase suivante | Oui (exécution autonome Phase 1) | CLÔTURÉE |
-| 2 — Architecture | GO | 2026-07-21 | Architecture et conception complètes : architecture globale, modèle de données, contrats API, architecture frontend/backend, UX/UI, sécurité, QA, infrastructure, ADR, audits, clôture | Génération applicative Angular/Spring, migrations exécutables, base créée, authentification implémentée, déploiement réel, Phase 3 | Oui (exécution autonome Phase 2) | CLÔTURÉE |
-| 3 — Conception UX/UI du portfolio | GO | 2026-07-21 | Conception UX/UI complète : site public, administration, écrans, parcours, design system, responsive, accessibilité, états, handoff frontend, QA et audit UX/UI final | Implémentation applicative, prototype exécutable, génération Angular/Spring, base de données, déploiement, phase suivante | Oui (exécution autonome Phase 3) | CLÔTURÉE |
-| 4 — Fondations techniques | GO | 2026-07-21 | Fondations validées : workspace frontend, backend, base, configuration locale, design tokens, sécurité minimale, tests de démarrage, Docker/env, documentation et audits | Fonctionnalités métier de Phase 5, contenu réel publié, landing complète, administration métier complète, déploiement production, commit | Oui (exécution autonome Phase 4) | CLÔTURÉE |
-| 5.1 — Authentification administrateur | GO | 2026-07-21 | Premier compte admin, login, logout, récupération/réinitialisation mot de passe, session, protection routes/endpoints admin, limitation tentatives, journalisation auth, pages frontend auth, tests, documentation API/Postman | Gestion du contenu portfolio, landing métier complète, dashboard métier complet, médias métier, contact public, sous-phase 5.2, commit | Oui (exécution autonome sous-phase 5.1) | CLÔTURÉE |
-| 5.2 — Layout et dashboard de l'espace administrateur | GO | 2026-07-22 | Layout admin, sidebar, toolbar, routing enfant, dashboard, pages techniques admin, composants structurels, responsive, accessibilité, tests, inspection visuelle, documentation frontend/UX | Gestion complète profil/paramètres/compétences/expériences/projets/services/médias/SEO/messages, contact public, statistiques avancées, recherche globale, notifications temps réel, rôles complexes, nouvelle authentification, sous-phase 5.3, commit | Oui (exécution autonome sous-phase 5.2) | CLÔTURÉE |
-| 5.3 — Profil professionnel et paramètres généraux du portfolio | GO | 2026-07-22 | Profil professionnel, paramètres généraux typés, traductions FR/EN, liens professionnels, statistiques réelles, visibilité des sections, photo, CV, logo, favicon, API admin/public, affichage public limité, tests, documentation, audits et clôture | CRUD compétences/expériences/formations/projets/services/témoignages/messages, formulaire public contact, médiathèque complète, SEO avancé, analytics, synchronisations, multi-admin, rôles complexes, blog, newsletter, thème personnalisable, sous-phase 5.4, commit | Oui (exécution autonome sous-phase 5.3) | CLÔTURÉE |
-| 5.4 — Compétences et catégories | GO | 2026-07-26 | Catégories de compétences, compétences, niveaux qualitatifs, traductions, mise en avant, ordre, publication, API admin/public, base de données, interface admin, section publique, tests, audits, conformité PrimeNG pour les sélections | Expériences, formations, certifications, projets, services, témoignages, contact, messages, médiathèque complète, SEO avancé, synchronisation GitHub, calcul automatique des niveaux, IA, sous-phase 5.5, commit | Oui (exécution autonome sous-phase 5.4) | CLÔTURÉE |
-| Intervention exceptionnelle — Restructuration architecturale senior | GO | 2026-07-26 | Réorganisation backend/frontend, DTO, services, mappers, modèles, Lombok, PrimeNG selects, tests, audits et documentation | Nouvelle fonctionnalité, nouveau workflow métier, nouveau CRUD, changement de stack, microservices, phase ou sous-phase métier suivante, commit | Oui (exécution autonome intervention exceptionnelle) | CLÔTURÉE |
-| 5.5 — Expériences, formations et certifications | GO | 2026-07-26 | Expériences professionnelles/freelance/stages/missions, formations, certifications, missions/réalisations, technologies liées, confidentialité, publication, ordre, traductions, API admin/public, base de données, administration, affichage public, tests et audits | Projets, études de cas, services, témoignages, contact, messages, médiathèque complète, synchronisation LinkedIn, import CV automatique, sous-phase 5.6, commit | Oui (exécution autonome sous-phase 5.5) | CLÔTURÉE |
-| Intervention corrective — Formulaires admin UX/UI | GO | 2026-08-02 | Correction structurelle des formulaires frontend existants : alignements, labels, grilles, largeurs, composants PrimeNG, onglets multilingues, modales, responsive, accessibilité, tests, inspection visuelle et documentation | Nouvelle fonctionnalité métier, backend, contrats API, modèle de données, permissions, workflows de publication, statuts métier, mécanismes de traduction, données existantes, sous-phase 5.6, commit | Oui (exécution autonome intervention corrective) | CLÔTURÉE |
-| 5.6 — Projets et études de cas | GO | 2026-08-02 | Projets et études de cas : domaine métier, cas d'usage, DTO, entités de persistance, migrations, API publique et admin, interfaces TypeScript, modèles de formulaire, interface d'administration, affichage public, workflow de publication, archivage, traductions FR/EN, ordre, mise en avant, confidentialité (public/anonymisé/privé), galerie média avec couverture, SEO basique par projet, tests, audits et documentation | Tarification, paiement, panier, devis, réservation, calendrier, espace client, contrats, facturation, CRM, témoignages, formulaire de contact complet, landing page finale complète, études de cas générées par IA, médiathèque générique complète, stratégie SEO globale complète, services, méthodologie de travail, sous-phase 5.7, commit | Oui (exécution autonome sous-phase 5.6) | CLÔTURÉE |
-| 5.7 — Services professionnels et méthode de travail | GO | 2026-08-03 | Services professionnels, bénéfices, livrables, technologies/compétences liées, publics cibles, CTA, méthode de travail, étapes de collaboration, domaine métier, DTO, migration, API admin/public, frontend admin/public, traductions, ordre, mise en avant, publication, archivage, tests, audits, documentation | Tarification, paiement, panier, devis, réservation, calendrier, espace client, contrats, facturation, CRM, témoignages, formulaire de contact complet, landing page finale complète, génération automatique de propositions, IA, synchronisation externe, sous-phase 5.8, commit | Oui (exécution autonome sous-phase 5.7) | CLÔTURÉE |
-| 5.8 — Assemblage final de la landing page publique | GO | 2026-08-03 | Landing publique finale : orchestration multi-agents, header, hero, sections publiques existantes, services, méthode, CTA collaboration, footer, états, visibilité des sections, responsive, accessibilité, tests, inspection visuelle, audits et documentation | Formulaire de contact complet, gestion des messages, témoignages fictifs, blog, newsletter, paiement, réservation, analytics avancés, personnalisation de thème, nouvelle architecture globale, nouvelle gestion de contenu, sous-phase 5.9, commit | Oui (exécution autonome sous-phase 5.8) | CLÔTURÉE |
-| 5.9 — Prochaine sous-phase métier | En attente | — | — | — | — | EN_ATTENTE_DU_GO |
-| 6 — Stabilisation | En attente | — | — | — | — | EN_ATTENTE_DU_GO |
-| 7 — Livraison | En attente | — | — | — | — | EN_ATTENTE_DU_GO |
-| 8 — Exploitation et évolution | En attente | — | — | — | — | EN_ATTENTE_DU_GO |
-
-## Commandes reconnues
-
-- `GO pour la phase X`
-- `Exécute la phase X jusqu'à sa clôture`
-- `Arrête-toi après l'audit`
-- `Ne touche pas au backend` / `Ne touche pas au frontend`
+| Phase / Sous-phase | Décision | Date | Périmètre | Statut final |
+|--------------------|----------|------|-----------|--------------|
+| 0 — Initialisation | INITIALISATION_DU_FRAMEWORK | 2026-07-21 | Framework | CLÔTURÉE |
+| 0.6 — Ré-audit | Ré-audit projet existant | 2026-08-29 | Resynchronisation état | CLÔTURÉE |
+| 1 — Cadrage produit | GO phase 1 | 2026-07-21 | Vision, MVP | CLÔTURÉE |
+| 2 — Architecture | GO phase 2 | 2026-07-21 | Architecture, ADR | CLÔTURÉE |
+| 3 — UX/UI | GO phase 3 | 2026-07-21 | Conception UX/UI | CLÔTURÉE |
+| 4 — Fondations | GO phase 4 | 2026-07-21 | Bootstrap technique | CLÔTURÉE |
+| 5.1 à 5.8 | GOs sous-phases | 2026-07-21 → 2026-08-29 | Vertical slices MVP | CLÔTURÉES |
+| **5.9 — Contact** | **GO sous-phase 5.9** | **2026-08-29** | **Formulaire public, admin messages, pages légales** | **CLÔTURÉE** |
+| 6 — Stabilisation | En attente | — | — | EN_ATTENTE_DU_GO |
+| 7 — Livraison | En attente | — | — | EN_ATTENTE_DU_GO |
 
 ## Dernière mise à jour
 
-2026-08-03 (clôture 5.8 et attente du GO 5.9)
+2026-08-29

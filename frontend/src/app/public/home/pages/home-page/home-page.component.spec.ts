@@ -1,3 +1,4 @@
+import { provideHttpClient } from '@angular/common/http';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
@@ -30,6 +31,7 @@ describe('HomePageComponent', () => {
       providers: [
         provideZonelessChangeDetection(),
         provideRouter([]),
+        provideHttpClient(),
         { provide: HomePageDataService, useValue: dataService },
       ],
     }).compileComponents();
@@ -42,7 +44,7 @@ describe('HomePageComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.textContent).toContain('Faouzi Elmali');
     expect(compiled.textContent).toContain('Développeur Full Stack');
-    expect(compiled.textContent).toContain('Compétences structurées');
+    expect(compiled.textContent).toContain('Stack & compétences');
     expect(compiled.textContent).toContain('Projet vitrine');
     expect(compiled.textContent).toContain('Services professionnels');
     expect(compiled.textContent).toContain('Méthode de travail');

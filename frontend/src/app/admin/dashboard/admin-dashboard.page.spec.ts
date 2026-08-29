@@ -1,7 +1,9 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { of } from 'rxjs';
 
+import { MessagesApiService } from '../messages/api/messages-api.service';
 import { AdminDashboardPage } from './admin-dashboard.page';
 
 describe('AdminDashboardPage', () => {
@@ -10,7 +12,16 @@ describe('AdminDashboardPage', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AdminDashboardPage],
-      providers: [provideZonelessChangeDetection(), provideRouter([])],
+      providers: [
+        provideZonelessChangeDetection(),
+        provideRouter([]),
+        {
+          provide: MessagesApiService,
+          useValue: {
+            list: () => of({ items: [], page: 0, size: 1, totalItems: 0, totalPages: 0 }),
+          },
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AdminDashboardPage);
@@ -32,16 +43,17 @@ describe('AdminDashboardPage', () => {
       element.querySelectorAll<HTMLButtonElement>('.admin-quick-action--disabled'),
     );
 
-    expect(disabledActions.length).toBe(2);
+    expect(disabledActions.length).toBe(1);
     expect(disabledActions.some((action) => action.textContent?.includes('Ajouter un projet'))).toBeTrue();
   });
 
-  it('keeps public preview and profile as enabled quick actions', () => {
+  it('keeps public preview, profile and messages as enabled quick actions', () => {
     const element = fixture.nativeElement as HTMLElement;
     const enabledActions = Array.from(element.querySelectorAll<HTMLAnchorElement>('a.admin-quick-action'));
 
-    expect(enabledActions.length).toBe(2);
+    expect(enabledActions.length).toBe(3);
     expect(enabledActions[0].textContent).toContain('Prévisualiser le portfolio');
     expect(enabledActions[1].textContent).toContain('Compléter le profil');
+    expect(enabledActions[2].textContent).toContain('Consulter les messages');
   });
 });

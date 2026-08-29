@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 
+import { MessagesApiService } from '../messages/api/messages-api.service';
 import { AdminEmptyStateComponent } from '../shared/ui/admin-empty-state.component';
 import { AdminMetricCardComponent } from '../shared/ui/admin-metric-card.component';
 import { AdminQuickActionComponent } from '../shared/ui/admin-quick-action.component';
@@ -59,7 +60,7 @@ interface DashboardAction {
         </div>
 
         <div class="admin-metric-grid">
-          @for (metric of metrics; track metric.label) {
+          @for (metric of metrics(); track metric.label) {
             <app-admin-metric-card
               [label]="metric.label"
               [value]="metric.value"
@@ -133,7 +134,11 @@ interface DashboardAction {
   `,
 })
 export class AdminDashboardPage {
-  readonly metrics: readonly DashboardMetric[] = [
+  private readonly messagesApi = inject(MessagesApiService);
+
+  readonly unreadMessagesCount = signal<number | null>(null);
+
+  readonly staticMetrics: readonly DashboardMetric[] = [
     {
       label: 'Projets publiés',
       value: 'Indisponible',
@@ -153,15 +158,6 @@ export class AdminDashboardPage {
       labelId: 'metric-drafts',
     },
     {
-      label: 'Messages non lus',
-      value: 'Indisponible',
-      description: 'Le formulaire public et les messages restent hors périmètre 5.3.',
-      icon: 'pi pi-inbox',
-      statusLabel: 'À venir',
-      statusTone: 'unavailable',
-      labelId: 'metric-unread-messages',
-    },
-    {
       label: 'Sections incomplètes',
       value: 'À vérifier',
       description: 'Les contrôles de complétude seront ajoutés par module métier.',
@@ -171,6 +167,33 @@ export class AdminDashboardPage {
       labelId: 'metric-incomplete-sections',
     },
   ];
+
+  constructor() {
+    this.messagesApi.list('NEW', 0, 1).subscribe({
+      next: (response) => this.unreadMessagesCount.set(response.totalItems),
+      error: () => this.unreadMessagesCount.set(null),
+    });
+  }
+
+  metrics(): readonly DashboardMetric[] {
+    return [this.messagesMetric(), ...this.staticMetrics];
+  }
+
+  private messagesMetric(): DashboardMetric {
+    const count = this.unreadMessagesCount();
+    return {
+      label: 'Messages non lus',
+      value: count === null ? 'Indisponible' : String(count),
+      description:
+        count === null
+          ? 'Impossible de récupérer les messages pour le moment.'
+          : 'Nombre de messages de contact au statut "Nouveau".',
+      icon: 'pi pi-inbox',
+      statusLabel: count && count > 0 ? 'À traiter' : 'À jour',
+      statusTone: count === null ? 'unavailable' : count > 0 ? 'warning' : 'ready',
+      labelId: 'metric-unread-messages',
+    };
+  }
 
   readonly quickActions: readonly DashboardAction[] = [
     {
@@ -196,10 +219,10 @@ export class AdminDashboardPage {
     },
     {
       label: 'Consulter les messages',
-      description: 'Disponible après livraison du contact public.',
+      description: 'Voir les messages reçus via le formulaire de contact public.',
       icon: 'pi pi-send',
       route: '/admin/messages',
-      disabled: true,
+      disabled: false,
     },
   ];
 }

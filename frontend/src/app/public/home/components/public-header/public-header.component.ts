@@ -8,14 +8,12 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
 
 import { PublicPortfolio } from '../../../../admin/profile/models/dto/profile.dto';
 import { HomeCopy, HomeNavigationItem, PublicLanguage } from '../../models/home-page.model';
 
 @Component({
   selector: 'app-public-header',
-  imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header class="home-header" [class.home-header--scrolled]="scrolled()">
@@ -53,7 +51,6 @@ import { HomeCopy, HomeNavigationItem, PublicLanguage } from '../../models/home-
             @for (item of navigation(); track item.fragment) {
               <a [href]="'#' + item.fragment" (click)="closeMenu()">{{ item.label }}</a>
             }
-            <a routerLink="/projects" (click)="closeMenu()">{{ copy().navProjects }}</a>
           </div>
 
           <div class="home-header__actions">

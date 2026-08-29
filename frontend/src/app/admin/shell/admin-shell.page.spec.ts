@@ -42,13 +42,15 @@ describe('AdminShellPage', () => {
     expect(element.textContent).toContain('admin@example.test');
   });
 
-  it('keeps future content sections disabled while services are available', () => {
+  it('keeps future content sections disabled while services and messages are available', () => {
     const element = fixture.nativeElement as HTMLElement;
     const disabledItems = Array.from(element.querySelectorAll<HTMLButtonElement>('.admin-nav-item--disabled'));
 
     expect(disabledItems.length).toBeGreaterThan(0);
-    expect(disabledItems.some((item) => item.textContent?.includes('Messages'))).toBeTrue();
+    expect(disabledItems.some((item) => item.textContent?.includes('Médias'))).toBeTrue();
+    expect(disabledItems.some((item) => item.textContent?.includes('Messages'))).toBeFalse();
     expect(element.textContent).toContain('Services');
+    expect(element.textContent).toContain('Messages');
     expect(disabledItems.every((item) => item.disabled)).toBeTrue();
   });
 

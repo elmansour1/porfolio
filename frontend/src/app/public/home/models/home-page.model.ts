@@ -38,6 +38,7 @@ export interface HomeNavigationItem {
 
 export interface HomeCopy {
   readonly navProjects: string;
+  readonly navCareer: string;
   readonly navContact: string;
   readonly primaryNavigation: string;
   readonly secondaryNavigation: string;
@@ -54,13 +55,18 @@ export interface HomeCopy {
   readonly viewProjects: string;
   readonly contact: string;
   readonly downloadResume: string;
+  readonly heroScrollHint: string;
   readonly aboutEyebrow: string;
   readonly skillsEyebrow: string;
   readonly skillsTitle: string;
+  readonly skillsSubtitle: string;
+  readonly coreStackLabel: string;
   readonly featuredSkills: string;
   readonly projectsEyebrow: string;
   readonly projectsTitle: string;
+  readonly projectsSubtitle: string;
   readonly projectsLink: string;
+  readonly projectCaseStudyLink: string;
   readonly careerEyebrow: string;
   readonly careerTitle: string;
   readonly educationTitle: string;
@@ -83,13 +89,37 @@ export interface HomeCopy {
   readonly phoneLabel: string;
   readonly socialLinks: string;
   readonly footerAdmin: string;
+  readonly navPrivacy: string;
+  readonly navLegal: string;
   readonly defaultSiteName: string;
   readonly defaultMonogram: string;
+  readonly contactFormTitle: string;
+  readonly contactFormIntro: string;
+  readonly contactNameLabel: string;
+  readonly contactEmailLabel: string;
+  readonly contactCompanyLabel: string;
+  readonly contactCompanyOptional: string;
+  readonly contactRequestTypeLabel: string;
+  readonly contactSubjectLabel: string;
+  readonly contactMessageLabel: string;
+  readonly contactConsentLabel: string;
+  readonly contactSubmitLabel: string;
+  readonly contactSubmittingLabel: string;
+  readonly contactSuccessTitle: string;
+  readonly contactSuccessMessage: string;
+  readonly contactSendAnother: string;
+  readonly contactErrorValidation: string;
+  readonly contactErrorNetwork: string;
+  readonly contactErrorRateLimited: string;
+  readonly contactRequiredField: string;
+  readonly contactInvalidEmail: string;
+  readonly contactMessageTooShort: string;
 }
 
 export const HOME_COPY: Record<PublicLanguage, HomeCopy> = {
   fr: {
     navProjects: 'Projets',
+    navCareer: 'Parcours',
     navContact: 'Contact',
     primaryNavigation: 'Navigation principale',
     secondaryNavigation: 'Navigation secondaire',
@@ -108,13 +138,20 @@ export const HOME_COPY: Record<PublicLanguage, HomeCopy> = {
     viewProjects: 'Voir les projets',
     contact: 'Entrer en contact',
     downloadResume: 'Télécharger le CV',
+    heroScrollHint: 'Découvrir le portfolio',
     aboutEyebrow: 'À propos',
     skillsEyebrow: 'Compétences',
-    skillsTitle: 'Compétences structurées',
+    skillsTitle: 'Stack & compétences',
+    skillsSubtitle:
+      'Technologies regroupées par usage réel — pas une liste exhaustive, mais ce que j’utilise en production.',
+    coreStackLabel: 'Stack principale',
     featuredSkills: 'Compétences principales',
-    projectsEyebrow: 'Réalisations',
-    projectsTitle: 'Projets mis en avant',
+    projectsEyebrow: 'Études de cas',
+    projectsTitle: 'Projets qui prouvent la capacité à livrer',
+    projectsSubtitle:
+      'Chaque projet détaille le contexte, le rôle joué et le résultat obtenu — format CASE en page dédiée.',
     projectsLink: 'Voir tous les projets',
+    projectCaseStudyLink: 'Lire l’étude de cas',
     careerEyebrow: 'Parcours',
     careerTitle: 'Expériences, formations et certifications',
     educationTitle: 'Formations',
@@ -138,11 +175,41 @@ export const HOME_COPY: Record<PublicLanguage, HomeCopy> = {
     phoneLabel: 'Téléphone',
     socialLinks: 'Liens professionnels',
     footerAdmin: 'Administration',
+    navPrivacy: 'Confidentialité',
+    navLegal: 'Mentions légales',
     defaultSiteName: 'Portfolio professionnel',
     defaultMonogram: 'FE',
+    contactFormTitle: 'Envoyer un message',
+    contactFormIntro:
+      'Décrivez votre besoin en quelques lignes, une réponse suit dès que possible.',
+    contactNameLabel: 'Nom',
+    contactEmailLabel: 'E-mail',
+    contactCompanyLabel: 'Entreprise',
+    contactCompanyOptional: 'facultatif',
+    contactRequestTypeLabel: 'Type de demande',
+    contactSubjectLabel: 'Sujet',
+    contactMessageLabel: 'Message',
+    contactConsentLabel:
+      'J’accepte que ces informations soient utilisées pour répondre à ma demande, conformément à la politique de confidentialité.',
+    contactSubmitLabel: 'Envoyer le message',
+    contactSubmittingLabel: 'Envoi en cours…',
+    contactSuccessTitle: 'Message envoyé',
+    contactSuccessMessage:
+      'Merci, votre message a bien été transmis. Une réponse sera apportée dès que possible.',
+    contactSendAnother: 'Envoyer un autre message',
+    contactErrorValidation:
+      'Certains champs sont invalides. Vérifiez les informations saisies puis réessayez.',
+    contactErrorNetwork:
+      'Le message n’a pas pu être envoyé en raison d’un problème réseau. Réessayez dans un instant.',
+    contactErrorRateLimited:
+      'Trop de messages ont été envoyés récemment depuis cette connexion. Merci de réessayer plus tard.',
+    contactRequiredField: 'Ce champ est obligatoire.',
+    contactInvalidEmail: 'Adresse e-mail invalide.',
+    contactMessageTooShort: 'Le message doit contenir au moins 20 caractères.',
   },
   en: {
     navProjects: 'Projects',
+    navCareer: 'Career',
     navContact: 'Contact',
     primaryNavigation: 'Primary navigation',
     secondaryNavigation: 'Secondary navigation',
@@ -161,13 +228,20 @@ export const HOME_COPY: Record<PublicLanguage, HomeCopy> = {
     viewProjects: 'View projects',
     contact: 'Get in touch',
     downloadResume: 'Download resume',
+    heroScrollHint: 'Explore the portfolio',
     aboutEyebrow: 'About',
     skillsEyebrow: 'Skills',
-    skillsTitle: 'Structured skills',
+    skillsTitle: 'Stack & skills',
+    skillsSubtitle:
+      'Technologies grouped by real-world usage — not an exhaustive list, but what ships in production.',
+    coreStackLabel: 'Core stack',
     featuredSkills: 'Featured skills',
-    projectsEyebrow: 'Selected work',
-    projectsTitle: 'Featured projects',
+    projectsEyebrow: 'Case studies',
+    projectsTitle: 'Projects that prove delivery',
+    projectsSubtitle:
+      'Each project covers context, role and outcome — full CASE format on the detail page.',
     projectsLink: 'View all projects',
+    projectCaseStudyLink: 'Read case study',
     careerEyebrow: 'Career',
     careerTitle: 'Experience, education and certifications',
     educationTitle: 'Education',
@@ -191,8 +265,32 @@ export const HOME_COPY: Record<PublicLanguage, HomeCopy> = {
     phoneLabel: 'Phone',
     socialLinks: 'Professional links',
     footerAdmin: 'Administration',
+    navPrivacy: 'Privacy',
+    navLegal: 'Legal notice',
     defaultSiteName: 'Professional portfolio',
     defaultMonogram: 'FE',
+    contactFormTitle: 'Send a message',
+    contactFormIntro: 'Describe your need in a few lines, a reply follows as soon as possible.',
+    contactNameLabel: 'Name',
+    contactEmailLabel: 'Email',
+    contactCompanyLabel: 'Company',
+    contactCompanyOptional: 'optional',
+    contactRequestTypeLabel: 'Request type',
+    contactSubjectLabel: 'Subject',
+    contactMessageLabel: 'Message',
+    contactConsentLabel:
+      'I agree that this information is used to answer my request, in line with the privacy policy.',
+    contactSubmitLabel: 'Send message',
+    contactSubmittingLabel: 'Sending…',
+    contactSuccessTitle: 'Message sent',
+    contactSuccessMessage: 'Thank you, your message has been sent. A reply will follow as soon as possible.',
+    contactSendAnother: 'Send another message',
+    contactErrorValidation: 'Some fields are invalid. Check the information entered and try again.',
+    contactErrorNetwork: 'The message could not be sent because of a network issue. Please try again shortly.',
+    contactErrorRateLimited: 'Too many messages were sent recently from this connection. Please try again later.',
+    contactRequiredField: 'This field is required.',
+    contactInvalidEmail: 'Invalid email address.',
+    contactMessageTooShort: 'The message must contain at least 20 characters.',
   },
 };
 
@@ -204,4 +302,12 @@ export const SKILL_LEVEL_LABELS: Record<
   OPERATIONAL: { fr: 'Opérationnel', en: 'Operational' },
   ADVANCED: { fr: 'Avancé', en: 'Advanced' },
   CORE_EXPERTISE: { fr: 'Expertise principale', en: 'Core expertise' },
+};
+
+/** Width percentage for premium skill level bars. */
+export const SKILL_LEVEL_PROGRESS: Record<SkillLevel, number> = {
+  NOTIONS: 28,
+  OPERATIONAL: 52,
+  ADVANCED: 76,
+  CORE_EXPERTISE: 100,
 };

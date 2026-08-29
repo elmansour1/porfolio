@@ -13,7 +13,10 @@ import { HomeCopy } from '../../models/home-page.model';
       @if (profile(); as profile) {
         <div class="home-hero__content">
           @if (profile.availabilityLabel) {
-            <p class="home-eyebrow">{{ profile.availabilityLabel }}</p>
+            <p class="home-hero__availability">
+              <span aria-hidden="true"></span>
+              {{ profile.availabilityLabel }}
+            </p>
           }
           <h1 id="home-hero-title">{{ profile.displayName }}</h1>
           @if (profile.professionalTitle) {
@@ -35,7 +38,7 @@ import { HomeCopy } from '../../models/home-page.model';
             }
             @if (secondaryHref(profile); as href) {
               <a
-                class="home-button"
+                class="home-button home-button--ghost"
                 [href]="href"
                 [attr.target]="isExternal(href) ? '_blank' : null"
                 [attr.rel]="isExternal(href) ? 'noopener noreferrer' : null"
@@ -64,6 +67,10 @@ import { HomeCopy } from '../../models/home-page.model';
             <span>{{ initials(profile.displayName) }}</span>
           }
         </div>
+
+        <a class="home-hero__scroll" href="#about">
+          <span>{{ copy().heroScrollHint }}</span>
+        </a>
       } @else {
         <div class="home-hero__content">
           <h1 id="home-hero-title">{{ copy().unavailableTitle }}</h1>
@@ -73,7 +80,7 @@ import { HomeCopy } from '../../models/home-page.model';
               {{ copy().viewProjects }}
             </a>
             @if (servicesHref(); as href) {
-              <a class="home-button" [href]="href">{{ copy().servicesTitle }}</a>
+              <a class="home-button home-button--ghost" [href]="href">{{ copy().servicesTitle }}</a>
             }
           </div>
         </div>
@@ -100,7 +107,7 @@ export class HeroSectionComponent {
   }
 
   primaryHref(profile: NonNullable<PublicPortfolio['profile']>): string | null {
-    return profile.primaryCtaUrl || '/projects';
+    return profile.primaryCtaUrl || '#projects';
   }
 
   secondaryHref(profile: NonNullable<PublicPortfolio['profile']>): string | null {

@@ -2,251 +2,99 @@
 
 ## Nom
 
-Portfolio professionnel de Faouzi El Mansour
-
-## Nom technique
-
-`faouzi-portfolio`
+Portfolio professionnel — Faouzi El Mansour
 
 ## Problème
 
-Les informations professionnelles de Faouzi El Mansour peuvent être dispersées entre CV, LinkedIn, GitHub, plateformes d'emploi, documents PDF et messages privés. Cette dispersion réduit la capacité d'un recruteur, client ou partenaire à comprendre rapidement le profil, les compétences, l'expérience, les réalisations et les moyens de contact.
+Dispersion des informations professionnelles empêchant une évaluation rapide et crédible du profil, des compétences et des réalisations.
 
 ## Cible
 
-- Recruteurs et responsables RH
-- Responsables techniques
-- Clients potentiels
-- Entreprises et partenaires
-- Réseau professionnel
-- Moteurs de recherche
-- Administrateur unique : Faouzi El Mansour
+Recruteurs/RH, responsables techniques, clients/partenaires (visiteurs publics) ; administrateur unique (propriétaire).
 
 ## Proposition de valeur
 
-Un portfolio professionnel administrable, multilingue, rapide et sécurisé qui présente une identité professionnelle forte, démontre les compétences techniques avec des projets structurés, facilite la prise de contact et permet de maintenir le contenu sans modifier le code.
+Portfolio administrable, multilingue, sécurisé, premium, orienté preuves concrètes — sans contenu fictif.
 
 ## Acteurs
 
-Voir `docs/product/actors-and-roles.md`.
+Voir `docs/product/actors-and-roles.md` (contenu à resynchroniser — voir `.agents/state/PHASE_1_REPORT.md`).
 
 ## MVP
 
-Le MVP doit livrer :
-
-- un site public premium avec landing page, sections profil, compétences, expériences, projets, services, contact, pages légales et détail projet ;
-- un espace d'administration sécurisé avec un seul administrateur ;
-- la gestion des contenus clés en français et anglais ;
-- la publication/dépublication des contenus ;
-- un formulaire de contact relié au backend et consultable dans l'administration ;
-- les bases SEO, accessibilité, responsive, performance et sécurité.
+Voir `docs/product/scope.md` (contenu à resynchroniser — voir `.agents/state/PHASE_1_REPORT.md`).
 
 ## Exclusions
 
-Inscription publique, multi-administrateurs, rôles complexes, blog complet, newsletter, paiement, réservation intégrée, IA conversationnelle, génération automatique de contenu, workflow éditorial avancé, application mobile native, microservices, Kubernetes, multi-tenant, marketplace, CRM, synchronisation complète LinkedIn/GitHub, thème visiteur personnalisable, recherche avancée, notifications push.
+Multi-admin, blog, paiement, microservices, témoignages fictifs, CRM — voir Phase 1 report.
 
 ## Technologies
 
-Stack validée par ADR pendant la Phase 2 :
-
-| Couche | Technologie |
-|--------|-------------|
-| Frontend | Angular 20 ou version stable compatible, TypeScript strict, standalone, zoneless si compatible, SSR public, SCSS, Tailwind CSS, PrimeNG, ngx-translate |
-| Backend | Java 21, Spring Boot 4 ou version stable compatible, Spring Security, Spring Data JPA, Bean Validation, API REST |
-| Base de données | PostgreSQL avec migrations versionnées |
-| Infrastructure | Docker, Docker Compose, variables d'environnement, health checks, logs structurés |
+| Couche | Technologie | Statut |
+|--------|-------------|--------|
+| Frontend | Angular 20.3, TypeScript strict, SSR, SCSS, Tailwind, PrimeNG, ngx-translate | Implémenté |
+| Backend | Java 21, Spring Boot 4.0.1, JPA, Flyway | Implémenté |
+| Base de données | PostgreSQL (H2 en test) | Implémenté |
+| Infrastructure | Docker Compose | Configuré |
 
 ## Architecture
 
-Architecture validée en Phase 2 : monolithe modulaire Spring Boot, frontend Angular public/admin, SSR pour les routes publiques dynamiques à enjeu SEO, admin CSR protégé, API REST `/api/v1`, PostgreSQL, stockage médias filesystem persistant, Docker Compose avec reverse proxy HTTPS.
+Monolithe modulaire par domaine — voir ADR-0001, ADR-0012 et `docs/architecture/`.
+
+### Modules backend
+
+`auth`, `profile`, `skills`, `career`, `project`, `service`, `contact`, `audit`, `shared`
+
+### Modules frontend
+
+`public/home` (landing premium recadrée 2026-08-29), `public/contact`, `public/legal`, `public/projects`, `admin/*`
+
+### Structure landing (benchmark 2026)
+
+Hero → À propos → Projets → Compétences → Parcours → Services → Méthode → Contact — voir `docs/product/portfolio-structure-benchmark.md`
 
 ## État
 
-- Mode : Nouveau projet défini (Mode B)
-- Phase courante : Aucune phase en cours
-- Statut : `PHASE_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
-- Code applicatif : Fondations techniques, authentification administrateur, layout/dashboard admin, profil professionnel, paramètres généraux, médias principaux, compétences/catégories, parcours, projets/études de cas, services professionnels, méthode de travail et landing publique assemblée implémentés
-- Framework IA : Installé
-- Brief produit : Renseigné
-- Dernière intervention clôturée : Sous-phase 5.8 — Assemblage final de la landing page publique
+- Mode : Projet existant (Mode C)
+- Dernière sous-phase clôturée : 5.9 — Contact (2026-08-29)
+- Phase 5 (implémentation MVP) : **clôturée**
+- Statut global : `PHASE_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN` (Phase 6 en attente)
 
 ## Contraintes
 
-- Budget limité, privilégier open source et offres gratuites adaptées.
-- Marchés : Cameroun, Afrique francophone, Europe, international anglophone.
-- Connexions potentiellement limitées : performance et poids média importants.
-- Données personnelles : confidentialité, mentions légales, consentement formulaire, durée de conservation des messages.
-- Sécurité admin, médias et messages prioritaire.
-- Aucun contenu fictif trompeur.
+Un administrateur, FR/EN, SEO public, sécurité admin, anti-spam contact — voir ADR et brief.
 
 ## Risques
 
-Voir `.agents/state/RISKS.md`.
+Voir `.agents/state/RISKS.md`
 
-Risques majeurs initiaux : scope trop large, contenu insuffisant, design générique, administration surdimensionnée, médias lourds, spam, sécurité admin, sur-ingénierie.
+## Dette technique
 
-## Réserves de cadrage
-
-- Hébergeur exact à choisir.
-- Fournisseur e-mail exact à choisir.
-- Seuils exacts session, rate limiting, upload, performance, sauvegarde à fixer.
-- Durée de conservation des messages à fixer avant release.
-- Contenus réels : à préparer avant mise en ligne.
-
-## Décisions Phase 2
-
-- Architecture globale : monolithe modulaire Spring Boot + Angular + PostgreSQL.
-- Rendu public : Angular SSR pour routes publiques dynamiques, admin CSR.
-- Authentification : session serveur Spring Security avec cookie sécurisé et CSRF.
-- Publication/i18n : statuts simples et traductions publiables par langue.
-- Médias : filesystem persistant MVP, metadata en base, whitelist stricte.
-- Contact : stockage avant notification e-mail, honeypot et rate limiting.
-- Déploiement : Docker Compose avec reverse proxy HTTPS.
-- API : REST versionné `/api/v1`.
-- Données : modèle relationnel par ressource portfolio.
-- UX/UI : design system minimal premium.
-
-## Décisions Phase 3
-
-- La Phase 3 a été réalignée sur la conception UX/UI complète du portfolio, sans implémentation applicative.
-- Les écrans publics validés en conception sont : landing, détail projet, contact, privacy, legal, 404 et liste projets différable.
-- Les écrans admin validés en conception sont : login, dashboard, profil, projets, compétences, expériences, services, messages, médias, SEO, paramètres, journal d'activité et états accès refusé/session expirée.
-- Le design system définit les tokens, composants, statuts, règles responsive et exigences accessibilité, mais les valeurs visuelles exactes seront finalisées dans le code.
-- L'inspection visuelle réelle n'a pas été exécutée car aucune interface ou prototype n'existe et la Phase 3 excluait cette implémentation.
-
-## Décisions Phase 5.1
-
-- Le premier compte administrateur est créé au démarrage uniquement si aucun administrateur n'existe et si les variables `ADMIN_BOOTSTRAP_EMAIL` et `ADMIN_BOOTSTRAP_PASSWORD` sont fournies.
-- L'administration utilise une session serveur Spring Security, des cookies sécurisés et la protection CSRF `XSRF-TOKEN` / `X-XSRF-TOKEN`.
-- La limitation des tentatives de connexion est persistée côté backend.
-- Les opérations sensibles d'authentification sont journalisées.
-- La récupération de mot de passe utilise un jeton aléatoire hashé, à usage unique, expirant, non exposé en production.
-- Les routes frontend d'authentification admin sont disponibles ; les routes admin protégées affichent un shell minimal sans gestion de contenu.
-- Aucune fonctionnalité de gestion de contenu portfolio n'a été lancée.
-
-## Décisions Phase 5.2
-
-- L'administration utilise un shell unique avec sidebar, toolbar, menu compte, overlay mobile et zone de contenu par routes enfants.
-- `/admin` redirige vers `/admin/dashboard`.
-- Les menus des modules métier non implémentés sont visibles mais désactivés avec un état `À venir`.
-- Le dashboard n'affiche aucune statistique fictive ; les compteurs restent `Indisponible` ou `À vérifier` tant que les API métier n'existent pas.
-- Les raccourcis métier sont désactivés jusqu'aux sous-phases dédiées.
-- La route demandée après expiration de session est conservée via `returnUrl` uniquement pour les chemins `/admin`.
-- Un proxy frontend local permet l'inspection avec API Docker en développement.
-- Aucun CRUD de contenu, profil, paramètres, médias, SEO ou messages n'a été lancé.
-
-## Décisions Phase 5.3
-
-- Le profil professionnel est un agrégat typé avec traductions FR/EN séparées des champs non traduisibles.
-- Les paramètres généraux sont typés : identité du site, langues actives, email de réception, affichage global et visibilité des sections.
-- Les médias principaux de cette sous-phase sont limités à photo, CV PDF, logo et favicon ; aucune médiathèque complète n'a été créée.
-- Les API publiques exposent uniquement les données publiables et masquent les coordonnées si la visibilité n'est pas activée.
-- Le rendu public `/` affiche seulement les données directement liées au profil/paramètres ; la landing complète reste hors périmètre.
-- Les pages admin `/admin/profile` et `/admin/settings` sont livrées avec formulaires typés, états de chargement/erreur/succès, upload/remplacement/suppression contrôlée et responsive.
-- Les CRUD compétences, expériences, formations, projets, services, messages, SEO avancé et sous-phase 5.4 n'ont pas été lancés.
-
-## Décisions Phase 5.4
-
-- Les catégories de compétences et les compétences utilisent un modèle relationnel dédié avec tables de traduction FR/EN.
-- Les niveaux sont qualitatifs (`NOTIONS`, `OPERATIONAL`, `ADVANCED`, `CORE_EXPERTISE`) et aucun pourcentage arbitraire n'est affiché.
-- Les contenus publics compétences sont retournés uniquement si catégorie et compétence sont publiées, si la compétence est visible et si la traduction demandée est complète.
-- L'administration `/admin/skills` utilise PrimeNG pour les tableaux, filtres, formulaires, statuts, confirmations et champs de sélection.
-- Aucun `<select>` natif n'existe dans le périmètre 5.4 ; les sélecteurs natifs restants de profil/paramètres ont été remplacés par `p-select` pendant la restructuration du 2026-07-26.
-- L'inspection visuelle runtime 5.4 reste non exécutée dans l'environnement courant et doit être relancée dès que Docker/PostgreSQL sont disponibles.
-
-## Décisions Phase 5.5
-
-- Le parcours professionnel est modélisé par des ressources dédiées : expériences, formations et certifications, chacune avec traductions FR/EN, statut éditorial, ordre et dates.
-- Les expériences peuvent référencer les compétences existantes de la sous-phase 5.4 ; aucun référentiel parallèle de technologies n'a été créé.
-- Les expériences confidentielles masquent l'organisation et le lien public dans l'API publique, avec un libellé confidentiel traduit.
-- Les dates du parcours utilisent une précision jour (`LocalDate`/date ISO). Les dates partielles mois/année restent une décision métier ultérieure.
-- L'administration du parcours est exposée via `/admin/experiences`, `/admin/education` et `/admin/certifications`, avec `p-select`, `p-multiselect`, `p-datepicker`, `p-table`, `p-dialog` et composants booléens PrimeNG.
-- Le site public consomme `/api/v1/public/career` et affiche uniquement les contenus publiés et traduits, sans inventer de données.
-- La sous-phase 5.6 n'a pas été lancée.
-
-## Décisions Phase 5.7
-
-- Les services professionnels et les étapes de méthode de travail sont administrables, traduisibles, ordonnables, publiables, dépubliables et archivables.
-- Les bénéfices et livrables sont stockés dans des tables structurées, activables et traduisibles, pas dans une chaîne libre ni un JSON non contrôlé.
-- Les technologies et compétences liées aux services réutilisent le référentiel `skill` existant avec un type de relation `TECHNOLOGY` ou `SKILL`.
-- Les CTA utilisent les types stables `CONTACT`, `PROJECTS`, `EMAIL`, `RESUME`, `EXTERNAL_URL`; les liens externes et visuels facultatifs sont validés côté backend.
-- Les APIs publiques `/api/v1/public/services` et `/api/v1/public/services/work-process/steps` excluent brouillons, archives, audit interne et identifiants techniques inutiles.
-- Le site public affiche les sections Services et Méthode depuis les API, même si le profil principal n'est pas encore publié.
-- Les contenus initiaux sont des seeds conservateurs cohérents avec le profil Java/Spring Boot/Angular, sans tarifs, délais garantis, faux clients ni promesses chiffrées.
-- ADR applicable : `docs/adr/ADR-0013-services-et-methode-de-travail.md`.
-
-## Décisions Phase 5.8
-
-- La route publique `/` est désormais une landing page modulaire sous `frontend/src/app/public/home/**`, et l'ancien composant provisoire `PublicPlaceholderPage` a été supprimé.
-- La landing charge d'abord `/api/v1/public/portfolio`, respecte `sections.visible`, puis charge uniquement les endpoints publics nécessaires aux sections visibles.
-- Aucun endpoint backend agrégé n'a été ajouté en 5.8 ; les endpoints publics existants restent la source de données.
-- La route racine est rendue en `RenderMode.Server` pour éviter un prerender statique incohérent avec les contenus publics dynamiques.
-- Le header public gère menu mobile, langue, skip link et CTA conditionnel ; les CTA vers des ancres absentes sont supprimés.
-- Les sections vides ou désactivées sont masquées ; le profil non publié affiche un état public propre tout en conservant les services/méthode publiés.
-- Le lien admin a été retiré du footer public de la landing.
-- Réserves : data-access public encore couplé aux services API localisés sous `admin/**`, budget initial Angular à 534,21 kB, inspection complète du profil publié réel à exécuter avant mise en ligne.
-
-## Décisions de restructuration architecturale
-
-- Le backend est organisé progressivement par domaine/fonctionnalité, avec DTO REST en `api/dto/request` et `api/dto/response`, services applicatifs en `application/service`, mappers en `application/mapper`, modèles en `domain/model` et persistance en `infrastructure/persistence`.
-- Les entités JPA ne sont pas exposées par l'API et restent distinctes des DTO REST ; aucun DTO JPA artificiel n'a été créé.
-- Lombok est utilisé pour réduire le bruit de code (`@RequiredArgsConstructor`, `@Getter`, constructeurs JPA protégés) sans `@Data` sur les entités.
-- Le frontend distingue DTO API (`models/dto`), modèles de formulaires (`models/forms`), mappers, services API et composants UI partagés.
-- Les sélections frontend du périmètre applicatif utilisent PrimeNG ; aucun `<select>/<option>` natif n'a été détecté dans `frontend/src/app` après restructuration.
-- ADR applicable : `docs/adr/ADR-0012-restructuration-architecture-senior.md`.
+Voir `.agents/state/TECHNICAL_DEBT.md`
 
 ## Commandes utiles
 
-Backend :
-
 ```bash
-cd backend
-mvn test
-mvn package
-mvn spring-boot:run
-```
+# Backend
+cd backend && mvn test
 
-Frontend avec Node 20+ :
+# Frontend (Node 20+ requis)
+source ~/.nvm/nvm.sh && nvm use 20
+cd frontend && npm run lint && npm run test:ci && npm run build
 
-```bash
-cd frontend
-npm install
-npm run lint
-npm run test:ci
-npm run build
-npm run serve:ssr
-```
-
-Environnement complet :
-
-```bash
-cp .env.example .env
-docker compose config
-docker compose up --build
+# Infrastructure
+docker compose up -d
 ```
 
 ## Liens utiles
 
-- Brief : `PROJECT_BRIEF.md`
 - Gouvernance : `AGENTS.md`
 - Plan : `PLANS.md`
 - État : `.agents/state/PROJECT_STATE.md`
 - Handoff : `.agents/state/HANDOFF.md`
-- Vision : `docs/product/vision.md`
-- Scope : `docs/product/scope.md`
-- Rapport Phase 1 : `.agents/state/PHASE_1_REPORT.md`
-- Rapport Phase 2 : `.agents/state/PHASE_2_REPORT.md`
-- Rapport Phase 3 : `.agents/state/PHASE_3_REPORT.md`
-- Rapport Phase 4 : `.agents/state/PHASE_4_REPORT.md`
-- Rapport Phase 5.1 : `.agents/state/PHASE_5_1_REPORT.md`
-- Rapport Phase 5.2 : `.agents/state/PHASE_5_2_REPORT.md`
-- Rapport Phase 5.3 : `.agents/state/PHASE_5_3_REPORT.md`
-- Rapport Phase 5.4 : `.agents/state/PHASE_5_4_REPORT.md`
-- Rapport Phase 5.5 : `.agents/state/PHASE_5_5_REPORT.md`
-- Rapport Phase 5.7 : `.agents/state/PHASE_5_7_REPORT.md`
-- Rapport Phase 5.8 : `.agents/state/PHASE_5_8_REPORT.md`
-- Rapport restructuration : `.agents/state/ARCHITECTURE_RESTRUCTURING_REPORT.md`
+- ADR : `docs/adr/`
+- API : `docs/api/README.md`
 
 ## Dernière mise à jour
 
-2026-08-03 (clôture sous-phase 5.8)
+2026-08-29

@@ -23,6 +23,8 @@ import { HomeCopy } from '../../models/home-page.model';
         @if (contactHref(); as href) {
           <a [href]="href">{{ copy().navContact }}</a>
         }
+        <a routerLink="/privacy">{{ copy().navPrivacy }}</a>
+        <a routerLink="/legal">{{ copy().navLegal }}</a>
       </nav>
     </footer>
   `,

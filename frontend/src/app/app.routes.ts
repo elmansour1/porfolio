@@ -28,6 +28,30 @@ export const routes: Routes = [
     title: 'Projet',
   },
   {
+    path: 'privacy',
+    loadComponent: () =>
+      import('./public/legal/pages/privacy-page/privacy-page.component').then(
+        (module) => module.PrivacyPageComponent,
+      ),
+    title: 'Politique de confidentialité',
+  },
+  {
+    path: 'legal',
+    loadComponent: () =>
+      import('./public/legal/pages/legal-notice-page/legal-notice-page.component').then(
+        (module) => module.LegalNoticePageComponent,
+      ),
+    title: 'Mentions légales',
+  },
+  {
+    path: '404',
+    loadComponent: () =>
+      import('./public/not-found/pages/not-found-page/not-found-page.component').then(
+        (module) => module.NotFoundPageComponent,
+      ),
+    title: 'Page introuvable',
+  },
+  {
     path: 'admin/login',
     loadComponent: () =>
       import('./admin/auth/pages/login.page').then((module) => module.LoginPage),
@@ -126,6 +150,12 @@ export const routes: Routes = [
         title: 'Services',
       },
       {
+        path: 'messages',
+        loadComponent: () =>
+          import('./admin/messages/pages/messages.page').then((module) => module.MessagesPage),
+        title: 'Messages',
+      },
+      {
         path: '**',
         loadComponent: () =>
           import('./admin/shell/admin-not-found.page').then((module) => module.AdminNotFoundPage),
@@ -135,6 +165,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: '404',
   },
 ];

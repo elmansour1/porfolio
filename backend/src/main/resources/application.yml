@@ -60,3 +60,9 @@ app:
       storage-path: ${PROJECT_MEDIA_STORAGE_PATH:media/projects}
       max-image-size: ${PROJECT_MEDIA_MAX_IMAGE_SIZE:4MB}
       max-gallery-items: ${PROJECT_MEDIA_MAX_GALLERY_ITEMS:12}
+  contact:
+    honeypot-field: ${CONTACT_HONEYPOT_FIELD:website}
+    message-max-length: ${CONTACT_MESSAGE_MAX_LENGTH:5000}
+    rate-limit:
+      max-submissions: ${CONTACT_RATE_LIMIT_MAX_SUBMISSIONS:5}
+      window: ${CONTACT_RATE_LIMIT_WINDOW:15m}

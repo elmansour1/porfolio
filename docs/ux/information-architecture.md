@@ -2,86 +2,61 @@
 
 ## Statut
 
-Validé en Phase 3 — Conception UX/UI du portfolio.
+Recadré le 2026-08-29 — aligné benchmark portfolios 2026.
 
 ## Objectif
 
-Structurer le site public et l'administration pour que les visiteurs comprennent rapidement le profil, que les projets prouvent la compétence, et que l'administrateur puisse maintenir le contenu sans friction.
+Le visiteur comprend en **10 s** qui vous êtes, en **30 s** une preuve concrète (projet), en **2 min** stack + parcours + contact.
 
-## Principes de navigation
+## Principes
 
-- Une navigation publique courte, ancrée sur les sections principales.
-- Un CTA principal constant vers le contact.
-- Un CTA secondaire vers projets, CV ou GitHub selon le contexte.
-- Une administration organisée par domaines métier, pas par tables techniques.
-- Les statuts de publication visibles partout où ils influencent la visibilité publique.
+- **Preuve avant compétences** — projets avant stack
+- Navigation courte, ancrée, contact toujours visible
+- Une action principale par section
+- Sections masquées si vides ou désactivées admin
+- Admin organisé par domaine métier
 
-## Site public
+## Site public — ordre de lecture
 
-### Navigation principale
+1. **Hero** — nom, titre, disponibilité, CTA projets + contact
+2. **Indicateurs** — statistiques publiées (optionnel)
+3. **À propos** — positionnement court (2 paragraphes max)
+4. **Projets** — 3–5 études de cas mises en avant → `/projects/:slug`
+5. **Compétences** — stack principale + catégories par usage
+6. **Parcours** — expériences, formations, certifications
+7. **Services** — offres (freelance/consultant)
+8. **Méthode** — étapes de collaboration
+9. **Contact** — formulaire + coordonnées + liens
 
-1. Accueil
-2. À propos
-3. Compétences
-4. Expériences
-5. Projets
-6. Services
-7. Contact
+## Navigation header
 
-### Ordre de lecture recommandé
+| Item | Cible | Condition |
+|------|-------|-----------|
+| À propos | `#about` | profil publié |
+| Projets | `#projects` | projets featured |
+| Compétences | `#skills` | catalogue non vide |
+| Parcours | `#career` | expériences ou formations |
+| Services | `#services` | services publiés |
+| Méthode | `#method` | étapes publiées |
+| Contact | `#contact` | section contact active |
 
-1. Hero : identité, proposition de valeur, CTA.
-2. Crédibilité factuelle : technologies, disponibilité, indicateurs réels.
-3. À propos court : positionnement et manière de travailler.
-4. Compétences : catégories et descriptions qualitatives.
-5. Projets mis en avant : preuves concrètes.
-6. Expériences : chronologie ou ordre éditorial.
-7. Services : offres réellement proposées.
-8. Méthode : démarche professionnelle.
-9. Contact : formulaire et coordonnées.
+Liste complète projets : `/projects` (lien secondaire dans section projets).
 
-### Pages publiques
+## Pages publiques
 
-| Route | Rôle UX | Priorité |
-|-------|---------|----------|
-| `/` | Landing complète | MUST |
-| `/projects/:slug` | Étude de cas projet | MUST |
+| Route | Rôle | Priorité |
+|-------|------|----------|
+| `/` | Landing modulaire | MUST |
+| `/projects` | Catalogue projets | MUST |
+| `/projects/:slug` | Étude de cas CASE | MUST |
 | `/privacy` | Confidentialité | MUST |
 | `/legal` | Mentions légales | MUST |
 | `/404` | Erreur utile | MUST |
-| `/projects` | Liste complète projets | COULD |
 
 ## Administration
 
-### Navigation admin
-
-1. Dashboard
-2. Profil
-3. Projets
-4. Compétences
-5. Expériences
-6. Services
-7. Messages
-8. Médias
-9. SEO
-10. Paramètres
-
-### Priorités admin
-
-- Créer ou modifier un contenu.
-- Comprendre s'il est visible publiquement.
-- Corriger les traductions manquantes.
-- Publier, dépublier ou archiver.
-- Retrouver rapidement les messages à traiter.
-- Gérer les médias sans casser le site.
-
-## Règles de hiérarchie
-
-- Site public : une seule action principale par section.
-- Admin : action principale explicite dans chaque écran, actions destructives secondaires et confirmées.
-- Les badges de statut sont toujours visibles dans listes et formulaires.
-- Les contenus incomplets sont signalés sans bloquer la navigation.
+Inchangée — dashboard, profil, projets, compétences, parcours, services, messages, médias, SEO, paramètres.
 
 ## Dernière mise à jour
 
-2026-07-21
+2026-08-29

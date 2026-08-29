@@ -59,8 +59,7 @@ export const adminNavigationItems: readonly AdminNavigationItem[] = [
     label: 'Messages',
     route: '/admin/messages',
     icon: 'pi pi-inbox',
-    status: 'disabled',
-    hint: 'Gestion non implémentée en 5.2',
+    status: 'available',
   },
   {
     label: 'Médias',
