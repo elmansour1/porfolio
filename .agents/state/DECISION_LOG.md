@@ -47,7 +47,9 @@ Chaque décision structurante est également inscrite dans un ADR (`docs/adr/`).
 | 2026-07-26 | D-037 | Lancement sous-phase 5.5 | Gestion expériences, formations et certifications autorisée : modèle relationnel dédié, API admin/public, confidentialité, technologies liées, admin PrimeNG, section publique, tests et audits ; sous-phase 5.6 exclue | ADR-0004, ADR-0008, ADR-0009, ADR-0010, ADR-0012 | Orchestrateur |
 | 2026-07-26 | D-038 | Dates du parcours | Les dates du parcours sont stockées en précision jour (`LocalDate`/date ISO) ; les dates partielles mois/année ne sont pas simulées par un premier jour de mois sans décision ultérieure | ADR-0009 | Product, Domain Expert, Database |
 | 2026-07-26 | D-039 | Clôture sous-phase 5.5 | Expériences, formations et certifications clôturées avec réserves tracées : écrans admin authentifiés non inspectés visuellement faute de mot de passe du volume Docker existant ; sous-phase 5.6 non lancée | ADR-0004, ADR-0008, ADR-0009, ADR-0010, ADR-0012 | Orchestrateur |
+| 2026-08-29 | D-040 | Lancement Phase 6 | Stabilisation autorisée : régressions, sécurité contact, isolation data-access public, docs, inspection visuelle ; livraison production exclue | N/A | Orchestrateur |
+| 2026-08-29 | D-041 | Clôture Phase 6 | Stabilisation clôturée avec réserves : contenu réel et admin non inspectés, budget bundle et Playwright reportés ; Phase 7 non lancée | N/A | Orchestrateur |
 
 ## Dernière mise à jour
 
-2026-07-26
+2026-08-29

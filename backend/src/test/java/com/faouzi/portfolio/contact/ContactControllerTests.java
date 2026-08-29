@@ -72,6 +72,34 @@ class ContactControllerTests {
     }
 
     @Test
+    void rejectsSubmissionWithoutCsrf() throws Exception {
+        mockMvc.perform(postJson("/api/v1/public/contact", contactJson("Jane Doe", "jane@example.test", null)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void rejectsSubmissionWhenMessageIsTooShort() throws Exception {
+        String payload = """
+                {
+                  "name": "John Doe",
+                  "email": "john@example.test",
+                  "company": null,
+                  "requestType": "GENERAL",
+                  "subject": "Bonjour",
+                  "message": "Trop court",
+                  "consent": true,
+                  "website": ""
+                }
+                """;
+        mockMvc.perform(postJson("/api/v1/public/contact", payload).with(csrf()))
+                .andExpect(status().isBadRequest());
+
+        mockMvc.perform(get("/api/v1/admin/messages").with(user("admin@example.test")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.items", hasSize(0)));
+    }
+
+    @Test
     void rejectsSubmissionWithoutConsent() throws Exception {
         String payload = """
                 {

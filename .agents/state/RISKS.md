@@ -6,7 +6,7 @@
 |----|--------|--------|-------------|------------|------|
 | R-020 | Inspection visuelle admin authentifiée non exécutée (Services/Méthode) | Moyen | Moyenne | Inspection manuelle avant mise en ligne | Actif |
 | R-021 | Inspection complète avec profil réel publié non refaite | Élevé | Élevée | Republier contenu réel et inspecter avant prod | Actif |
-| R-022 | Dérive documentaire entre docs canoniques et code | Élevé | Moyenne | Playbook documentation-sync | Actif |
+| R-024 | PostgreSQL local refuse l'utilisateur `portfolio` | Moyen | Élevée | Aligner le mot de passe Docker/.env avant Phase 7 | Actif |
 
 ## Risques historiques (Phase 1 — toujours pertinents)
 
@@ -23,6 +23,7 @@
 | ID | Risque | Date clôture | Résolution |
 |----|--------|--------------|------------|
 | R-023 | Travail contact sans GO (5.9) | 2026-08-29 | GO reçu et sous-phase 5.9 clôturée |
+| R-022 | Dérive documentaire entre docs canoniques et code | 2026-08-29 | Docs restaurées et resynchronisées en Phase 6 |
 
 ## Dernière mise à jour
 

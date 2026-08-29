@@ -14,9 +14,9 @@ public record ContactRequest(
         @Size(max = 160) String company,
         @NotNull ContactRequestType requestType,
         @NotBlank @Size(max = 200) String subject,
-        @NotBlank @Size(max = 5000) String message,
+        @NotBlank @Size(min = 20, max = 5000) String message,
         boolean consent,
-        String website
+        @Size(max = 200) String website
 ) {
 
     @AssertTrue(message = "Consent is required before sending a contact message.")

@@ -146,6 +146,18 @@ describe('HomePageComponent', () => {
     expect(text).toContain('Services professionnels');
   });
 
+  it('does not render contact links when the public portfolio fails to load', () => {
+    currentData = { ...buildHomeData(), portfolio: null, errors: ['portfolio'] };
+
+    const fixture = TestBed.createComponent(HomePageComponent);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('#contact')).toBeNull();
+    expect(Array.from(compiled.querySelectorAll('a[href="#contact"]')).length).toBe(0);
+    expect(compiled.textContent).toContain('Portfolio en cours de préparation');
+  });
+
   it('reloads public data when the language changes', () => {
     const fixture = TestBed.createComponent(HomePageComponent);
     fixture.detectChanges();

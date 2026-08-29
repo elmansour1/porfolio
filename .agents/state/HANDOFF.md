@@ -2,52 +2,48 @@
 
 ## Dernière tâche
 
-5.9 — Contact public et gestion messages admin — État : DONE
+Phase 6 — Stabilisation — État : DONE
 
 ## Objectif
 
-Livrer le formulaire de contact public, la gestion admin des messages et les pages légales, conformément à ADR-0006.
+Stabiliser le MVP : régressions, sécurité contact, isolation data-access public, documentation, inspection visuelle des pages publiques joignables.
 
 ## Livrables
 
-### Backend
-- Module `contact/` complet
-- Migration `V8__contact_messages.sql`
-- 8 tests `ContactControllerTests`
+- Rapport : `.agents/state/PHASE_6_REPORT.md`
+- Inspection : `.agents/state/PHASE_6_VISUAL_INSPECTION.md`
+- `PublicHomeApiService` (lecture `/api/v1/public/**` uniquement)
+- Validation contact serveur (message 20–5000, honeypot max 200)
+- Docs canoniques restaurées et FR-005 / FR-006 marquées livrées
 
-### Frontend
-- `ContactFormComponent` intégré à `#contact`
-- `MessagesPage` admin avec filtres et statuts
-- Pages `/privacy`, `/legal`, `/404`
-- Dashboard : métrique messages NEW
-
-### Documentation
-- `docs/api/README.md` — endpoints contact
-- `.agents/state/PHASE_5_9_REPORT.md`
-
-## Tests exécutés (clôture 5.9)
+## Tests exécutés (clôture Phase 6)
 
 | Test | Résultat |
 |------|----------|
-| `mvn test` | PASS — 48 |
+| `mvn test` | PASS — 51 |
 | `npm run lint` | PASS |
-| `npm run test:ci` | PASS — 57 |
-| `npm run build` | PASS (budget +56,88 kB) |
+| `npm run test:ci` | PASS — 59 |
+| `npm run build` | PASS (budget +57,03 kB) |
+| Inspection navigateur public | Exécutée (état erreur API + légal + 404) |
 
 ## Réserves
 
-- Pages légales : textes éditeur à compléter avant prod
-- Inspection visuelle non exécutée
-- E-mail SMTP non vérifié en conditions réelles
+- Contenu réel publié non inspecté (PostgreSQL local : mot de passe `portfolio` refusé)
+- Admin authentifié non inspecté
+- Pages légales : textes éditeur
+- SMTP non vérifié
+- TD-015, TD-017 inchangés
 
 ## Prochaine action autorisée
 
-`GO pour la phase 6` — Stabilisation (régressions, perf, a11y, contenu réel, préparation livraison).
+`GO pour la phase 7` — Livraison.
+
+Ne pas lancer la Phase 7 sans GO humain.
 
 ## Statut humain
 
-- Phase autorisée : Aucune
-- Gate en attente : Phase 6
+- Phase autorisée : aucune (Phase 6 clôturée)
+- Gate en attente : Phase 7
 - Statut global : `PHASE_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
 
 ## Outil source

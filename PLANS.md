@@ -117,7 +117,26 @@
 
 ## Phase 6 — Stabilisation
 
-**État :** `BACKLOG` — Dépend de Phase 5 (clôturée)
+**Objectif :** Régressions, sécurité, documentation, isolation data-access public, inspection visuelle. Pas de nouvelle fonctionnalité métier.
+
+**État :** `DONE`
+**Autorisation :** `Exécute la phase 6 jusqu'à sa clôture` (2026-08-29)
+**Date de clôture :** 2026-08-29
+**Exclusions :** Déploiement production, Playwright complet, bump de budget bundle, Phase 7
+
+| ID | Titre | Agents | État | Audit |
+|----|-------|--------|------|-------|
+| 6.1 | Enregistrement du GO et cadrage | Orchestrateur | DONE | CONFORME |
+| 6.2 | Suite de régression backend/frontend | QA, Backend, Frontend | DONE | CONFORME |
+| 6.3 | Durcissement sécurité contact | Security, Backend | DONE | CONFORME |
+| 6.4 | Isolation data-access public (TD-016) | Frontend, Architecte | DONE | CONFORME |
+| 6.5 | Resynchronisation documentation (TD-018) | Documentation | DONE | CONFORME |
+| 6.6 | Inspection visuelle landing/contact | UX/UI, Frontend | DONE | CONFORME AVEC RÉSERVES |
+| 6.7 | Audit final de phase | Orchestrateur, Reviewer Code | DONE | CONFORME AVEC RÉSERVES |
+
+**Réserves :** Contenu réel publié et admin authentifié non inspectés ; budget bundle et Playwright reportés ; pages légales à compléter avant prod.
+
+---
 
 ## Phase 7 — Livraison
 

@@ -1,17 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, forkJoin, map, of, switchMap } from 'rxjs';
 
-import { CareerApiService } from '../../../admin/career/api/career-api.service';
 import { PublicCareer } from '../../../admin/career/models/dto/career.dto';
-import { ProfileApiService } from '../../../admin/profile/api/profile-api.service';
 import { PublicPortfolio } from '../../../admin/profile/models/dto/profile.dto';
-import { ProjectApiService } from '../../../admin/projects/api/project-api.service';
 import { PublicProjectSummary } from '../../../admin/projects/models/dto/project.dto';
-import { ServicesApiService } from '../../../admin/services/api/services-api.service';
 import { PublicService, PublicWorkProcessStep } from '../../../admin/services/models/dto/service.dto';
-import { SkillsApiService } from '../../../admin/skills/api/skills-api.service';
 import { PublicSkills } from '../../../admin/skills/models/dto/skills.dto';
 import { HomePageData, HomeSectionError, HomeSectionKey, PublicLanguage } from '../models/home-page.model';
+import { PublicHomeApiService } from './public-home-api.service';
 
 interface SectionResult<T> {
   readonly value: T;
@@ -20,14 +16,10 @@ interface SectionResult<T> {
 
 @Injectable({ providedIn: 'root' })
 export class HomePageDataService {
-  private readonly profileApi = inject(ProfileApiService);
-  private readonly skillsApi = inject(SkillsApiService);
-  private readonly careerApi = inject(CareerApiService);
-  private readonly projectApi = inject(ProjectApiService);
-  private readonly servicesApi = inject(ServicesApiService);
+  private readonly publicApi = inject(PublicHomeApiService);
 
   load(language: PublicLanguage): Observable<HomePageData> {
-    return this.profileApi.publicPortfolio(language).pipe(
+    return this.publicApi.portfolio(language).pipe(
       switchMap((portfolio) => this.loadVisibleSections(portfolio, language)),
       catchError(() => of(this.empty(language, ['portfolio']))),
     );
@@ -45,31 +37,31 @@ export class HomePageDataService {
     return forkJoin({
       skills: this.loadIf(
         this.sectionVisible(portfolio, 'SKILLS'),
-        this.skillsApi.publicSkills(language),
+        this.publicApi.skills(language),
         { language, featuredSkills: [], categories: [] },
         'skills',
       ),
       career: this.loadIf(
         this.sectionVisible(portfolio, 'EXPERIENCES') || this.sectionVisible(portfolio, 'EDUCATION'),
-        this.careerApi.publicCareer(language),
+        this.publicApi.career(language),
         { language, experiences: [], education: [], certifications: [] },
         'career',
       ),
       projects: this.loadIf(
         this.sectionVisible(portfolio, 'PROJECTS'),
-        this.projectApi.publicFeatured(language),
+        this.publicApi.featuredProjects(language),
         [],
         'projects',
       ),
       services: this.loadIf(
         this.sectionVisible(portfolio, 'SERVICES'),
-        this.servicesApi.publicServices(language),
+        this.publicApi.services(language),
         [],
         'services',
       ),
       method: this.loadIf(
         this.sectionVisible(portfolio, 'METHOD'),
-        this.servicesApi.publicWorkProcessSteps(language),
+        this.publicApi.workProcessSteps(language),
         [],
         'method',
       ),

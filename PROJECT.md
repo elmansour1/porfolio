@@ -18,11 +18,11 @@ Portfolio administrable, multilingue, sécurisé, premium, orienté preuves conc
 
 ## Acteurs
 
-Voir `docs/product/actors-and-roles.md` (contenu à resynchroniser — voir `.agents/state/PHASE_1_REPORT.md`).
+Voir `docs/product/actors-and-roles.md`.
 
 ## MVP
 
-Voir `docs/product/scope.md` (contenu à resynchroniser — voir `.agents/state/PHASE_1_REPORT.md`).
+Voir `docs/product/scope.md`.
 
 ## Exclusions
 
@@ -56,9 +56,9 @@ Hero → À propos → Projets → Compétences → Parcours → Services → M�
 ## État
 
 - Mode : Projet existant (Mode C)
-- Dernière sous-phase clôturée : 5.9 — Contact (2026-08-29)
-- Phase 5 (implémentation MVP) : **clôturée**
-- Statut global : `PHASE_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN` (Phase 6 en attente)
+- Dernière phase clôturée : 6 — Stabilisation (2026-08-29)
+- Phase 5 (implémentation MVP) : clôturée
+- Statut global : `PHASE_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN` (Phase 7 en attente)
 
 ## Contraintes
 

@@ -10,8 +10,8 @@ Validée pour cadrage Phase 1 — à compléter avec outils et cas détaillés e
 | FR-002 | Publication/dépublication | Tests backend règles publication, tests public masquage | À définir |
 | FR-003 | Détail projet | Test route `/projects/:slug`, slug inconnu, projet non publié | À définir |
 | FR-004 | FR/EN | Tests changement langue, traduction absente selon stratégie | À définir |
-| FR-005 | Contact | Tests formulaire frontend, validation API, consentement, double soumission | À définir |
-| FR-006 | Messages admin | Tests API messages, statuts, affichage admin | À définir |
+| FR-005 | Contact | Tests formulaire frontend, validation API, consentement, CSRF, honeypot, rate limit | Livré 5.9 — tests frontend/backend PASS |
+| FR-006 | Messages admin | Tests API messages, statuts, affichage admin | Livré 5.9 — tests frontend/backend PASS |
 | FR-007 | Admin protégé | Tests sécurité routes frontend/backend et accès API | À définir |
 | FR-008 | Profil | Tests CRUD profil, publication, CV, réseaux | À définir |
 | FR-009 | Compétences | Tests catégories, ordre, publication, absence de pourcentages | Livré 5.4 — backend/front tests PASS, inspection visuelle à reprendre |

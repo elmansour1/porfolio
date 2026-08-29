@@ -4,7 +4,7 @@
 
 `PHASE_CLÔTURÉE_EN_ATTENTE_DU_GO_HUMAIN`
 
-(Sous-phase 5.9 et Phase 5 implémentation clôturées — Phase 6 en attente de GO)
+(Phase 6 Stabilisation clôturée — Phase 7 en attente de GO)
 
 ## Mode détecté
 
@@ -12,7 +12,7 @@
 
 ## Phase autorisée
 
-Aucune — en attente du `GO` humain pour la Phase 6 (Stabilisation).
+Aucune — en attente du `GO` humain pour la Phase 7 (Livraison).
 
 ## Phase en cours
 
@@ -20,38 +20,32 @@ Aucune.
 
 ## Dernière phase clôturée
 
-Sous-phase 5.9 — Contact public et gestion messages admin (2026-08-29).
-
-Phase 5 — Implémentation incrémentale — entièrement clôturée.
+Phase 6 — Stabilisation (2026-08-29).
 
 ## Dernier GO reçu
 
-`GO pour la sous-phase 5.9` — 2026-08-29
+`Exécute la phase 6 jusqu'à sa clôture` — 2026-08-29
 
 ## Audits récents
 
 | Date | Périmètre | Verdict |
 |------|-----------|---------|
+| 2026-08-29 | Phase 6 — Stabilisation | CONFORME AVEC RÉSERVES |
 | 2026-08-29 | Sous-phase 5.9 — Contact & messages | CONFORME AVEC RÉSERVES |
-| 2026-08-29 | Recadrage landing premium | CONFORME AVEC RÉSERVES |
 
-## Vérifications exécutées (clôture 5.9)
+## Vérifications exécutées (clôture Phase 6)
 
 | Vérification | Résultat |
 |--------------|----------|
-| Backend `mvn test` | PASS — 48 tests |
+| Backend `mvn test` | PASS — 51 tests |
 | Frontend `npm run lint` | PASS |
-| Frontend `npm run test:ci` | PASS — 57 tests |
+| Frontend `npm run test:ci` | PASS — 59 tests |
 | Frontend `npm run build` | PASS (warning budget) |
+| Inspection visuelle publique | Exécutée — état erreur API + légal + 404 |
 
 ## Prochaine action autorisée
 
-Attendre `GO pour la phase 6` — Stabilisation.
-
-Commandes possibles :
-
-- `GO pour la phase 6`
-- `Exécute la phase 6 jusqu'à sa clôture`
+Attendre `GO pour la phase 7` — Livraison.
 
 ## Dernière mise à jour
 

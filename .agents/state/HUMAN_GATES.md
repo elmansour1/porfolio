@@ -16,7 +16,7 @@ Une phase ne passe à `AUTHORIZED` qu'après un `GO` explicite de l'utilisateur,
 | 4 — Fondations | GO phase 4 | 2026-07-21 | Bootstrap technique | CLÔTURÉE |
 | 5.1 à 5.8 | GOs sous-phases | 2026-07-21 → 2026-08-29 | Vertical slices MVP | CLÔTURÉES |
 | **5.9 — Contact** | **GO sous-phase 5.9** | **2026-08-29** | **Formulaire public, admin messages, pages légales** | **CLÔTURÉE** |
-| 6 — Stabilisation | En attente | — | — | EN_ATTENTE_DU_GO |
+| **6 — Stabilisation** | **Exécute la phase 6 jusqu'à sa clôture** | **2026-08-29** | **Régressions, sécurité, docs, isolation public API, inspection visuelle. Pas de livraison prod.** | **CLÔTURÉE** |
 | 7 — Livraison | En attente | — | — | EN_ATTENTE_DU_GO |
 
 ## Dernière mise à jour

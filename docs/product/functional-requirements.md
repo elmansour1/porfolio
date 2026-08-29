@@ -32,6 +32,8 @@ Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres gén
 | ID | Statut | Commentaire |
 |----|--------|-------------|
 | FR-001 | Livré en 5.8 avec réserve contenu | La route `/` assemble header, hero, sections publiques existantes, services, méthode, CTA collaboration et footer ; inspection complète avec profil réel publié à refaire avant mise en ligne. |
+| FR-005 | Livré en 5.9 | Formulaire public validé (consentement, honeypot, CSRF, anti double-soumission) ; validation serveur min 20 / max 5000 caractères. |
+| FR-006 | Livré en 5.9 | Messages persistés, listés, filtrés et statutables dans `/admin/messages` ; dashboard affiche le compteur `NEW`. |
 | FR-007 | Partiellement livré | Authentification admin et protection des routes/endpoints livrées en 5.1 ; rôles complexes exclus du MVP. |
 | FR-008 | Livré en 5.3 | Profil, coordonnées, réseaux, CV, photo, traductions, statistiques réelles et visibilité publique sont administrables. |
 | FR-009 | Livré en 5.4 | Catégories et compétences administrables, traduisibles, ordonnables, publiables, archivables, sans pourcentages arbitraires. |
@@ -74,7 +76,7 @@ Validé en Phase 1 — Cadrage produit. Profil professionnel et paramètres gén
 
 ## Dernière mise à jour
 
-2026-08-03 (avancement FR-001 — sous-phase 5.8)
+2026-08-29 (avancement FR-005 / FR-006 — sous-phase 5.9, resync Phase 6)
 
 ## Sous-phase 5.5 — Exigences livrées
 

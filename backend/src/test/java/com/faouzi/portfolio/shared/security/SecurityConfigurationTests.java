@@ -29,4 +29,10 @@ class SecurityConfigurationTests {
         mockMvc.perform(get("/api/v1/admin/status"))
                 .andExpect(status().isUnauthorized());
     }
+
+    @Test
+    void allowsPublicContactCsrfWithoutAuthentication() throws Exception {
+        mockMvc.perform(get("/api/v1/public/contact/csrf"))
+                .andExpect(status().isOk());
+    }
 }

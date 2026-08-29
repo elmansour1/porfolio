@@ -53,6 +53,10 @@ Validé en Phase 2 — Architecture et conception.
 - Les statuts de publication sont des invariants métier, pas des filtres UI.
 - Les contrôleurs et services utilisent `@RequiredArgsConstructor` pour l'injection lorsque toutes les dépendances sont finales.
 
+## Frontend public
+
+La landing consomme les APIs publiques via `PublicHomeApiService` (`frontend/src/app/public/home/data-access/`). Elle n'injecte plus les services admin (CSRF, mutations). Les DTO publics restent partagés avec les modèles admin tant qu'ils décrivent le même contrat REST.
+
 ## Dernière mise à jour
 
-2026-08-03
+2026-08-29

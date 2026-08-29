@@ -163,7 +163,13 @@ export class HomePageComponent {
     return portfolio?.profilePublished ? portfolio.profile : null;
   });
   readonly statistics = computed(() => this.profile()?.statistics ?? []);
-  readonly contactHref = computed(() => (this.sectionVisible('CONTACT') ? '#contact' : null));
+  readonly contactHref = computed(() => {
+    const data = this.data();
+    if (this.loading() || !data || this.hasError(data, 'portfolio')) {
+      return null;
+    }
+    return this.sectionVisible('CONTACT') ? '#contact' : null;
+  });
   readonly servicesHref = computed(() =>
     this.sectionVisible('SERVICES') && (this.data()?.services.length ?? 0) > 0 ? '#services' : null,
   );
